@@ -5,6 +5,20 @@ import javax.vecmath.Quat4f;
 
 public class JuavQuaternion extends Quat4f {
 
+    // return the rotation matrix equivalent for this quaternion
+    public static JuavQuaternion fromRotationMatrix(Matrix3f matrix3f){
+        JuavQuaternion ret = new JuavQuaternion();
+        ret.set(matrix3f);
+        return ret;
+    }
+
+    //Retrun rotation matrix for this Quaternion
+    public Matrix3f rotationMatrix() {
+        Matrix3f ret = new Matrix3f();
+        ret.set(this);
+        return ret;
+    }
+
     // create a quaternion from its axis-angle representation
     // only use with small angles.  I.e. length of v should less than 0.17 radians (i.e. 10 degrees)
     public void fromAxisAngle(JuavVector3f v) {
@@ -56,13 +70,6 @@ public class JuavQuaternion extends Quat4f {
     public JuavQuaternion opStar(Quat4f v) {
         JuavQuaternion ret = new JuavQuaternion();
         ret.mul(this,v);
-        return ret;
-    }
-
-    //Retrun rotation matrix for this Quaternion
-    public Matrix3f rotationMatrix() {
-        Matrix3f ret = new Matrix3f();
-        ret.set(this);
         return ret;
     }
 

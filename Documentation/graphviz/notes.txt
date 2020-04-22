@@ -1,0 +1,5 @@
+// prune dangling nodes
+gvpr -c "N[$.degree==0]{delete(root,$)}" out.dot > pruned.dot
+
+// prune nonconnected code
+gvpr -c -a"AC_AttitudeControl::attitude_controller_run_quat()" -frev.g out.dot | gvpr -a"AC_AttitudeControl::attitude_controller_run_quat()" -ffwd.g > pruned2.dot
