@@ -1,0 +1,22 @@
+*.class
+*.so
+*.o
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# eclipse files
+*.project
+*.classpath
+*.gitignore
+*.settings
+*.log
+
+**/.idea/**
+*/target/*
+*.iml
