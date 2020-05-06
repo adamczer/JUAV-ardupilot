@@ -1,9 +1,17 @@
-package ub.cse.juav2.math;
+package ub.cse.juav.math;
 
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Quat4f;
 
 public class JuavQuaternion extends Quat4f {
+
+    public JuavQuaternion() {
+        super();
+    }
+
+    public JuavQuaternion(float v, float x, float y, float z) {
+        super(v,x,y,z);
+    }
 
     // return the rotation matrix equivalent for this quaternion
     public static JuavQuaternion fromRotationMatrix(Matrix3f matrix3f){
@@ -13,10 +21,9 @@ public class JuavQuaternion extends Quat4f {
     }
 
     //Retrun rotation matrix for this Quaternion
-    public Matrix3f rotationMatrix() {
-        Matrix3f ret = new Matrix3f();
-        ret.set(this);
-        return ret;
+//    Sets the provided matrix to the roataion matrix of this quaternion
+    public void rotationMatrix(Matrix3f mat) {
+        mat.set(this);
     }
 
     // create a quaternion from its axis-angle representation
@@ -78,4 +85,41 @@ public class JuavQuaternion extends Quat4f {
         return (float) Math.sqrt(JuavMath.sq(w)+JuavMath.sq(x)+JuavMath.sq(y)+JuavMath.sq(z));
     }
 
+    public JuavQuaternion inversed() {
+        JuavQuaternion ret = new JuavQuaternion();
+        ret.inverse(this);
+        return ret;
+    }
+
+    public void toEuler(JuavVector3f thisAttitudeTargetEulerAngle) {
+        thisAttitudeTargetEulerAngle.x = getEulerRoll();
+        thisAttitudeTargetEulerAngle.y = getEulerPitch();
+        thisAttitudeTargetEulerAngle.z = getEulerYaw();
+    }
+
+    private float getEulerRoll() {
+        return (float) Math.atan2(2.0f*(w*x + y*z), 1.0f - 2.0f*(x*x + y*y));
+    }
+
+    private float getEulerPitch() {
+        return JuavMath.safeAsin(2.0f*(w*y - z*x));
+    }
+
+    private float getEulerYaw() {
+        return (float) Math.atan2(2.0f*(w*z + x*y), 1.0f - 2.0f*(y*y + z*z));
+    }
+    // create a quaternion from Euler angles
+    public void fromEuler(JuavVector3f thisAttitudeTargetEulerAngle) {
+        float cr2 = (float) Math.cos(thisAttitudeTargetEulerAngle.x * 0.5f);
+        float cp2 = (float) Math.cos(thisAttitudeTargetEulerAngle.y * 0.5f);
+        float cy2 = (float) Math.cos(thisAttitudeTargetEulerAngle.z * 0.5f);
+        float sr2 = (float) Math.sin(thisAttitudeTargetEulerAngle.x * 0.5f);
+        float sp2 = (float) Math.sin(thisAttitudeTargetEulerAngle.y * 0.5f);
+        float sy2 = (float) Math.sin(thisAttitudeTargetEulerAngle.z * 0.5f);
+
+        w = cr2 * cp2 * cy2 + sr2 * sp2 * sy2;
+        x = sr2 * cp2 * cy2 - cr2 * sp2 * sy2;
+        y = cr2 * sp2 * cy2 + sr2 * cp2 * sy2;
+        z = cr2 * cp2 * sy2 - sr2 * sp2 * cy2;
+    }
 }

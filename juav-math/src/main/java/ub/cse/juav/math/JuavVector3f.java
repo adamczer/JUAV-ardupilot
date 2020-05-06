@@ -1,4 +1,4 @@
-package ub.cse.juav2.math;
+package ub.cse.juav.math;
 
 import javax.vecmath.Vector3f;
 
@@ -23,6 +23,9 @@ public class JuavVector3f extends Vector3f {
         z=z/f;
     }
 
+    public Vector3f opPercent(Vector3f v2) {
+        return opPercent(this,v2);
+    }
     //cross product %
     public static Vector3f opPercent(Vector3f v1, Vector3f v2) {
         JuavVector3f ret = new JuavVector3f();

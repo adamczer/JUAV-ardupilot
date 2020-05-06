@@ -1,4 +1,4 @@
-package ub.cse.juav2.math;
+package ub.cse.juav.math;
 
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3f;
