@@ -29,7 +29,14 @@ public class Copter {
         int mode = getModeNumber();
         if(modes.containsKey(mode)) {
             modes.get(mode).run();
+        } else {
+            callNativeMode(mode);
         }
+    }
+
+    private void callNativeMode(int mode) {
+        //TODO native call mode natively if un implemented
+        throw new IllegalStateException("unimplemented");
     }
 
     private int getModeNumber() {
@@ -38,7 +45,7 @@ public class Copter {
         throw new IllegalStateException("unimplemented");
     }
 
-    private static void surfaceTracingInvalidateForLogging() {
+    private void surfaceTracingInvalidateForLogging() {
         //todo native surface_tracking.invalidate_for_logging()
         throw new IllegalStateException("unimplemented");
     }

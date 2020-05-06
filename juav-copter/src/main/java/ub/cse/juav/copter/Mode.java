@@ -52,27 +52,27 @@ public abstract class Mode {
         throw new IllegalStateException("Wrong call, should be using underling implementation not this class.");
     }
 
-    private static void nativePortionOfLandRunHorizontalControl() {
+    private void nativePortionOfLandRunHorizontalControl() {
         //TODO native
         throw new IllegalStateException("unimplemented");
     }
 
-    protected static float getNavPitch() {
+    protected float getNavPitch() {
         //todo native
         throw new IllegalStateException("unimplemented");
     }
 
-    protected static float getNavRoll() {
+    protected float getNavRoll() {
         //todo native
         throw new IllegalStateException("unimplemented");
     }
 
-    protected static float getYawRate() {
+    protected float getYawRate() {
         //todo native
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float getAutoYawYaw() {
+    private float getAutoYawYaw() {
         //todo native
         throw new IllegalStateException("unimplemented");
     }

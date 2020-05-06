@@ -144,30 +144,30 @@ public class ModeRtl extends Mode{
         throw new IllegalStateException("unimplemented");
     }
 
-    private static void build_path() {
+    private void build_path() {
         //todo native
         throw new IllegalStateException("unimplemented");
     }
 
-    private static boolean isMotorsArmed() {
+    private boolean isMotorsArmed() {
         //todo native return if motors are armed.
         //        motors->armed()
         throw new IllegalStateException("unimplemented");
     }
 
-    private static boolean isStateComplete() {
+    private boolean isStateComplete() {
         //todo native return _state_complete
         throw new IllegalStateException("unimplemented");
     }
 
-    private static RTLState getState() {
+    private RTLState getState() {
         //todo native return the correct value of enum
         throw new IllegalStateException("unimplemented");
 //        int val = the native getter
 //        return RTLState.valueOf(2);
     }
 
-    private static void setState(RTLState state) {
+    private void setState(RTLState state) {
         //todo native set the state variable to be the correct int
         int valToSet = state.getValue();
         throw new IllegalStateException("unimplemented");
@@ -177,29 +177,29 @@ public class ModeRtl extends Mode{
 
 
 
-    private static void nativePortionOfLoiterAtHome2() {
+    private void nativePortionOfLoiterAtHome2() {
         // check if we've completed this stage of RTL
         //todo portion after running attitude controller
         throw new IllegalStateException("not implemented");
     }
 
-    private static void nativePortionOfLoiterAtHome1() {
+    private void nativePortionOfLoiterAtHome1() {
         //todo portion before running attitude controller
         throw new IllegalStateException("not implemented");
     }
 
-    private static void nativePortionOfClimbReturnRun() {
+    private void nativePortionOfClimbReturnRun() {
         //TODO native
         throw new IllegalStateException("unimplemented");
     }
 
-    private static void setStateComplete(boolean val) {
+    private void setStateComplete(boolean val) {
 //         _state_complete = wp_nav->reached_wp_destination();
         //todo native set the _state_complete = val
         throw new IllegalStateException("not implemented");
     }
 
-    private static boolean getWpNavReachedWpDestination() {
+    private boolean getWpNavReachedWpDestination() {
 //        TODO native return  wp_nav->reached_wp_destination()
         throw new IllegalStateException("unimplemented");
     }

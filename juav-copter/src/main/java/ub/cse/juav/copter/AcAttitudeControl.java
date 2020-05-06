@@ -436,7 +436,7 @@ public class AcAttitudeControl {
         attitudeControllerRunQuat();
     }
 
-    private static void setThrustErrorAngle(float thisThrustErrorAngle) {
+    private void setThrustErrorAngle(float thisThrustErrorAngle) {
         //todo native
         throw new IllegalStateException("unimplemented");
     }
@@ -456,33 +456,33 @@ public class AcAttitudeControl {
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float get_slew_yaw_rads() {
+    private float get_slew_yaw_rads() {
         return (float) Math.toRadians(getSlewYaw()*0.01f);
     }
 
     // Add roll trim to compensate tail rotor thrust in heli (will return zero on multirotors)
-    private static float getRollTrimRad() {
+    private float getRollTrimRad() {
         return 0;
     }
 
-    private static float getSlewYaw() {
+    private float getSlewYaw() {
         //TODO native get _slew_yaw
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float getInputTc () {
+    private float getInputTc () {
         //todo native return _input_tc
         throw new IllegalStateException("unimplemented");
     }
 
-    private static JuavVector3f getAttitudeTargetEulerRate() {
+    private JuavVector3f getAttitudeTargetEulerRate() {
         //TODO native
         throw new IllegalStateException("unimplemented");
     }
 
-    private static JuavVector3f getAttitudeTargetEulerAngle() {
+    private JuavVector3f getAttitudeTargetEulerAngle() {
 //        todo get _attitude_target_euler_angle
-        return null;
+        throw new IllegalStateException("unimplemented");
     }
 
     private void setRateTargetAngVel(JuavVector3f thisRateTargetAngVel) {
@@ -490,100 +490,100 @@ public class AcAttitudeControl {
         throw new IllegalStateException("unimplemented");
     }
 
-    private static void setAttitudeTargetQuat(JuavQuaternion thisAttitudeTargetQuat) {
+    private void setAttitudeTargetQuat(JuavQuaternion thisAttitudeTargetQuat) {
         //todo set
         throw new IllegalStateException("unimplemented");
     }
 
-    private static void setAttitudeAngError(JuavQuaternion juavQuaternion) {
+    private void setAttitudeAngError(JuavQuaternion juavQuaternion) {
         //TODO _attitude_ang_error
         throw new IllegalStateException("unimplemented");
 
     }
 
-    private static boolean getRateBfFfEnabled() {
+    private boolean getRateBfFfEnabled() {
         //TODO _rate_bf_ff_enabled
         throw new IllegalStateException("unimplemented");
     }
 
-    private static JuavVector3f getAttitudeTargetAngVel() {
+    private JuavVector3f getAttitudeTargetAngVel() {
         //TODO native? _attitude_target_ang_vel
         throw new IllegalStateException("unimplemented");
     }
 
-    private static JuavQuaternion getAhrsGetQuatBodyToNed() {
+    private JuavQuaternion getAhrsGetQuatBodyToNed() {
         //TODO native?
         //todo native populate this quatrainian with
         //_ahrs.get_quat_body_to_ned(attitudeVehicleQuat); as seen in attitude_controller_run_quat
-        return null;
+        throw new IllegalStateException("unimplemented");
     }
 
-    private static JuavQuaternion getAttitudeTargetQuat() {
+    private JuavQuaternion getAttitudeTargetQuat() {
         //TODO native?
         //todo populate from native the quatranian in _attitude_target_quat found in AC_AttitudeControl
-        return null;
+        throw new IllegalStateException("unimplemented");
     }
 
-    private static float getThrustErrorAngle() {
+    private float getThrustErrorAngle() {
         //TODO native?
 //        todo return float found in  _thrust_error_angle of AC_AttitudeControl
-        return -1;
+        throw new IllegalStateException("unimplemented");
     }
 
-    private static JuavVector3f getAhrsGyro() {
+    private JuavVector3f getAhrsGyro() {
         //TODO native?
         throw new IllegalStateException("unimplemented");
     }
 
-    private static JuavVector3f getRateTargetAngVel() {
+    private JuavVector3f getRateTargetAngVel() {
         //TODO native?
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float getAngVelRollMax() {
+    private float getAngVelRollMax() {
         //TODO native?
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float getAngVelPitchMax() {
+    private float getAngVelPitchMax() {
         //TODO native?
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float getAngVelYawMax() {
+    private float getAngVelYawMax() {
         //TODO native?
         throw new IllegalStateException("unimplemented");
     }
 
     // get the roll acceleration limit in centidegrees/s/s or radians/s/s
-    private static float get_accel_roll_max() {
+    private float get_accel_roll_max() {
         throw new IllegalStateException("unimplemented");
 //        return _accel_roll_max;
     }//todo native
-    private static float get_accel_roll_max_radss() { return (float) Math.toRadians(get_accel_roll_max() * 0.01f); }
+    private float get_accel_roll_max_radss() { return (float) Math.toRadians(get_accel_roll_max() * 0.01f); }
 
     // get the pitch acceleration limit in centidegrees/s/s or radians/s/s
-    private static float get_accel_pitch_max() {
+    private float get_accel_pitch_max() {
 //        return _accel_pitch_max;
         throw new IllegalStateException("unimplemented");
     }//todo native
-    private static float get_accel_pitch_max_radss() { return (float) Math.toRadians(get_accel_pitch_max() * 0.01f); }
+    private float get_accel_pitch_max_radss() { return (float) Math.toRadians(get_accel_pitch_max() * 0.01f); }
 
     // get the yaw acceleration limit in centidegrees/s/s or radians/s/s
-    private static float get_accel_yaw_max() {
+    private float get_accel_yaw_max() {
 //        return _accel_yaw_max;
         throw new IllegalStateException("unimplemented");
     } //todo native
-    private static float get_accel_yaw_max_radss() { return (float) Math.toRadians(get_accel_yaw_max() * 0.01f); }
+    private float get_accel_yaw_max_radss() { return (float) Math.toRadians(get_accel_yaw_max() * 0.01f); }
 
-    private static void setFeedforwardScalar(float feedforwardScalar) {
+    private void setFeedforwardScalar(float feedforwardScalar) {
         //_feedforward_scalar
         //TODO set value
         //TODO native?
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float getFeedforwardScalar() {
+    private float getFeedforwardScalar() {
         //_feedforward_scalar
         //TODO get value
         //TODO native?
@@ -595,17 +595,17 @@ public class AcAttitudeControl {
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float setThrustAngle(float newThrustAngle) {
+    private float setThrustAngle(float newThrustAngle) {
         //todo native
         throw new IllegalStateException("unimplemented");
     }
 
-    private static boolean getUseSqrtController() {
+    private boolean getUseSqrtController() {
         //todo native
         throw new IllegalStateException("unimplemented");
     }
 
-    private static float getDt() {
+    private float getDt() {
         //todo native
         throw new IllegalStateException("unimplemented");
     }
@@ -613,42 +613,42 @@ public class AcAttitudeControl {
     private float getPAngleYawKp() {
         //todo native
 //        _p_angle_yaw.kP()
-        return 0;
+        throw new IllegalStateException("unimplemented");
     }
 
     private float getPAngleRollKp() {
         //todo native
 //        _p_angle_yaw.kP()
-        return 0;
+        throw new IllegalStateException("unimplemented");
     }
 
     private float getPAnglePitchKp() {
         //todo native
 //        _p_angle_yaw.kP()
-        return 0;
+        throw new IllegalStateException("unimplemented");
     }
 
-    private static float getAcAttitudeAccelYControlerMaxRadss() {
+    private float getAcAttitudeAccelYControlerMaxRadss() {
         //todo native? = AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS
         return (float) Math.toRadians(120.0f);
     }
 
-    private static float getAcAttitudeAccelYControlerMinRadss() {
+    private float getAcAttitudeAccelYControlerMinRadss() {
         //todo native? = AC_ATTITUDE_ACCEL_Y_CONTROLLER_MAX_RADSS
         return (float) Math.toRadians(10.0f);
     }
 
-    private static float getAcAttitudeAccelRpControllerMinRadss() {
+    private float getAcAttitudeAccelRpControllerMinRadss() {
         //todo native? = AC_ATTITUDE_ACCEL_Rp_CONTROLLER_MIN_RADSS
         return (float) Math.toRadians(40.0f);
     }
 
-    private static float getAcAttitudeAccelRpControllerMaxRadss() {
+    private float getAcAttitudeAccelRpControllerMaxRadss() {
         //todo native? = AC_ATTITUDE_ACCEL_Rp_CONTROLLER_MAX_RADSS
         return (float) Math.toRadians(720.0f);
     }
 
-    private static float getAcAttitudeThrustErrorAngle() {
+    private float getAcAttitudeThrustErrorAngle() {
         //todo native? = AC_ATTITUDE_THRUST_ERROR_ANGLE
         return (float) Math.toRadians(30.0f);
     }
