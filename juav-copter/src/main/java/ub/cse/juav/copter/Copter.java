@@ -1,5 +1,7 @@
 package ub.cse.juav.copter;
 
+import ub.cse.juav.copter.modes.Mode;
+
 import java.util.Map;
 
 public class Copter {

@@ -1,5 +1,9 @@
 package ub.cse.juav.copter;
 
+import ub.cse.juav.copter.modes.Mode;
+import ub.cse.juav.copter.modes.ModeRtl;
+import ub.cse.juav.copter.modes.ModeStabilize;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

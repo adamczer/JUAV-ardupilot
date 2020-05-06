@@ -227,7 +227,7 @@ public class AcAttitudeControl {
     }
 
     // Command an euler roll and pitch angle and an euler yaw rate with angular velocity feedforward and smoothing
-    void inputEulerAngleRollPitchEulerRateYaw(float eulerRollAngleCd, float eulerPitchAngleCd, float eulerYawRateCds)
+    public void inputEulerAngleRollPitchEulerRateYaw(float eulerRollAngleCd, float eulerPitchAngleCd, float eulerYawRateCds)
     {
         //these are computed on and need to be sent back to the native code
         JuavQuaternion thisAttitudeTargetQuat = getAttitudeTargetQuat();
@@ -367,7 +367,7 @@ public class AcAttitudeControl {
     }
 
     // Command an euler roll, pitch and yaw angle with angular velocity feedforward and smoothing
-    void inputEulerAngleRollPitchYaw(float eulerRollAngleCd, float eulerPitchAngleCd, float eulerYawAngleCd, boolean slewYaw)
+    public void inputEulerAngleRollPitchYaw(float eulerRollAngleCd, float eulerPitchAngleCd, float eulerYawAngleCd, boolean slewYaw)
     {
         //these are computed on and need to be sent back to the native code
         JuavQuaternion thisAttitudeTargetQuat = getAttitudeTargetQuat();

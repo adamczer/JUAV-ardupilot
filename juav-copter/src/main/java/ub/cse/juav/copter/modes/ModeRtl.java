@@ -1,6 +1,8 @@
-package ub.cse.juav.copter;
+package ub.cse.juav.copter.modes;
 
-import static ub.cse.juav.copter.Mode.RTLState.*;
+import ub.cse.juav.copter.AcAttitudeControl;
+
+import static ub.cse.juav.copter.modes.Mode.RTLState.*;
 
 public class ModeRtl extends Mode{
     public ModeRtl(AcAttitudeControl acAttitudeControl) {

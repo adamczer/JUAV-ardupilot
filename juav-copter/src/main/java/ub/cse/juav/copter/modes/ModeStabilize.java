@@ -1,4 +1,6 @@
-package ub.cse.juav.copter;
+package ub.cse.juav.copter.modes;
+
+import ub.cse.juav.copter.AcAttitudeControl;
 
 public class ModeStabilize extends Mode{
     public ModeStabilize(AcAttitudeControl acAttitudeControl) {

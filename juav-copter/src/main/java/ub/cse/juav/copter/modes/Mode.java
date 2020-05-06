@@ -1,4 +1,6 @@
-package ub.cse.juav.copter;
+package ub.cse.juav.copter.modes;
+
+import ub.cse.juav.copter.AcAttitudeControl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +36,7 @@ public abstract class Mode {
         attitudeControllerCommon(nav_roll,nav_pitch,target_yaw_rate);
     }
 
-    protected void attitudeControllerCommon(float nav_roll, float nav_pitch, float target_yaw_rate) {
+    public void attitudeControllerCommon(float nav_roll, float nav_pitch, float target_yaw_rate) {
         if (isAutoYawModeAutoYawHold()) {
             // roll & pitch from waypoint controller, yaw rate from pilot
             acAttitudeControler.inputEulerAngleRollPitchEulerRateYaw(nav_roll, nav_pitch, target_yaw_rate);
