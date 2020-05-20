@@ -11,6 +11,7 @@
     <modules>
         <module>juav-math</module>
         <module>juav-copter</module>
+        <module>juav-native</module>
     </modules>
 
     <properties>
@@ -19,19 +20,10 @@
 
     <repositories>
         <repository>
-            <id>central</id>
-            <name>Maven Repository Switchboard</name>
+            <id>central-apache</id>
+            <name>central apache</name>
             <layout>default</layout>
-            <url>https://repo1.maven.org/maven2/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>central2</id>
-            <name>Maven Repository Switchboard s</name>
-            <layout>default</layout>
-            <url>https://repo.maven.org/maven2/</url>
+            <url>https://repo.maven.apache.org/maven2/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>

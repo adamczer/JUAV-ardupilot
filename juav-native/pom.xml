@@ -10,20 +10,10 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>juav-math</artifactId>
-
-
-    <dependencies>
-        <dependency>
-            <groupId>javax.vecmath</groupId>
-            <artifactId>vecmath</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-
-    </dependencies>
+    <artifactId>juav-native</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>juav-native-sitl</module>
+    </modules>
+    
 </project>

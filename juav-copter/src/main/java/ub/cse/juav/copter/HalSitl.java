@@ -3,7 +3,9 @@ package ub.cse.juav.copter;
 import ub.cse.juav.copter.modes.Mode;
 import ub.cse.juav.copter.modes.ModeRtl;
 import ub.cse.juav.copter.modes.ModeStabilize;
+import ub.cse.juav.jni.ArdupilotNative;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +59,7 @@ public class HalSitl {
 
     private void nativeInitizationPriorToControlLoop() {
         //todo native
+        ArdupilotNative.nativeInitizationPriorToControlLoop();
         throw new IllegalStateException("unimplemented");
     }
 
@@ -79,6 +82,10 @@ public class HalSitl {
     }
 
     public static void main(String[] args) {
+
+        System.load("/home/adamczer/code/juav2/juav-native/juav-native-sitl/jni/lib/libArduCopterSitl.so");
+        System.load("/home/adamczer/code/juav2/juav-native/juav-native-sitl/jni/libJuavSitlJni.so");
+
         AcAttitudeControl acAttitudeControl = new AcAttitudeControl();
         Map<Integer,Mode> modes = new HashMap<>();
         modes.put(0,new ModeStabilize(acAttitudeControl));
