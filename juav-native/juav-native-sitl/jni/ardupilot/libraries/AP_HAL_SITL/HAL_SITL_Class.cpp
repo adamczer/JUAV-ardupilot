@@ -152,86 +152,86 @@ static void fill_stack_nan(void)
 
 void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
 {
-    assert(callbacks);
+   /*assert(callbacks);
 
-    _sitl_state->init(argc, argv);
+         _sitl_state->init(argc, argv);
 
-    scheduler->init();
-    uartA->begin(115200);
+         scheduler->init();
+         uartA->begin(115200);
 
-    rcin->init();
-    rcout->init();
+         rcin->init();
+         rcout->init();
 
-    // spi->init();
-    analogin->init();
+         // spi->init();
+         analogin->init();
 
-    if (getenv("SITL_WATCHDOG_RESET")) {
-        AP::internalerror().error(AP_InternalError::error_t::watchdog_reset);
-        if (watchdog_load((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4)) {
-            uartA->printf("Loaded watchdog data");
-            utilInstance.last_persistent_data = utilInstance.persistent_data;
-        }
-    }
+         if (getenv("SITL_WATCHDOG_RESET")) {
+             AP::internalerror().error(AP_InternalError::error_t::watchdog_reset);
+             if (watchdog_load((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4)) {
+                 uartA->printf("Loaded watchdog data");
+                 utilInstance.last_persistent_data = utilInstance.persistent_data;
+             }
+         }
 
-    // form a new argv, removing problem parameters. This is used for reboot
-    uint8_t new_argv_offset = 0;
-    for (uint8_t i=0; i<ARRAY_SIZE(new_argv) && i<argc; i++) {
-        if (!strcmp(argv[i], "-w")) {
-            // don't wipe params on reboot
-            continue;
-        }
-        new_argv[new_argv_offset++] = argv[i];
-    }
-    
-    fill_stack_nan();
+         // form a new argv, removing problem parameters. This is used for reboot
+         uint8_t new_argv_offset = 0;
+         for (uint8_t i=0; i<ARRAY_SIZE(new_argv) && i<argc; i++) {
+             if (!strcmp(argv[i], "-w")) {
+                 // don't wipe params on reboot
+                 continue;
+             }
+             new_argv[new_argv_offset++] = argv[i];
+         }
 
-    callbacks->setup();
-    scheduler->system_initialized();
+         fill_stack_nan();
 
-    if (getenv("SITL_WATCHDOG_RESET")) {
-        const AP_HAL::Util::PersistentData &pd = util->persistent_data;
-        AP::logger().WriteCritical("WDOG", "TimeUS,Task,IErr,IErrCnt,MavMsg,MavCmd,SemLine", "QbIIHHH",
-                                   AP_HAL::micros64(),
-                                   pd.scheduler_task,
-                                   pd.internal_errors,
-                                   pd.internal_error_count,
-                                   pd.last_mavlink_msgid,
-                                   pd.last_mavlink_cmd,
-                                   pd.semaphore_line);
-    }
+         callbacks->setup();
+         scheduler->system_initialized();
 
-    bool using_watchdog = AP_BoardConfig::watchdog_enabled();
-    if (using_watchdog) {
-        signal(SIGALRM, sig_alrm);
-        alarm(2);
-    }
-    setup_signal_handlers();
+         if (getenv("SITL_WATCHDOG_RESET")) {
+             const AP_HAL::Util::PersistentData &pd = util->persistent_data;
+             AP::logger().WriteCritical("WDOG", "TimeUS,Task,IErr,IErrCnt,MavMsg,MavCmd,SemLine", "QbIIHHH",
+                                        AP_HAL::micros64(),
+                                        pd.scheduler_task,
+                                        pd.internal_errors,
+                                        pd.internal_error_count,
+                                        pd.last_mavlink_msgid,
+                                        pd.last_mavlink_cmd,
+                                        pd.semaphore_line);
+         }
 
-    uint32_t last_watchdog_save = AP_HAL::millis();
+         bool using_watchdog = AP_BoardConfig::watchdog_enabled();
+         if (using_watchdog) {
+             signal(SIGALRM, sig_alrm);
+             alarm(2);
+         }
+         setup_signal_handlers();
 
-    while (!HALSITL::Scheduler::_should_reboot) {
-        if (HALSITL::Scheduler::_should_exit) {
-            ::fprintf(stderr, "Exitting\n");
-            exit(0);
-        }
-        fill_stack_nan();
-        callbacks->loop();
-        HALSITL::Scheduler::_run_io_procs();
+         uint32_t last_watchdog_save = AP_HAL::millis();
 
-        uint32_t now = AP_HAL::millis();
-        if (now - last_watchdog_save >= 100 && using_watchdog) {
-            // save persistent data every 100ms
-            last_watchdog_save = now;
-            watchdog_save((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
-        }
+         while (!HALSITL::Scheduler::_should_reboot) {
+             if (HALSITL::Scheduler::_should_exit) {
+                 ::fprintf(stderr, "Exitting\n");
+                 exit(0);
+             }
+             fill_stack_nan();
+             callbacks->loop();
+             HALSITL::Scheduler::_run_io_procs();
 
-        if (using_watchdog) {
-            // note that this only works for a speedup of 1
-            alarm(2);
-        }
-    }
+             uint32_t now = AP_HAL::millis();
+             if (now - last_watchdog_save >= 100 && using_watchdog) {
+                 // save persistent data every 100ms
+                 last_watchdog_save = now;
+                 watchdog_save((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
+             }
 
-    actually_reboot();
+             if (using_watchdog) {
+                 // note that this only works for a speedup of 1
+                 alarm(2);
+             }
+         }
+
+         actually_reboot();*/
 }
 
 void HAL_SITL::actually_reboot()
@@ -244,5 +244,81 @@ const AP_HAL::HAL& AP_HAL::get_HAL() {
     static const HAL_SITL hal;
     return hal;
 }
+
+uint32_t juav_last_watchdog_save = 0;
+
+void HAL_SITL::juavNativeInitizationPriorToControlLoop(int argc, char * argv[], Callbacks* callbacks) {
+
+       assert(callbacks);
+
+       _sitl_state->init(argc, argv);
+
+       scheduler->init();
+       uartA->begin(115200);
+
+       rcin->init();
+       rcout->init();
+
+       // spi->init();
+       analogin->init();
+
+       if (getenv("SITL_WATCHDOG_RESET")) {
+           AP::internalerror().error(AP_InternalError::error_t::watchdog_reset);
+           if (watchdog_load((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4)) {
+               uartA->printf("Loaded watchdog data");
+               utilInstance.last_persistent_data = utilInstance.persistent_data;
+           }
+       }
+
+       // form a new argv, removing problem parameters. This is used for reboot
+       uint8_t new_argv_offset = 0;
+       for (uint8_t i=0; i<ARRAY_SIZE(new_argv) && i<argc; i++) {
+           if (!strcmp(argv[i], "-w")) {
+               // don't wipe params on reboot
+               continue;
+           }
+           new_argv[new_argv_offset++] = argv[i];
+       }
+
+       fill_stack_nan();
+
+       callbacks->setup();
+       scheduler->system_initialized();
+
+       if (getenv("SITL_WATCHDOG_RESET")) {
+           const AP_HAL::Util::PersistentData &pd = util->persistent_data;
+           AP::logger().WriteCritical("WDOG", "TimeUS,Task,IErr,IErrCnt,MavMsg,MavCmd,SemLine", "QbIIHHH",
+                                      AP_HAL::micros64(),
+                                      pd.scheduler_task,
+                                      pd.internal_errors,
+                                      pd.internal_error_count,
+                                      pd.last_mavlink_msgid,
+                                      pd.last_mavlink_cmd,
+                                      pd.semaphore_line);
+       }
+
+       bool using_watchdog = AP_BoardConfig::watchdog_enabled();
+       if (using_watchdog) {
+           signal(SIGALRM, sig_alrm);
+           alarm(2);
+       }
+       setup_signal_handlers();
+
+       juav_last_watchdog_save = AP_HAL::millis();
+
+}
+
+  bool HAL_SITL::juavGetHalSitlSchedulerShouldReboot() {
+     return HALSITL::Scheduler::_should_reboot;
+  }
+
+  bool HAL_SITL::juavGetHalSitlSchedulerShouldExit() {
+     return HALSITL::Scheduler::_should_exit;
+  }
+
+  void HAL_SITL::juavSitlFillStackNan() {
+     fill_stack_nan();
+  }
+
 
 #endif  // CONFIG_HAL_BOARD == HAL_BOARD_SITL

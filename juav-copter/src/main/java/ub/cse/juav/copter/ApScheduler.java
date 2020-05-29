@@ -1,5 +1,7 @@
 package ub.cse.juav.copter;
 
+import ub.cse.juav.jni.ArdupilotNative;
+
 public class ApScheduler {
     private Copter copter;
 
@@ -8,9 +10,7 @@ public class ApScheduler {
     }
 
     public void setHalUtilPersistentDataSchedulerTask(int i) {
-//        hal.util->persistent_data.scheduler_task = i
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.setHalUtilPersistentDataSchedulerTask(i);
     }
 
     public void loop()
@@ -33,8 +33,7 @@ public class ApScheduler {
     }
 
     private void nativeApSchedulerPriorToFastLoop() {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeApSchedulerPriorToFastLoop();
     }
 
     public float getLoopPeriodS() {

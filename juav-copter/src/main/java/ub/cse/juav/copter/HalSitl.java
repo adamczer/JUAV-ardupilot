@@ -52,27 +52,19 @@ public class HalSitl {
     }
 
     private void fillStackNan() {
-//        fill_stack_nan
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.sitlFillStackNan();
     }
 
     private void nativeInitizationPriorToControlLoop() {
-        //todo native
         ArdupilotNative.nativeInitizationPriorToControlLoop();
-        throw new IllegalStateException("unimplemented");
     }
 
     private boolean getHalSitlSchedulerShouldReboot() {
-//        HALSITL::Scheduler::_should_reboot
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.getHalSitlSchedulerShouldReboot();
     }
 
     private boolean getHalSitlSchedulerShouldExit() {
-//        HALSITL::Scheduler::_should_exit
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.getHalSitlSchedulerShouldExit();
     }
 
     private void actuallyReboot() {
@@ -82,9 +74,7 @@ public class HalSitl {
     }
 
     public static void main(String[] args) {
-
-        System.load("/home/adamczer/code/juav2/juav-native/juav-native-sitl/jni/lib/libArduCopterSitl.so");
-        System.load("/home/adamczer/code/juav2/juav-native/juav-native-sitl/jni/libJuavSitlJni.so");
+        System.loadLibrary("JuavSitlJni");
 
         AcAttitudeControl acAttitudeControl = new AcAttitudeControl();
         Map<Integer,Mode> modes = new HashMap<>();
