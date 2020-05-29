@@ -691,6 +691,10 @@ Mode* Copter::juavGetNativeCurrentFlightMode() {
     return flightmode;
 }
 
+AC_AttitudeControl_t* Copter::juavNativeGetAttitudeController() {
+    return attitude_control;
+}
+
 Copter copter;
 AP_Vehicle& vehicle = copter;
 

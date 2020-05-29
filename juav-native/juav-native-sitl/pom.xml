@@ -14,5 +14,12 @@
     <artifactId>juav-native-sitl</artifactId>
     <version>0.1-SNAPSHOT</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>ub.cse.juav2</groupId>
+            <artifactId>juav-math</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     
 </project>

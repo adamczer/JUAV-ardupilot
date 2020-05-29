@@ -232,6 +232,7 @@ public:
     void juavNativeFastLoopBeforeAttitudeController();
     void juavSurfaceTracingInvalidateForLogging();
     Mode* juavGetNativeCurrentFlightMode();
+    AC_AttitudeControl_t* juavNativeGetAttitudeController();
 
 private:
 
