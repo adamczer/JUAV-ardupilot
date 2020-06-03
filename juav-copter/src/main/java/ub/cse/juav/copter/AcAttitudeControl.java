@@ -190,7 +190,7 @@ public class AcAttitudeControl {
         JuavQuaternion toToFromQuat = attitudeVehicleQuat.inversed().opStar(getAttitudeTargetQuat());
         JuavQuaternion desiredAngVelQuat = toToFromQuat.inversed().opStar(attitudeTargetAngVelQuat).opStar(toToFromQuat);
 
-        // Correct the thrust vector and smoothly add feedforward and yaw input
+//         Correct the thrust vector and smoothly add feedforward and yaw input
         setFeedforwardScalar(1.0f);
         if (thisThrustErrorAngle > getAcAttitudeThrustErrorAngle() * 2.0f) {
             thisRateTargetAngVel.z = getAhrsGyro().z;
@@ -438,8 +438,7 @@ public class AcAttitudeControl {
     }
 
     private void setThrustErrorAngle(float thisThrustErrorAngle) {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeAttitudeSetThrustErrorAngle(thisThrustErrorAngle);
     }
 
     private void setAttitudeTargetAngVel(JuavVector3f thisAttitudeTargetAngVel) {
@@ -485,8 +484,7 @@ public class AcAttitudeControl {
     }
 
     private void setRateTargetAngVel(JuavVector3f thisRateTargetAngVel) {
-        //todo set
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeAttitudeSetRateTargetAngVel(thisRateTargetAngVel.x,thisRateTargetAngVel.y,thisRateTargetAngVel.z);
     }
 
     private void setAttitudeTargetQuat(JuavQuaternion thisAttitudeTargetQuat) {
@@ -494,9 +492,7 @@ public class AcAttitudeControl {
     }
 
     private void setAttitudeAngError(JuavQuaternion juavQuaternion) {
-        //TODO _attitude_ang_error
-        throw new IllegalStateException("unimplemented");
-
+        ArdupilotNative.nativeSetAttitudeAngError(juavQuaternion.w,juavQuaternion.x,juavQuaternion.y,juavQuaternion.z);
     }
 
     private boolean getRateBfFfEnabled() {
@@ -528,7 +524,6 @@ public class AcAttitudeControl {
     private JuavVector3f getAhrsGyro() {
         float[] xyz = ArdupilotNative.nativeAttitudeGetAhrsGyro();
         JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
-        System.out.println("Gyros = "+ret);
         return ret;
     }
 
@@ -570,17 +565,11 @@ public class AcAttitudeControl {
     private float get_accel_yaw_max_radss() { return (float) Math.toRadians(get_accel_yaw_max() * 0.01f); }
 
     private void setFeedforwardScalar(float feedforwardScalar) {
-        //_feedforward_scalar
-        //TODO set value
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeSetAttitudeFeedForwardScalar(feedforwardScalar);
     }
 
     private float getFeedforwardScalar() {
-        //_feedforward_scalar
-        //TODO get value
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeGetAttitudeFeedForwardScalar();
     }
 
     private static float getThrustAngle() {

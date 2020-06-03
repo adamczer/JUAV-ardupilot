@@ -10,7 +10,12 @@ public class JuavQuaternion extends Quat4f {
     }
 
     public JuavQuaternion(float v, float x, float y, float z) {
-        super(v,x,y,z);
+        w=v;
+        this.x=x;
+        this.y=y;
+        this.z=z;
+        //Ardupilot sets these values directly in usecases encountered super mucks with values causing floating point exception
+//        super(v,x,y,z);
     }
 
     // return the rotation matrix equivalent for this quaternion

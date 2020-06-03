@@ -28,8 +28,7 @@ public class ApScheduler {
     }
 
     private void nativeApSchedulerPostFastLoop() {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeApSchedulerPostToFastLoop();
     }
 
     private void nativeApSchedulerPriorToFastLoop() {
@@ -38,7 +37,6 @@ public class ApScheduler {
 
     public float getLoopPeriodS() {
 //        get_loop_period_s
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeApSchedulerGetLoopPeriodS();
     }
 }

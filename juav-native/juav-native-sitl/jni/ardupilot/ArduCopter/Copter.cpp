@@ -683,6 +683,24 @@ void Copter::juavNativeFastLoopBeforeAttitudeController(){
     check_ekf_reset();
 }
 
+void Copter::juavNativeFastLoopAfterAttitudeController(){
+    // update home from EKF if necessary
+        update_home_from_EKF();
+
+        // check if we've landed or crashed
+        update_land_and_crash_detectors();
+
+    #if MOUNT == ENABLED
+        // camera mount's fast update
+        camera_mount.update_fast();
+    #endif
+
+        // log sensor health
+        if (should_log(MASK_LOG_ANY)) {
+            Log_Sensor_Health();
+        }
+}
+
 void Copter::juavSurfaceTracingInvalidateForLogging() {
     surface_tracking.invalidate_for_logging();
 }

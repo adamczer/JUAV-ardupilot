@@ -308,6 +308,23 @@ void HAL_SITL::juavNativeInitizationPriorToControlLoop(int argc, char * argv[], 
 
 }
 
+void HAL_SITL::juavNativeHalSitlAfterCallBacks() {
+        bool using_watchdog = AP_BoardConfig::watchdog_enabled();
+        HALSITL::Scheduler::_run_io_procs();
+
+        uint32_t now = AP_HAL::millis();
+        if (now - juav_last_watchdog_save >= 100 && using_watchdog) {
+            // save persistent data every 100ms
+            juav_last_watchdog_save = now;
+            watchdog_save((uint32_t *)&utilInstance.persistent_data, (sizeof(utilInstance.persistent_data)+3)/4);
+        }
+
+        if (using_watchdog) {
+            // note that this only works for a speedup of 1
+            alarm(2);
+        }
+}
+
   bool HAL_SITL::juavGetHalSitlSchedulerShouldReboot() {
      return HALSITL::Scheduler::_should_reboot;
   }

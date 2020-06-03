@@ -340,6 +340,11 @@ public:
     const AP_AHRS_View& juavAttitudeGetAhrs() {return _ahrs;}
     void juavSetAttitudeThrustAngle(float newThrustAngle) {_thrust_angle = newThrustAngle;}
     bool juavAttitudeUseSqrtController() {return _use_sqrt_controller;}
+    float juavAttitudeGetFeedForwardScalar() {return _feedforward_scalar;}
+    void juavAttitudeSetFeedForwardScalar(float newFeedForwardScalar) {_feedforward_scalar = newFeedForwardScalar;}
+    void juavAttitudeSetAttitudeAngError(float w, float x, float y, float z) { _attitude_ang_error.q1=w;_attitude_ang_error.q2=x;_attitude_ang_error.q3=y;_attitude_ang_error.q4=z;}
+    void juavSetAttitudeRateTargetAngVel(float x, float y, float z) {_rate_target_ang_vel.x = x;_rate_target_ang_vel.y = y;_rate_target_ang_vel.z = z;}
+    void juavGetAttitudeThrustErrorAngle(float newThrustErrorAngle) {_thrust_error_angle = newThrustErrorAngle;}
 
 protected:
 

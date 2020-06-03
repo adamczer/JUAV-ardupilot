@@ -14,6 +14,7 @@ public:
     void run(int argc, char * const argv[], Callbacks* callbacks) const override;
     static void actually_reboot();
     void juavNativeInitizationPriorToControlLoop(int argc, char * argv[], Callbacks* callbacks);
+    void juavNativeHalSitlAfterCallBacks();
     bool juavGetHalSitlSchedulerShouldReboot();
     bool juavGetHalSitlSchedulerShouldExit();
     void juavSitlFillStackNan();

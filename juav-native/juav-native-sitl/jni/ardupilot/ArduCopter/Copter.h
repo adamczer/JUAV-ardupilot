@@ -230,6 +230,7 @@ public:
 
     Copter(void);
     void juavNativeFastLoopBeforeAttitudeController();
+    void juavNativeFastLoopAfterAttitudeController();
     void juavSurfaceTracingInvalidateForLogging();
     Mode* juavGetNativeCurrentFlightMode();
     AC_AttitudeControl_t* juavNativeGetAttitudeController();

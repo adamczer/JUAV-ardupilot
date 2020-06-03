@@ -398,7 +398,7 @@ AP_Scheduler &scheduler()
 }
 
 };
-
+uint32_t juav_sample_time_us = 0;
 void AP_Scheduler::juavNativeApSchedulerPriorToFastLoop() {
     // wait for an INS sample
     hal.util->persistent_data.scheduler_task = -3;
@@ -407,12 +407,74 @@ void AP_Scheduler::juavNativeApSchedulerPriorToFastLoop() {
     _rsem.take_blocking();
     hal.util->persistent_data.scheduler_task = -1;
 
-    const uint32_t sample_time_us = AP_HAL::micros();
+    juav_sample_time_us = AP_HAL::micros();
 
     if (_loop_timer_start_us == 0) {
-        _loop_timer_start_us = sample_time_us;
+        _loop_timer_start_us = juav_sample_time_us;
         _last_loop_time_s = get_loop_period_s();
     } else {
-        _last_loop_time_s = (sample_time_us - _loop_timer_start_us) * 1.0e-6;
+        _last_loop_time_s = (juav_sample_time_us - _loop_timer_start_us) * 1.0e-6;
     }
+}
+
+void AP_Scheduler::juavNativeApSchedulerPostFastLoop() {
+#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+    {
+
+        //  for testing low CPU conditions we can add an optional delay in SITL
+
+        auto *sitl = AP::sitl();
+        uint32_t loop_delay_us = sitl->loop_delay.get();
+        hal.scheduler->delay_microseconds(loop_delay_us);
+    }
+#endif
+
+    // tell the scheduler one tick has passed
+    tick();
+
+    // run all the tasks that are due to run. Note that we only
+    // have to call this once per loop, as the tasks are scheduled
+    // in multiples of the main loop tick. So if they don't run on
+    // the first call to the scheduler they won't run on a later
+    // call until scheduler.tick() is called again
+    const uint32_t loop_us = get_loop_period_us();
+    uint32_t now = AP_HAL::micros();
+    uint32_t time_available = 0;
+    if (now - juav_sample_time_us < loop_us) {
+        // get remaining time available for this loop
+        time_available = loop_us - (now - juav_sample_time_us);
+    }
+
+    // add in extra loop time determined by not achieving scheduler tasks
+    time_available += extra_loop_us;
+
+    // run the tasks
+    run(time_available);
+
+#if CONFIG_HAL_BOARD == HAL_BOARD_SITL
+    // move result of AP_HAL::micros() forward:
+    hal.scheduler->delay_microseconds(1);
+#endif
+
+    if (task_not_achieved > 0) {
+        // add some extra time to the budget
+        extra_loop_us = MIN(extra_loop_us+100U, 5000U);
+        task_not_achieved = 0;
+        task_all_achieved = 0;
+    } else if (extra_loop_us > 0) {
+        task_all_achieved++;
+        if (task_all_achieved > 50) {
+            // we have gone through 50 loops without a task taking too
+            // long. CPU pressure has eased, so drop the extra time we're
+            // giving each loop
+            task_all_achieved = 0;
+            // we are achieving all tasks, slowly lower the extra loop time
+            extra_loop_us = MAX(0U, extra_loop_us-50U);
+        }
+    }
+
+    // check loop time
+    perf_info.check_loop_time(juav_sample_time_us - _loop_timer_start_us);
+
+    _loop_timer_start_us = juav_sample_time_us;
 }

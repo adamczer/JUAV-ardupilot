@@ -55,7 +55,6 @@ public class Copter {
     }
 
     private void nativeFastLoop2() {
-        //todo native calls after attitude controlers
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeFastLoopAfterAttitudeController();
     }
 }

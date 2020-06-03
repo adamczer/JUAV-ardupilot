@@ -92,6 +92,10 @@ public:
         return pos_control->get_desired_velocity();
     }
 
+    bool juavModeIsMotorsArmed() {
+        return motors->armed();
+    }
+
 protected:
 
     // navigation support functions

@@ -6,6 +6,8 @@ public class ArdupilotNative {
     //HAL SITL
     public static native void nativeInitizationPriorToControlLoop();
 
+    public static native void nativeHalSitlInnerLoopAfterCallBacks();
+
     public static native boolean getHalSitlSchedulerShouldReboot();
 
     public static native boolean getHalSitlSchedulerShouldExit();
@@ -15,7 +17,11 @@ public class ArdupilotNative {
     //AP SCHEDULER
     public static native void nativeApSchedulerPriorToFastLoop();
 
+    public static native void nativeApSchedulerPostToFastLoop();
+
     public static native void setHalUtilPersistentDataSchedulerTask(int i);
+
+    public static native float nativeApSchedulerGetLoopPeriodS();
     //AP SCHEDULER
 
     //COPTER
@@ -26,6 +32,8 @@ public class ArdupilotNative {
     public static native int getFlightModeNumber();
 
     public static native void callNativeFlightMode();
+
+    public static native void nativeFastLoopAfterAttitudeController();
     //COPTER
     // MODE STABILIZE
     public static native void nativeRunBeforeStabilizationCallAttitudeController();
@@ -91,5 +99,26 @@ public class ArdupilotNative {
 
     public static native float[] nativeAttitudeGetAhrsGyro();
 
+    public static native void nativeSetAttitudeFeedForwardScalar(float feedforwardScalar);
+
+    public static native float nativeGetAttitudeFeedForwardScalar();
+
+    public static native void nativeSetAttitudeAngError(float w, float x, float y, float z);
+
+    public static native void nativeAttitudeSetRateTargetAngVel(float x, float y, float z);
+
+    public static native void nativeAttitudeSetThrustErrorAngle(float thisThrustErrorAngle);
     // AC ATTITUDE CONTROL
+
+    // AP VEHICLE
+    public static native void nativeSetAPVehicleSchedulerGDt(float f);
+
+    // AP VEHICLE
+
+    // MODE RTL
+    public static native boolean nativeModeRtlIsMotorsArmed();
+
+    public static native boolean nativeModeRtlIsStateComplete();
+    // MODE RTL
+
 }

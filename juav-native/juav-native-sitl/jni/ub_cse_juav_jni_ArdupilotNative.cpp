@@ -32,6 +32,11 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeInitizationPri
      sitl->juavNativeInitizationPriorToControlLoop(9,args,ud);
   }
 
+  JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalSitlInnerLoopAfterCallBacks
+    (JNIEnv * env, jclass thisClass) {
+     sitl->juavNativeHalSitlAfterCallBacks();
+    }
+
   JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_getHalSitlSchedulerShouldReboot
     (JNIEnv * env, jclass thisClass) {
         return sitl->juavGetHalSitlSchedulerShouldReboot();
@@ -53,6 +58,15 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeInitizationPri
     (JNIEnv * env, jclass thisClass) {
         scheduler->juavNativeApSchedulerPriorToFastLoop();
     }
+  JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeApSchedulerPostToFastLoop
+    (JNIEnv * env, jclass thisClass) {
+        scheduler->juavNativeApSchedulerPostFastLoop();
+    }
+
+  JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeApSchedulerGetLoopPeriodS
+    (JNIEnv * env, jclass thisClass) {
+       return scheduler->get_loop_period_s();
+    }
 
   JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_setHalUtilPersistentDataSchedulerTask
     (JNIEnv * env, jclass thisClass, jint persistent_data_scheduler_task) {
@@ -64,6 +78,12 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeInitizationPri
      (JNIEnv * env, jclass thisClass) {
         copter.juavNativeFastLoopBeforeAttitudeController();
      }
+
+   JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeFastLoopAfterAttitudeController
+     (JNIEnv * env, jclass thisClass) {
+       copter.juavNativeFastLoopAfterAttitudeController();
+     }
+
    JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_surfaceTracingInvalidateForLogging
      (JNIEnv * env, jclass) {
         copter.juavSurfaceTracingInvalidateForLogging();
@@ -317,3 +337,54 @@ JNIEXPORT jfloatArray JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitud
       float arr [3] = {vec.x,vec.y,vec.z};
       return convertToJavaFloatArray(arr, 3, env);
   }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeFeedForwardScalar
+  (JNIEnv * env, jclass thisClass, jfloat newFeedForwardScalar) {
+    AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
+    attitudeController->juavAttitudeSetFeedForwardScalar(newFeedForwardScalar);
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAttitudeFeedForwardScalar
+  (JNIEnv * env, jclass thisClass) {
+    AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
+    return attitudeController->juavAttitudeGetFeedForwardScalar();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeAngError
+  (JNIEnv * env, jclass thisClass, jfloat w, jfloat x, jfloat y, jfloat z) {
+    AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
+    attitudeController->juavAttitudeSetAttitudeAngError(w,x,y,z);
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetRateTargetAngVel
+  (JNIEnv * env, jclass thisClass, jfloat x, jfloat y, jfloat z) {
+      AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
+      attitudeController->juavSetAttitudeRateTargetAngVel(x,y,z);
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetThrustErrorAngle
+  (JNIEnv * env, jclass thisClass, jfloat newThrustErrorAngle) {
+    AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
+          attitudeController->juavGetAttitudeThrustErrorAngle(newThrustErrorAngle);
+  }
+
+  //AP VEHICLE
+  JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAPVehicleSchedulerGDt
+    (JNIEnv * env, jclass thisClass, jfloat newGDt) {
+        AP_Vehicle& vehicle = *AP_Vehicle::get_singleton();
+        vehicle.juavSetAPVehicleSchedulerGDt(newGDt);
+    }
+  //AP VEHICLE
+
+  // MODE RTL
+  JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeModeRtlIsMotorsArmed
+    (JNIEnv * env, jclass thisClass) {
+    Mode* mode = copter.juavGetNativeCurrentFlightMode();
+    return mode->juavModeIsMotorsArmed();
+    }
+
+  JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeModeRtlIsStateComplete
+     (JNIEnv * env, jclass thisClass) {
+     ModeRTL* mode = dynamic_cast<ModeRTL*>(copter.juavGetNativeCurrentFlightMode());
+     return mode->state_complete();
+     }

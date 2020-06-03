@@ -153,6 +153,7 @@ public:
     AP::PerfInfo perf_info;
 
     void juavNativeApSchedulerPriorToFastLoop();
+    void juavNativeApSchedulerPostFastLoop();
 
 private:
     // function that is called before anything in the scheduler table:
