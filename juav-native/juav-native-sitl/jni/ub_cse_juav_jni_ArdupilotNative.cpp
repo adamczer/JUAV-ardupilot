@@ -95,6 +95,8 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeInitizationPri
                 return 0;
             else if (strcmp(flightmodeName,"RTL") == 0)
                 return 6;
+            else if (strcmp(flightmodeName,"LOITER") == 0)
+                return 5;
             else
                 return -1;
      }
@@ -388,5 +390,36 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_inputEulerAngleRollP
   (JNIEnv * env, jclass thisClass, jfloat eulerRollAngleCd, jfloat eulerPitchAngleCd, jfloat eulerYawRateCds) {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
         attitudeController->input_euler_angle_roll_pitch_euler_rate_yaw(eulerRollAngleCd,eulerPitchAngleCd,eulerYawRateCds);
+  }
+   // TEST
 
+    // MODE LOITER
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterRunPriorToAttitudeControl
+  (JNIEnv * env, jclass thisClass) {
+    ModeLoiter* loiter = dynamic_cast<ModeLoiter*>(copter.juavGetNativeCurrentFlightMode());
+     loiter->juavLoiterRunPriorToAttitudeControl();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterRunAfterAttitudeControl
+  (JNIEnv * env, jclass thisClass) {
+  ModeLoiter* loiter = dynamic_cast<ModeLoiter*>(copter.juavGetNativeCurrentFlightMode());
+     loiter->juavLoiterRunAfterAttitudeControl();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterGetTargetYawRate
+  (JNIEnv * env, jclass thisClass) {
+    ModeLoiter* loiter = dynamic_cast<ModeLoiter*>(copter.juavGetNativeCurrentFlightMode());
+    return loiter->juavLoiterGetTargetYawRate();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterGetTargetPitch
+  (JNIEnv * env, jclass thisClass) {
+  ModeLoiter* loiter = dynamic_cast<ModeLoiter*>(copter.juavGetNativeCurrentFlightMode());
+      return loiter->juavLoiterGetTargetPitch();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterGetTargetRoll
+  (JNIEnv * env, jclass thisClass) {
+  ModeLoiter* loiter = dynamic_cast<ModeLoiter*>(copter.juavGetNativeCurrentFlightMode());
+      return loiter->juavLoiterGetTargetRoll();
   }

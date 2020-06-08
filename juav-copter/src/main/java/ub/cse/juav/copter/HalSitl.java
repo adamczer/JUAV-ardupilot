@@ -1,6 +1,7 @@
 package ub.cse.juav.copter;
 
 import ub.cse.juav.copter.modes.Mode;
+import ub.cse.juav.copter.modes.ModeLoiter;
 import ub.cse.juav.copter.modes.ModeRtl;
 import ub.cse.juav.copter.modes.ModeStabilize;
 import ub.cse.juav.jni.ArdupilotNative;
@@ -65,6 +66,7 @@ public class HalSitl {
         AcAttitudeControl acAttitudeControl = new AcAttitudeControl();
         Map<Integer,Mode> modes = new HashMap<>();
         modes.put(0,new ModeStabilize(acAttitudeControl));
+        modes.put(5,new ModeLoiter(acAttitudeControl));
 //        modes.put(6,new ModeRtl(acAttitudeControl)); //broken
         Copter copter = new Copter();
         copter.setModes(modes);

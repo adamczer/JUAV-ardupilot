@@ -126,4 +126,11 @@ public class ArdupilotNative {
     public static native void runAttitudeControllerQuatTest();
 
     public static native void inputEulerAngleRollPitchEulerRateYaw(float eulerRollAngleCd, float eulerPitchAngleCd, float eulerYawRateCds);
+    //TEST
+    //MODE LOITER
+    public static native void nativeLoiterRunPriorToAttitudeControl();
+    public static native void nativeLoiterRunAfterAttitudeControl();
+    public static native float nativeLoiterGetTargetYawRate();
+    public static native float nativeLoiterGetTargetPitch();
+    public static native float nativeLoiterGetTargetRoll();
 }
