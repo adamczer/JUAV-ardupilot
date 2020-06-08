@@ -8,7 +8,7 @@
 // should be called at 100hz or more
 void ModeStabilize::run()
 {
-    /*
+//  /*
     // apply simple mode transform to pilot inputs
     update_simple_mode();
 
@@ -61,7 +61,8 @@ void ModeStabilize::run()
     // output pilot's throttle
     attitude_control->set_throttle_out(get_pilot_desired_throttle(),
                                        true,
-                                       g.throttle_filt);*/
+                                       g.throttle_filt);
+//    */
 }
 
 float juav_target_yaw_rate;

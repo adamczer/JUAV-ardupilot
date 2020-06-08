@@ -237,42 +237,29 @@ JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAngVelYaw
     return attitudeController->juavGetAttitudeAngVelYawMax();
   }
 
-  //TODO is this right?
+
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeTargetQuat
   (JNIEnv * env, jclass thisClass, jfloat q1, jfloat q2, jfloat q3, jfloat q4) {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
-    Quaternion quat = attitudeController->get_attitude_target_quat();
-    quat.q1=q1;
-    quat.q2=q2;
-    quat.q3=q3;
-    quat.q4=q4;
+    attitudeController->juavSetAttitudeTargetQuat(q1,q2,q3,q4);
   }
-//TODO is this right?
+
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeTargetEulerAngle
   (JNIEnv * env, jclass thisClass, jfloat x, jfloat y, jfloat z) {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
-    Vector3f vec = attitudeController->juavGetAttitudeTargetEulerAngle();
-    vec.x=x;
-    vec.y=y;
-    vec.z=z;
+    attitudeController->juavSetAttitudeTargetEulerAngle(x, y, z);
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeTargetEulerRate
   (JNIEnv * env, jclass thisClass, jfloat x, jfloat y, jfloat z) {
       AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
-      Vector3f vec = attitudeController->juavGetAttitudeTargetEulerRate();
-      vec.x=x;
-      vec.y=y;
-      vec.z=z;
+      attitudeController->juavSetAttitudeTargetEulerRate(x,y,z);
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeTargetAngVel
   (JNIEnv * env, jclass thisClass, jfloat x, jfloat y, jfloat z) {
         AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
-        Vector3f vec = attitudeController->juavGetAttitudeTargetAngVel();
-        vec.x=x;
-        vec.y=y;
-        vec.z=z;
+        attitudeController->juavSetAttitudeTargetAngVel(x,y,z);
     }
 
 JNIEXPORT jfloatArray JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetRateTargetAngVel
@@ -365,7 +352,7 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetRat
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetThrustErrorAngle
   (JNIEnv * env, jclass thisClass, jfloat newThrustErrorAngle) {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
-          attitudeController->juavGetAttitudeThrustErrorAngle(newThrustErrorAngle);
+          attitudeController->juavSetAttitudeThrustErrorAngle(newThrustErrorAngle);
   }
 
   //AP VEHICLE
@@ -388,3 +375,18 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetThr
      ModeRTL* mode = dynamic_cast<ModeRTL*>(copter.juavGetNativeCurrentFlightMode());
      return mode->state_complete();
      }
+
+  // TEST
+  JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_runAttitudeControllerQuatTest
+    (JNIEnv * env, jclass thisClass) {
+    AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
+        attitudeController->attitude_controller_run_quat();
+    }
+
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_inputEulerAngleRollPitchEulerRateYaw
+  (JNIEnv * env, jclass thisClass, jfloat eulerRollAngleCd, jfloat eulerPitchAngleCd, jfloat eulerYawRateCds) {
+    AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
+        attitudeController->input_euler_angle_roll_pitch_euler_rate_yaw(eulerRollAngleCd,eulerPitchAngleCd,eulerYawRateCds);
+
+  }

@@ -119,6 +119,11 @@ public class ArdupilotNative {
     public static native boolean nativeModeRtlIsMotorsArmed();
 
     public static native boolean nativeModeRtlIsStateComplete();
+
     // MODE RTL
 
+    //TEST
+    public static native void runAttitudeControllerQuatTest();
+
+    public static native void inputEulerAngleRollPitchEulerRateYaw(float eulerRollAngleCd, float eulerPitchAngleCd, float eulerYawRateCds);
 }

@@ -1,10 +1,7 @@
 package ub.cse.juav.copter;
 
 import ub.cse.juav.jni.ArdupilotNative;
-import ub.cse.juav.math.JuavMath;
-import ub.cse.juav.math.JuavMatrix3f;
-import ub.cse.juav.math.JuavQuaternion;
-import ub.cse.juav.math.JuavVector3f;
+import ub.cse.juav.math.*;
 
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
@@ -13,7 +10,7 @@ public class AcAttitudeControl {
 
     // thrust_heading_rotation_angles - calculates two ordered rotations to move the att_from_quat quaternion to the att_to_quat quaternion.
 // The first rotation corrects the thrust vector and the second rotation corrects the heading vector.
-    public void thrustHeadingRotationAngles(JuavQuaternion attToQuat, JuavQuaternion attFromQuat, JuavVector3f attDiffAngle, float thrustVecDot) {
+    public void thrustHeadingRotationAngles(JuavQuaternion attToQuat, JuavQuaternion attFromQuat, JuavVector3f attDiffAngle, FloatWrapper thrustVecDotWrap) {
         JuavMatrix3f att_to_rot_matrix = new JuavMatrix3f(); // rotation from the target body frame to the inertial frame.
         attToQuat.rotationMatrix(att_to_rot_matrix);
 
@@ -30,18 +27,18 @@ public class AcAttitudeControl {
         JuavVector3f thrustVecCross = (JuavVector3f) attFromThrustVec.opPercent(attToThrustVec);
 
         // the dot product is used to calculate the angle between the target and desired thrust vectors
-        thrustVecDot = (float) Math.acos(JuavMath.constrainFloat(attFromThrustVec.opStar(attToThrustVec), -1.0f, 1.0f));
+        thrustVecDotWrap.val = (float) Math.acos(JuavMath.constrainFloat(attFromThrustVec.opStar(attToThrustVec), -1.0f, 1.0f));
 
         // Normalize the thrust rotation vector
         float thrustVectorLength = thrustVecCross.length();
-        if (JuavMath.isZero(thrustVectorLength) || JuavMath.isZero(thrustVecDot)) {
+        if (JuavMath.isZero(thrustVectorLength) || JuavMath.isZero(thrustVecDotWrap.val)) {
             thrustVecCross = new JuavVector3f(0, 0, 1);
-            thrustVecDot = 0.0f;
+            thrustVecDotWrap.val = 0.0f;
         } else {
             thrustVecCross.opSlash(thrustVectorLength);
         }
         JuavQuaternion thrustVecCorrectionQuat = new JuavQuaternion();
-        thrustVecCorrectionQuat.fromAxisAngle(thrustVecCross, thrustVecDot);
+        thrustVecCorrectionQuat.fromAxisAngle(thrustVecCross, thrustVecDotWrap.val);
 
         // Rotate thrust_vec_correction_quat to the att_from frame
         thrustVecCorrectionQuat = attFromQuat.inversed().opStar(thrustVecCorrectionQuat).opStar( attFromQuat);
@@ -67,7 +64,11 @@ public class AcAttitudeControl {
         if (!JuavMath.isZero(getPAngleYawKp()) && Math.abs(attDiffAngle.z) > getAcAttitudeAccelYControlerMaxRadss() / getPAngleYawKp()) {
             attDiffAngle.z = JuavMath.constrainFloat(JuavMath.wrapPI(attDiffAngle.z), -getAcAttitudeAccelYControlerMaxRadss()/ getPAngleYawKp(), getAcAttitudeAccelYControlerMaxRadss() / getPAngleYawKp());
             yawVecCorrectionQuat.fromAxisAngle(new JuavVector3f(0.0f, 0.0f, attDiffAngle.z));
-            attToQuat = attFromQuat.opStar(thrustVecCorrectionQuat).opStar(yawVecCorrectionQuat);
+            JuavQuaternion tmp = attFromQuat.opStar(thrustVecCorrectionQuat).opStar(yawVecCorrectionQuat);
+            attToQuat.w = tmp.w;
+            attToQuat.x = tmp.x;
+            attToQuat.y = tmp.y;
+            attToQuat.z = tmp.z;
         }
     }
 
@@ -173,21 +174,25 @@ public class AcAttitudeControl {
 
         // Compute attitude error
         JuavVector3f attitudeErrorVector = new JuavVector3f();
-        thrustHeadingRotationAngles(thisAttitudeTargetQuat, attitudeVehicleQuat, attitudeErrorVector, thisThrustErrorAngle);
-
+        FloatWrapper tmpThrustErrorAngleWrap = new FloatWrapper(thisThrustErrorAngle);
+        thrustHeadingRotationAngles(thisAttitudeTargetQuat, attitudeVehicleQuat, attitudeErrorVector, tmpThrustErrorAngleWrap);
+        thisThrustErrorAngle = tmpThrustErrorAngleWrap.val;
         // Compute the angular velocity target from the attitude error
-        JuavVector3f rateTargetAngVel = updateAngVelTargetFromAttError(attitudeErrorVector);
+        JuavVector3f rateTargetAngVelTmp = updateAngVelTargetFromAttError(attitudeErrorVector);
+        thisRateTargetAngVel.x=rateTargetAngVelTmp.x;
+        thisRateTargetAngVel.y=rateTargetAngVelTmp.y;
+        thisRateTargetAngVel.z=rateTargetAngVelTmp.z;
 
         // Add feedforward term that attempts to ensure that roll and pitch errors rotate with the body frame rather than the reference frame.
         // todo: this should probably be a matrix that couples yaw as well.
-        rateTargetAngVel.x += JuavMath.constrainFloat(attitudeErrorVector.y, -JuavMath.M_PI / 4, JuavMath.M_PI / 4) * getAhrsGyro().z;
-        rateTargetAngVel.y += -JuavMath.constrainFloat(attitudeErrorVector.x, -JuavMath.M_PI / 4, JuavMath.M_PI / 4) * getAhrsGyro().z;
+        thisRateTargetAngVel.x += JuavMath.constrainFloat(attitudeErrorVector.y, -JuavMath.M_PI / 4, JuavMath.M_PI / 4) * getAhrsGyro().z;
+        thisRateTargetAngVel.y += -JuavMath.constrainFloat(attitudeErrorVector.x, -JuavMath.M_PI / 4, JuavMath.M_PI / 4) * getAhrsGyro().z;
 
         angVelLimit(thisRateTargetAngVel, (float) Math.toRadians(getAngVelRollMax()), (float)Math.toRadians(getAngVelPitchMax()), (float)Math.toRadians(getAngVelYawMax()));
 
         // Add the angular velocity feedforward, rotated into vehicle frame
         JuavQuaternion attitudeTargetAngVelQuat = new JuavQuaternion(0.0f, thisAttitudeTargetAngVel.x, thisAttitudeTargetAngVel.y, thisAttitudeTargetAngVel.z);
-        JuavQuaternion toToFromQuat = attitudeVehicleQuat.inversed().opStar(getAttitudeTargetQuat());
+        JuavQuaternion toToFromQuat = attitudeVehicleQuat.inversed().opStar(thisAttitudeTargetQuat);
         JuavQuaternion desiredAngVelQuat = toToFromQuat.inversed().opStar(attitudeTargetAngVelQuat).opStar(toToFromQuat);
 
 //         Correct the thrust vector and smoothly add feedforward and yaw input
@@ -242,7 +247,6 @@ public class AcAttitudeControl {
         float eulerYawRate = (float) Math.toRadians(eulerYawRateCds * 0.01f);
 
         // calculate the attitude target euler angles
-
         thisAttitudeTargetQuat.toEuler(thisAttitudeTargetEulerAngle);
 
         // Add roll trim to compensate tail rotor thrust in heli (will return zero on multirotors)
@@ -285,7 +289,7 @@ public class AcAttitudeControl {
         setAttitudeTargetEulerAngle(thisAttitudeTargetEulerAngle);
         setAttitudeTargetEulerRate(thisAttitudeTargetEulerRate);
         setAttitudeTargetAngVel(thisAttitudeTargetAngVel);
-        // Call quaternion attitude controller
+//         Call quaternion attitude controller
         attitudeControllerRunQuat();
     }
 

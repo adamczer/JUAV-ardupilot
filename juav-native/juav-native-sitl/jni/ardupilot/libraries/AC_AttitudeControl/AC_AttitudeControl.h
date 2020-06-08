@@ -328,8 +328,11 @@ public:
     static const struct AP_Param::GroupInfo var_info[];
 
     Vector3f juavGetAttitudeTargetEulerAngle() {return _attitude_target_euler_angle;}
+    void juavSetAttitudeTargetEulerAngle(float x, float y, float z) {_attitude_target_euler_angle.x=x;_attitude_target_euler_angle.y=y;_attitude_target_euler_angle.z=z;}
     Vector3f juavGetAttitudeTargetEulerRate() {return _attitude_target_euler_rate;}
+    void juavSetAttitudeTargetEulerRate(float x, float y, float z) {_attitude_target_euler_rate.x=x;_attitude_target_euler_rate.y=y;_attitude_target_euler_rate.z=z;}
     Vector3f juavGetAttitudeTargetAngVel() {return _attitude_target_ang_vel;}
+    void juavSetAttitudeTargetAngVel(float x, float y, float z) {_attitude_target_ang_vel.x=x;_attitude_target_ang_vel.y=y;_attitude_target_ang_vel.z=z;}
     float juavGetAttitudeInputTc() {return _input_tc;}
     float juavGetAttitudeDt() {return _dt;}
     float juavGetAttitudeAngVelRollMax() {return _ang_vel_roll_max;}
@@ -344,7 +347,8 @@ public:
     void juavAttitudeSetFeedForwardScalar(float newFeedForwardScalar) {_feedforward_scalar = newFeedForwardScalar;}
     void juavAttitudeSetAttitudeAngError(float w, float x, float y, float z) { _attitude_ang_error.q1=w;_attitude_ang_error.q2=x;_attitude_ang_error.q3=y;_attitude_ang_error.q4=z;}
     void juavSetAttitudeRateTargetAngVel(float x, float y, float z) {_rate_target_ang_vel.x = x;_rate_target_ang_vel.y = y;_rate_target_ang_vel.z = z;}
-    void juavGetAttitudeThrustErrorAngle(float newThrustErrorAngle) {_thrust_error_angle = newThrustErrorAngle;}
+    void juavSetAttitudeThrustErrorAngle(float newThrustErrorAngle) {_thrust_error_angle = newThrustErrorAngle;}
+    void juavSetAttitudeTargetQuat(float q1, float q2, float q3, float q4) { _attitude_target_quat.q1=q1;_attitude_target_quat.q2=q2;_attitude_target_quat.q3=q3;_attitude_target_quat.q4=q4; }
 
 protected:
 
