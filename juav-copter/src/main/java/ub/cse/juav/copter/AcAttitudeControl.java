@@ -467,8 +467,7 @@ public class AcAttitudeControl {
     }
 
     private float getSlewYaw() {
-        //TODO native get _slew_yaw
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeAttitudeGetSlewYaw();
     }
 
     private float getInputTc () {

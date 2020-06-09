@@ -349,6 +349,7 @@ public:
     void juavSetAttitudeRateTargetAngVel(float x, float y, float z) {_rate_target_ang_vel.x = x;_rate_target_ang_vel.y = y;_rate_target_ang_vel.z = z;}
     void juavSetAttitudeThrustErrorAngle(float newThrustErrorAngle) {_thrust_error_angle = newThrustErrorAngle;}
     void juavSetAttitudeTargetQuat(float q1, float q2, float q3, float q4) { _attitude_target_quat.q1=q1;_attitude_target_quat.q2=q2;_attitude_target_quat.q3=q3;_attitude_target_quat.q4=q4; }
+    float juavAttitudeGetSlewYaw() {return _slew_yaw;}
 
 protected:
 

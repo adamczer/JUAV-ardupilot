@@ -93,10 +93,52 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeInitizationPri
         const char * flightmodeName = copter.juavGetNativeCurrentFlightMode()->name();
             if (strcmp(flightmodeName,"STABILIZE") == 0)
                 return 0;
-            else if (strcmp(flightmodeName,"RTL") == 0)
-                return 6;
+            else if (strcmp(flightmodeName,"ACRO") == 0)
+                return 1;
+            else if (strcmp(flightmodeName,"ALT_HOLD") == 0)
+                return 2;
+            else if (strcmp(flightmodeName,"AUTO") == 0)
+                return 3;
+            else if (strcmp(flightmodeName,"GUIDED") == 0)
+                return 4;
             else if (strcmp(flightmodeName,"LOITER") == 0)
                 return 5;
+            else if (strcmp(flightmodeName,"RTL") == 0)
+                return 6;
+            else if (strcmp(flightmodeName,"CIRCLE") == 0)
+                return 7;
+            else if (strcmp(flightmodeName,"LAND") == 0)
+                return 9;
+            else if (strcmp(flightmodeName,"DRIFT") == 0)
+                return 11;
+            else if (strcmp(flightmodeName,"SPORT") == 0)
+                return 13;
+            else if (strcmp(flightmodeName,"FLIP") == 0)
+                return 14;
+            else if (strcmp(flightmodeName,"AUTOTUNE") == 0)
+                return 15;
+            else if (strcmp(flightmodeName,"POSHOLD") == 0)
+                return 16;
+            else if (strcmp(flightmodeName,"BRAKE") == 0)
+                return 17;
+            else if (strcmp(flightmodeName,"THROW") == 0)
+                return 18;
+            else if (strcmp(flightmodeName,"AVOID_ADSB") == 0)
+                return 19;
+            else if (strcmp(flightmodeName,"GUIDED_NOGPS") == 0)
+                return 20;
+            else if (strcmp(flightmodeName,"SMART_RTL") == 0)
+                return 21;
+            else if (strcmp(flightmodeName,"FLOWHOLD") == 0)
+                return 22;
+            else if (strcmp(flightmodeName,"FOLLOW") == 0)
+                return 23;
+            else if (strcmp(flightmodeName,"ZIGZAG") == 0)
+                return 24;
+            else if (strcmp(flightmodeName,"SYSTEMID") == 0)
+                return 25;
+            else if (strcmp(flightmodeName,"AUTOROTATE") == 0)
+                return 26;
             else
                 return -1;
      }
@@ -357,6 +399,12 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetThr
           attitudeController->juavSetAttitudeThrustErrorAngle(newThrustErrorAngle);
   }
 
+  JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeGetSlewYaw
+    (JNIEnv * env, jclass thisClass) {
+    AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
+             return attitudeController->juavAttitudeGetSlewYaw();
+    }
+
   //AP VEHICLE
   JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAPVehicleSchedulerGDt
     (JNIEnv * env, jclass thisClass, jfloat newGDt) {
@@ -422,4 +470,133 @@ JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterGetTar
   (JNIEnv * env, jclass thisClass) {
   ModeLoiter* loiter = dynamic_cast<ModeLoiter*>(copter.juavGetNativeCurrentFlightMode());
       return loiter->juavLoiterGetTargetRoll();
+  }
+
+// MODE GUIDED
+
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetMode
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+         return guided->mode();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedTakeoffRun
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+             guided->juavGuidedTakeOffRun();
+  }
+
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedPosControlRunPriorToAttitude
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+               guided->juavGuidedPosControlPriorToAttitude();
+  }
+
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoYawMode
+  (JNIEnv * env, jclass thisClass) {
+  ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+  return guided->juavGetAutoYaw().mode();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetWpNavRoll
+  (JNIEnv * env, jclass thisClass) {
+    Mode* mode = copter.juavGetNativeCurrentFlightMode();
+    return mode->juavGetWpNav()->get_roll();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetWpNavPitch
+  (JNIEnv * env, jclass thisClass) {
+      Mode* mode = copter.juavGetNativeCurrentFlightMode();
+      return mode->juavGetWpNav()->get_pitch();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetTargetYawRate
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+      return guided->juavGuidedGetTargetYawRate();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoYawRateCds
+  (JNIEnv * env, jclass thisClass) {
+  ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+  return guided->juavGetAutoYaw().rate_cds();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoYawYaw
+  (JNIEnv * env, jclass thisClass) {
+ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+  return guided->juavGetAutoYaw().yaw();
+  }
+
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedVelControlRunPriorToAttitude
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+      return guided->juavGuidedVelControlRunPriorToAttitude();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetPosControlRoll
+  (JNIEnv * env, jclass thisClass) {
+    Mode* mode = copter.juavGetNativeCurrentFlightMode();
+          return mode->juavGetPosControl()->get_roll();
+  }
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGuidedGetPosControlPitch
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetPosControlPitch
+  (JNIEnv * env, jclass thisClass) {
+    Mode* mode = copter.juavGetNativeCurrentFlightMode();
+          return mode->juavGetPosControl()->get_pitch();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedPosVelControlRunPriorToAttitude
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+      return guided->juavGuidedPosVelControlRunPriorToAttitude();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedAngleControlRunPriorToAttitude
+  (JNIEnv * env, jclass thisClass) {
+        ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+      guided->juavGuidedAngleControlRunPriorToAttitude();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAngleControlRunRollIn
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+          return guided->juavGuidedGetAngleControlRunRollIn();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAngleControlRunPitchIn
+  (JNIEnv * env, jclass thisClass) {
+  ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+            return guided->juavGuidedGetAngleControlRunPitchIn();
+  }
+
+JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedIsAngleStateUseYawRate
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+                return guided->juavGuidedIsAngleStateUseYawRate();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAngleControlRunYawRateIn
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+                    return guided->juavGuidedGetAngleControlRunYawRateIn();
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAngleControlRunYawIn
+  (JNIEnv * env, jclass thisClass) {
+    ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+                        return guided->juavGuidedGetAngleControlRunYawIn();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedAngleControlRunAfterAttitude
+  (JNIEnv * env, jclass thisClass) {
+  ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
+        guided->juavGuidedAngleControlRunAfterAttitude();
   }

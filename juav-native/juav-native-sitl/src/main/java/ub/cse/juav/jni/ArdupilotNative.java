@@ -108,6 +108,8 @@ public class ArdupilotNative {
     public static native void nativeAttitudeSetRateTargetAngVel(float x, float y, float z);
 
     public static native void nativeAttitudeSetThrustErrorAngle(float thisThrustErrorAngle);
+
+    public static native float nativeAttitudeGetSlewYaw();
     // AC ATTITUDE CONTROL
 
     // AP VEHICLE
@@ -133,4 +135,35 @@ public class ArdupilotNative {
     public static native float nativeLoiterGetTargetYawRate();
     public static native float nativeLoiterGetTargetPitch();
     public static native float nativeLoiterGetTargetRoll();
+    //MODE LOITER
+
+    //MODE GUIDED
+    public static native int nativeGuidedGetMode();
+    public static native void nativeGuidedTakeoffRun();
+
+
+    public static native void nativeGuidedPosControlRunPriorToAttitude();
+    public static native int nativeGuidedGetAutoYawMode();
+    public static native float nativeGuidedGetWpNavRoll();
+    public static native float nativeGuidedGetWpNavPitch();
+    public static native float nativeGuidedGetTargetYawRate();
+    public static native float nativeGuidedGetAutoYawRateCds();
+    public static native float nativeGuidedGetAutoYawYaw();
+
+
+    public static native void nativeGuidedVelControlRunPriorToAttitude();
+    public static native float nativeGuidedGetPosControlRoll();
+    public static native float nativeGuidedGetPosControlPitch();
+
+    public static native void nativeGuidedPosVelControlRunPriorToAttitude();
+
+    public static native void nativeGuidedAngleControlRunPriorToAttitude();
+    public static native float nativeGuidedGetAngleControlRunRollIn();
+    public static native float nativeGuidedGetAngleControlRunPitchIn();
+    public static native boolean nativeGuidedIsAngleStateUseYawRate();
+    public static native float nativeGuidedGetAngleControlRunYawRateIn();
+    public static native float nativeGuidedGetAngleControlRunYawIn();
+    public static native void nativeGuidedAngleControlRunAfterAttitude();
+
+
 }

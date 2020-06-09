@@ -96,6 +96,9 @@ public:
         return motors->armed();
     }
 
+    AC_WPNav* juavGetWpNav() {return wp_nav;}
+    AC_PosControl* juavGetPosControl() {return pos_control;}
+
 protected:
 
     // navigation support functions
@@ -806,6 +809,20 @@ public:
 
     void angle_control_start();
     void angle_control_run();
+
+    void juavGuidedTakeOffRun() {takeoff_run();}
+    void juavGuidedPosControlPriorToAttitude();
+    AutoYaw juavGetAutoYaw() {return auto_yaw;}
+    float juavGuidedGetTargetYawRate();
+    void juavGuidedVelControlRunPriorToAttitude();
+    void juavGuidedPosVelControlRunPriorToAttitude();
+    void juavGuidedAngleControlRunPriorToAttitude();
+    float juavGuidedGetAngleControlRunRollIn();
+    float juavGuidedGetAngleControlRunPitchIn();
+    bool juavGuidedIsAngleStateUseYawRate();
+    float juavGuidedGetAngleControlRunYawRateIn();
+    float juavGuidedGetAngleControlRunYawIn();
+    void juavGuidedAngleControlRunAfterAttitude();
 
 protected:
 
