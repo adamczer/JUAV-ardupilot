@@ -13,7 +13,7 @@
     <artifactId>juav-native</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>juav-native-sitl</module>
+        <module>juav-native-ardupilot</module>
     </modules>
     
 </project>
