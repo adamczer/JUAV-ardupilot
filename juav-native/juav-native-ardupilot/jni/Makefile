@@ -1,3 +1,5 @@
+# this build is working off a clean checkout of ardupilot
+# @ commit 22c9081c8325ec8d980906fe7b1d23f29080a216
 ARDU_SRC=/home/adamczer/code/ardupilot
 #JAVA_HOME=/home/erle/program_files/jdk1.8.0_191/
 ARDU_INPUTS:=$(shell find ${ARDU_SRC}/build/sitl -type f -name "*.o" \
