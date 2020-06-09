@@ -12,6 +12,7 @@
         <module>juav-math</module>
         <module>juav-copter</module>
         <module>juav-native</module>
+        <module>juav-hal</module>
     </modules>
 
     <properties>
