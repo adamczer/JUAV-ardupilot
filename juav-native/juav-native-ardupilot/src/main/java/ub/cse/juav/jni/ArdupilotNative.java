@@ -165,5 +165,12 @@ public class ArdupilotNative {
     public static native float nativeGuidedGetAngleControlRunYawIn();
     public static native void nativeGuidedAngleControlRunAfterAttitude();
 
+    //MODE GUIDED
 
+    //HAL LINUX
+    public static native boolean nativeHalLinuxShouldExit();
+    public static native void nativeHalLinuxInitializationPriorToControlLoop(int argc, String[] argv);
+    public static native void nativeHalLinuxAfterShouldExit();
+
+    //HAL LINUX
 }

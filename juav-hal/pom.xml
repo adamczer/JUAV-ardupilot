@@ -16,6 +16,7 @@
 
     <modules>
         <module>juav-hal-sitl</module>
+        <module>juav-hal-erle-copter</module>
     </modules>
     
 </project>

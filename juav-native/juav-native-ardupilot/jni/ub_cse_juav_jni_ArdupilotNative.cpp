@@ -1,5 +1,10 @@
-#define CONFIG_HAL_BOARD HAL_BOARD_SITL
-#define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_NONE
+//defines set in building of lib check makefile in jni
+//For SITL
+//#define CONFIG_HAL_BOARD HAL_BOARD_SITL
+//#define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_NONE
+//For Erlebrain
+//#define CONFIG_HAL_BOARD HAL_BOARD_LINUX
+//#define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_LINUX_ERLEBRAIN2
 
 #include <jni.h>
 #include <ub_cse_juav_jni_ArdupilotNative.h>
@@ -542,11 +547,6 @@ JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetPos
           return mode->juavGetPosControl()->get_roll();
   }
 
-/*
- * Class:     ub_cse_juav_jni_ArdupilotNative
- * Method:    nativeGuidedGetPosControlPitch
- * Signature: ()F
- */
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetPosControlPitch
   (JNIEnv * env, jclass thisClass) {
     Mode* mode = copter.juavGetNativeCurrentFlightMode();
@@ -600,3 +600,34 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedAngleCon
   ModeGuided* guided = dynamic_cast<ModeGuided*>(copter.juavGetNativeCurrentFlightMode());
         guided->juavGuidedAngleControlRunAfterAttitude();
   }
+//MODE GUIDED
+//HAL LINUX
+JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalLinuxShouldExit
+  (JNIEnv * env, jclass thisClass) {
+       //TODO switch to erle config maybe with ifdef
+       //halLinux.juavHalLinuxShouldExit();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalLinuxInitializationPriorToControlLoop
+  (JNIEnv * env, jclass thisClass, jint argCount, jobjectArray argArray) {
+    char *args = new char [argCount];
+      for (int i=0; i<argArray; i++) {
+          jstring string = (jstring) (env->GetObjectArrayElement(argArray, i));
+          const char *rawString = env->GetStringUTFChars(string, 0);
+          args[i] = rawString;
+          // Don't forget to call `ReleaseStringUTFChars` when you're done.
+      }
+
+      //TODO switch to erle config
+      // ie HAL_LINUX, ERLEBRAIN2
+      // halLinux.juavHalLinuxInitializationPriorToControlLoop(argCount,args,ud);
+
+
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalLinuxAfterShouldExit
+  (JNIEnv * env, jclass thisClass) {
+       //TODO switch to erle config
+       //halLinux.juavHalLinuxAfterShouldExit();
+  }
+//HAL LINUX
