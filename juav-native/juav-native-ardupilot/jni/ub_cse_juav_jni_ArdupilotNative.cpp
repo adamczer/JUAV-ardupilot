@@ -9,55 +9,11 @@
 #include <jni.h>
 #include <ub_cse_juav_jni_ArdupilotNative.h>
 
-//#include <AP_HAL/AP_HAL.h>
-#include <AP_HAL_SITL/HAL_SITL_Class.h>
-#include <AP_Vehicle/AP_Vehicle.h>
 #include <AP_Scheduler/AP_Scheduler.h>
 #include "Copter.h"
 
-const AP_HAL::HAL &hal = HAL_SITL();
-AP_Vehicle * ud = AP_Vehicle::get_singleton();
 AP_Scheduler * scheduler = AP_Scheduler::get_singleton();
-const HAL_SITL* sitl = dynamic_cast<const HAL_SITL*>(&hal);
 
-// HAL SITL vv
-JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeInitizationPriorToControlLoop
-  (JNIEnv * env, jclass thisClass) {
-   char *args[] = {
-         "/home/adamczer/code/ardupilot/build/sitl/bin/arducopter",
-         "-S",
-         "-I0",
-         "--model",
-         "+",
-         "--speedup",
-         "1",
-         "--defaults",
-         "/home/adamczer/code/ardupilot/Tools/autotest/default_params/copter.parm"
-        };
-     sitl->juavNativeInitizationPriorToControlLoop(9,args,ud);
-  }
-
-  JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalSitlInnerLoopAfterCallBacks
-    (JNIEnv * env, jclass thisClass) {
-     sitl->juavNativeHalSitlAfterCallBacks();
-    }
-
-  JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_getHalSitlSchedulerShouldReboot
-    (JNIEnv * env, jclass thisClass) {
-        return sitl->juavGetHalSitlSchedulerShouldReboot();
-    }
-
-  JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_getHalSitlSchedulerShouldExit
-    (JNIEnv * env, jclass thisClass) {
-        return sitl->juavGetHalSitlSchedulerShouldExit();
-    }
-
-  JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_sitlFillStackNan
-    (JNIEnv * env, jclass thisClass) {
-        sitl->juavSitlFillStackNan();
-    }
-
-// HAL SITL ^^
 // AP SCHEDULER vv
   JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeApSchedulerPriorToFastLoop
     (JNIEnv * env, jclass thisClass) {
@@ -610,14 +566,14 @@ JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalLinuxSh
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalLinuxInitializationPriorToControlLoop
   (JNIEnv * env, jclass thisClass, jint argCount, jobjectArray argArray) {
-    char *args = new char [argCount];
+/*    char *args = new char [argCount];
       for (int i=0; i<argArray; i++) {
           jstring string = (jstring) (env->GetObjectArrayElement(argArray, i));
           const char *rawString = env->GetStringUTFChars(string, 0);
           args[i] = rawString;
           // Don't forget to call `ReleaseStringUTFChars` when you're done.
       }
-
+*/
       //TODO switch to erle config
       // ie HAL_LINUX, ERLEBRAIN2
       // halLinux.juavHalLinuxInitializationPriorToControlLoop(argCount,args,ud);

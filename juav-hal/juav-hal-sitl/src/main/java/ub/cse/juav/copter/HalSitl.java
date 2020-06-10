@@ -2,6 +2,7 @@ package ub.cse.juav.copter;
 
 import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.HalSitlNative;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,23 +33,23 @@ public class HalSitl {
     }
 
     private void halSitlInnerLoopAfterCallbacks() {
-        ArdupilotNative.nativeHalSitlInnerLoopAfterCallBacks();
+        HalSitlNative.nativeHalSitlInnerLoopAfterCallBacks();
     }
 
     private void fillStackNan() {
-        ArdupilotNative.sitlFillStackNan();
+        HalSitlNative.sitlFillStackNan();
     }
 
     private void nativeInitizationPriorToControlLoop() {
-        ArdupilotNative.nativeInitizationPriorToControlLoop();
+        HalSitlNative.nativeInitizationPriorToControlLoop();
     }
 
     private boolean getHalSitlSchedulerShouldReboot() {
-        return ArdupilotNative.getHalSitlSchedulerShouldReboot();
+        return HalSitlNative.getHalSitlSchedulerShouldReboot();
     }
 
     private boolean getHalSitlSchedulerShouldExit() {
-        return ArdupilotNative.getHalSitlSchedulerShouldExit();
+        return HalSitlNative.getHalSitlSchedulerShouldExit();
     }
 
     private void actuallyReboot() {

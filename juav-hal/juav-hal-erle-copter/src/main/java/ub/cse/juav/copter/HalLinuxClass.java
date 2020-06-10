@@ -4,7 +4,7 @@ import ub.cse.juav.copter.modes.Mode;
 import ub.cse.juav.copter.modes.ModeGuided;
 import ub.cse.juav.copter.modes.ModeLoiter;
 import ub.cse.juav.copter.modes.ModeStabilize;
-import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.HalLinuxNative;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,15 +23,15 @@ public class HalLinuxClass {
     }
 
     private void halLinuxNativeAfterShouldExit() {
-        ArdupilotNative.nativeHalLinuxAfterShouldExit();
+        HalLinuxNative.nativeHalLinuxAfterShouldExit();
     }
 
     private boolean halLinuxShouldExit() {
-        return ArdupilotNative.nativeHalLinuxShouldExit();
+        return HalLinuxNative.nativeHalLinuxShouldExit();
     }
 
     private void halLinuxNativeInitizationPriorToControlLoop(int argc, String[] argv) {
-        ArdupilotNative.nativeHalLinuxInitializationPriorToControlLoop(argc,argv);
+        HalLinuxNative.nativeHalLinuxInitializationPriorToControlLoop(argc,argv);
     }
 
 

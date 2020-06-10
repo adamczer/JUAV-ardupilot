@@ -3,17 +3,6 @@ package ub.cse.juav.jni;
 import ub.cse.juav.math.JuavQuaternion;
 
 public class ArdupilotNative {
-    //HAL SITL
-    public static native void nativeInitizationPriorToControlLoop();
-
-    public static native void nativeHalSitlInnerLoopAfterCallBacks();
-
-    public static native boolean getHalSitlSchedulerShouldReboot();
-
-    public static native boolean getHalSitlSchedulerShouldExit();
-
-    public static native void sitlFillStackNan();
-    //HAL SITL
     //AP SCHEDULER
     public static native void nativeApSchedulerPriorToFastLoop();
 
@@ -166,11 +155,4 @@ public class ArdupilotNative {
     public static native void nativeGuidedAngleControlRunAfterAttitude();
 
     //MODE GUIDED
-
-    //HAL LINUX
-    public static native boolean nativeHalLinuxShouldExit();
-    public static native void nativeHalLinuxInitializationPriorToControlLoop(int argc, String[] argv);
-    public static native void nativeHalLinuxAfterShouldExit();
-
-    //HAL LINUX
 }
