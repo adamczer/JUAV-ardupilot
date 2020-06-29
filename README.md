@@ -18,19 +18,19 @@ WARNING/TODO: some hardcoaded paths still exist and will be fixed shortly.
 these types of problems will be clear and easy to fix. these will be refactored to enviornment variables
 
 JUAV_ROOT=juav checkout location
-# build java code
+build java code
 JUAV_ROOT> mvn install
-# create the shared libraries for ardupilot and jUAV native calls.
+create the shared libraries for ardupilot and jUAV native calls.
 JUAV_ROOT/juav-native/juav-native-ardupilot/jni> make sitl
 > ln -s JUAV_ROOT/juav-native/juav-native-ardupilot/jni/lib/libArduCopterSitl.so /usr/local/lib/
 > ln -s JUAV_ROOT/juav-native/juav-native-ardupilot/jni/lib/libJuavSitlJni.so /usr/local/lib/
 > sudo ldconfig 
 > juav-hal/juav-hal-sitl$ run-juav-copter.sh
-# should now see the terminal waiting for the simulator to start, after fixing any path problems
+should now see the terminal waiting for the simulator to start, after fixing any path problems
 
-# should be in your path from building arducopter, 
-# juav loads source changes needed for extra access, 
-# can be reverted to get back to base ardupilot if desired.
+should be in your path from building arducopter, 
+juav loads source changes needed for extra access, 
+can be reverted to get back to base ardupilot if desired.
 > sim_vehicle.py -v ArduCopter --console --map
 # should now see vehicle and be able to issue commands via SITL
 
