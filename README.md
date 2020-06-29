@@ -23,9 +23,13 @@ JUAV_ROOT> mvn install
 create the shared libraries for ardupilot and jUAV native calls.
 JUAV_ROOT/juav-native/juav-native-ardupilot/jni> make sitl
 > ln -s JUAV_ROOT/juav-native/juav-native-ardupilot/jni/lib/libArduCopterSitl.so /usr/local/lib/
+
 > ln -s JUAV_ROOT/juav-native/juav-native-ardupilot/jni/lib/libJuavSitlJni.so /usr/local/lib/
+
 > sudo ldconfig 
+
 > juav-hal/juav-hal-sitl$ run-juav-copter.sh
+
 should now see the terminal waiting for the simulator to start, after fixing any path problems
 
 should be in your path from building arducopter, 
