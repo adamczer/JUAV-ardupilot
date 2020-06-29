@@ -1,6 +1,7 @@
 package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
+import ub.cse.juav.jni.ArdupilotNative;
 
 public class ModeStabilize extends Mode{
     public ModeStabilize(AcAttitudeControl acAttitudeControl) {
@@ -12,7 +13,6 @@ public class ModeStabilize extends Mode{
     @Override
     public void run()
     {
-        //TODO call native to this point again
         nativePortionOfModeStabilizeRun1();
         // populate target_roll, target_pitch, target_yaw_rate return them from native code
         float target_roll = getTargetRoll();
@@ -27,30 +27,23 @@ public class ModeStabilize extends Mode{
     }
 
     private float getTargetYawRate() {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.getStabilizationModeTargetYawRate();
     }
 
     private float getTargetPitch() {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.getStabilizationModeTargetPitch();
     }
 
     private float getTargetRoll() {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.getStabilizationModeTargetRoll();
     }
 
     private void nativePortionOfModeStabilizeRun1() {
-        //todo native prior to mode_stabilize run
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeRunBeforeStabilizationCallAttitudeController();
     }
 
     private void nativePortionOfModeStabilizeRun2() {
-//        attitude_control->set_throttle_out(get_pilot_desired_throttle(),
-//        true, g.throttle_filt);
-        //todo native prior to mode_stabilize run
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeRunAfterStabilizationCallAttitudeController();
     }
 
 }

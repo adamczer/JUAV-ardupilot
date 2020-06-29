@@ -1,9 +1,7 @@
 package ub.cse.juav.copter;
 
-import ub.cse.juav.math.JuavMath;
-import ub.cse.juav.math.JuavMatrix3f;
-import ub.cse.juav.math.JuavQuaternion;
-import ub.cse.juav.math.JuavVector3f;
+import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.math.*;
 
 import javax.vecmath.Vector2f;
 import javax.vecmath.Vector3f;
@@ -12,7 +10,7 @@ public class AcAttitudeControl {
 
     // thrust_heading_rotation_angles - calculates two ordered rotations to move the att_from_quat quaternion to the att_to_quat quaternion.
 // The first rotation corrects the thrust vector and the second rotation corrects the heading vector.
-    public void thrustHeadingRotationAngles(JuavQuaternion attToQuat, JuavQuaternion attFromQuat, JuavVector3f attDiffAngle, float thrustVecDot) {
+    public void thrustHeadingRotationAngles(JuavQuaternion attToQuat, JuavQuaternion attFromQuat, JuavVector3f attDiffAngle, FloatWrapper thrustVecDotWrap) {
         JuavMatrix3f att_to_rot_matrix = new JuavMatrix3f(); // rotation from the target body frame to the inertial frame.
         attToQuat.rotationMatrix(att_to_rot_matrix);
 
@@ -29,18 +27,18 @@ public class AcAttitudeControl {
         JuavVector3f thrustVecCross = (JuavVector3f) attFromThrustVec.opPercent(attToThrustVec);
 
         // the dot product is used to calculate the angle between the target and desired thrust vectors
-        thrustVecDot = (float) Math.acos(JuavMath.constrainFloat(attFromThrustVec.opStar(attToThrustVec), -1.0f, 1.0f));
+        thrustVecDotWrap.val = (float) Math.acos(JuavMath.constrainFloat(attFromThrustVec.opStar(attToThrustVec), -1.0f, 1.0f));
 
         // Normalize the thrust rotation vector
         float thrustVectorLength = thrustVecCross.length();
-        if (JuavMath.isZero(thrustVectorLength) || JuavMath.isZero(thrustVecDot)) {
+        if (JuavMath.isZero(thrustVectorLength) || JuavMath.isZero(thrustVecDotWrap.val)) {
             thrustVecCross = new JuavVector3f(0, 0, 1);
-            thrustVecDot = 0.0f;
+            thrustVecDotWrap.val = 0.0f;
         } else {
             thrustVecCross.opSlash(thrustVectorLength);
         }
         JuavQuaternion thrustVecCorrectionQuat = new JuavQuaternion();
-        thrustVecCorrectionQuat.fromAxisAngle(thrustVecCross, thrustVecDot);
+        thrustVecCorrectionQuat.fromAxisAngle(thrustVecCross, thrustVecDotWrap.val);
 
         // Rotate thrust_vec_correction_quat to the att_from frame
         thrustVecCorrectionQuat = attFromQuat.inversed().opStar(thrustVecCorrectionQuat).opStar( attFromQuat);
@@ -66,7 +64,11 @@ public class AcAttitudeControl {
         if (!JuavMath.isZero(getPAngleYawKp()) && Math.abs(attDiffAngle.z) > getAcAttitudeAccelYControlerMaxRadss() / getPAngleYawKp()) {
             attDiffAngle.z = JuavMath.constrainFloat(JuavMath.wrapPI(attDiffAngle.z), -getAcAttitudeAccelYControlerMaxRadss()/ getPAngleYawKp(), getAcAttitudeAccelYControlerMaxRadss() / getPAngleYawKp());
             yawVecCorrectionQuat.fromAxisAngle(new JuavVector3f(0.0f, 0.0f, attDiffAngle.z));
-            attToQuat = attFromQuat.opStar(thrustVecCorrectionQuat).opStar(yawVecCorrectionQuat);
+            JuavQuaternion tmp = attFromQuat.opStar(thrustVecCorrectionQuat).opStar(yawVecCorrectionQuat);
+            attToQuat.w = tmp.w;
+            attToQuat.x = tmp.x;
+            attToQuat.y = tmp.y;
+            attToQuat.z = tmp.z;
         }
     }
 
@@ -172,24 +174,28 @@ public class AcAttitudeControl {
 
         // Compute attitude error
         JuavVector3f attitudeErrorVector = new JuavVector3f();
-        thrustHeadingRotationAngles(thisAttitudeTargetQuat, attitudeVehicleQuat, attitudeErrorVector, thisThrustErrorAngle);
-
+        FloatWrapper tmpThrustErrorAngleWrap = new FloatWrapper(thisThrustErrorAngle);
+        thrustHeadingRotationAngles(thisAttitudeTargetQuat, attitudeVehicleQuat, attitudeErrorVector, tmpThrustErrorAngleWrap);
+        thisThrustErrorAngle = tmpThrustErrorAngleWrap.val;
         // Compute the angular velocity target from the attitude error
-        JuavVector3f rateTargetAngVel = updateAngVelTargetFromAttError(attitudeErrorVector);
+        JuavVector3f rateTargetAngVelTmp = updateAngVelTargetFromAttError(attitudeErrorVector);
+        thisRateTargetAngVel.x=rateTargetAngVelTmp.x;
+        thisRateTargetAngVel.y=rateTargetAngVelTmp.y;
+        thisRateTargetAngVel.z=rateTargetAngVelTmp.z;
 
         // Add feedforward term that attempts to ensure that roll and pitch errors rotate with the body frame rather than the reference frame.
         // todo: this should probably be a matrix that couples yaw as well.
-        rateTargetAngVel.x += JuavMath.constrainFloat(attitudeErrorVector.y, -JuavMath.M_PI / 4, JuavMath.M_PI / 4) * getAhrsGyro().z;
-        rateTargetAngVel.y += -JuavMath.constrainFloat(attitudeErrorVector.x, -JuavMath.M_PI / 4, JuavMath.M_PI / 4) * getAhrsGyro().z;
+        thisRateTargetAngVel.x += JuavMath.constrainFloat(attitudeErrorVector.y, -JuavMath.M_PI / 4, JuavMath.M_PI / 4) * getAhrsGyro().z;
+        thisRateTargetAngVel.y += -JuavMath.constrainFloat(attitudeErrorVector.x, -JuavMath.M_PI / 4, JuavMath.M_PI / 4) * getAhrsGyro().z;
 
         angVelLimit(thisRateTargetAngVel, (float) Math.toRadians(getAngVelRollMax()), (float)Math.toRadians(getAngVelPitchMax()), (float)Math.toRadians(getAngVelYawMax()));
 
         // Add the angular velocity feedforward, rotated into vehicle frame
         JuavQuaternion attitudeTargetAngVelQuat = new JuavQuaternion(0.0f, thisAttitudeTargetAngVel.x, thisAttitudeTargetAngVel.y, thisAttitudeTargetAngVel.z);
-        JuavQuaternion toToFromQuat = attitudeVehicleQuat.inversed().opStar(getAttitudeTargetQuat());
+        JuavQuaternion toToFromQuat = attitudeVehicleQuat.inversed().opStar(thisAttitudeTargetQuat);
         JuavQuaternion desiredAngVelQuat = toToFromQuat.inversed().opStar(attitudeTargetAngVelQuat).opStar(toToFromQuat);
 
-        // Correct the thrust vector and smoothly add feedforward and yaw input
+//         Correct the thrust vector and smoothly add feedforward and yaw input
         setFeedforwardScalar(1.0f);
         if (thisThrustErrorAngle > getAcAttitudeThrustErrorAngle() * 2.0f) {
             thisRateTargetAngVel.z = getAhrsGyro().z;
@@ -241,7 +247,6 @@ public class AcAttitudeControl {
         float eulerYawRate = (float) Math.toRadians(eulerYawRateCds * 0.01f);
 
         // calculate the attitude target euler angles
-
         thisAttitudeTargetQuat.toEuler(thisAttitudeTargetEulerAngle);
 
         // Add roll trim to compensate tail rotor thrust in heli (will return zero on multirotors)
@@ -284,7 +289,7 @@ public class AcAttitudeControl {
         setAttitudeTargetEulerAngle(thisAttitudeTargetEulerAngle);
         setAttitudeTargetEulerRate(thisAttitudeTargetEulerRate);
         setAttitudeTargetAngVel(thisAttitudeTargetAngVel);
-        // Call quaternion attitude controller
+//         Call quaternion attitude controller
         attitudeControllerRunQuat();
     }
 
@@ -437,23 +442,19 @@ public class AcAttitudeControl {
     }
 
     private void setThrustErrorAngle(float thisThrustErrorAngle) {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeAttitudeSetThrustErrorAngle(thisThrustErrorAngle);
     }
 
     private void setAttitudeTargetAngVel(JuavVector3f thisAttitudeTargetAngVel) {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeSetAttitudeTargetAngVel(thisAttitudeTargetAngVel.x,thisAttitudeTargetAngVel.y,thisAttitudeTargetAngVel.z);
     }
 
     private void setAttitudeTargetEulerRate(JuavVector3f thisAttitudeTargetEulerRate) {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeSetAttitudeTargetEulerRate(thisAttitudeTargetEulerRate.x,thisAttitudeTargetEulerRate.y,thisAttitudeTargetEulerRate.z);
     }
 
     private void setAttitudeTargetEulerAngle(JuavVector3f thisAttitudeTargetEulerAngle) {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeSetAttitudeTargetEulerAngle(thisAttitudeTargetEulerAngle.x,thisAttitudeTargetEulerAngle.y,thisAttitudeTargetEulerAngle.z);
     }
 
     private float get_slew_yaw_rads() {
@@ -466,128 +467,112 @@ public class AcAttitudeControl {
     }
 
     private float getSlewYaw() {
-        //TODO native get _slew_yaw
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeAttitudeGetSlewYaw();
     }
 
     private float getInputTc () {
-        //todo native return _input_tc
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeGetAttitudeInputTc();
     }
 
     private JuavVector3f getAttitudeTargetEulerRate() {
-        //TODO native
-        throw new IllegalStateException("unimplemented");
+        float [] xyz = ArdupilotNative.nativeGetAttitudeTargetEulerRate();
+        JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
+        return ret;
     }
 
     private JuavVector3f getAttitudeTargetEulerAngle() {
-//        todo get _attitude_target_euler_angle
-        throw new IllegalStateException("unimplemented");
+        float [] xyz = ArdupilotNative.nativeGetAttitudeTargetEulerAngle();
+        JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
+        return ret;
     }
 
     private void setRateTargetAngVel(JuavVector3f thisRateTargetAngVel) {
-        //todo set
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeAttitudeSetRateTargetAngVel(thisRateTargetAngVel.x,thisRateTargetAngVel.y,thisRateTargetAngVel.z);
     }
 
     private void setAttitudeTargetQuat(JuavQuaternion thisAttitudeTargetQuat) {
-        //todo set
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeSetAttitudeTargetQuat(thisAttitudeTargetQuat.w,thisAttitudeTargetQuat.x,thisAttitudeTargetQuat.y,thisAttitudeTargetQuat.z);
     }
 
     private void setAttitudeAngError(JuavQuaternion juavQuaternion) {
-        //TODO _attitude_ang_error
-        throw new IllegalStateException("unimplemented");
-
+        ArdupilotNative.nativeSetAttitudeAngError(juavQuaternion.w,juavQuaternion.x,juavQuaternion.y,juavQuaternion.z);
     }
 
     private boolean getRateBfFfEnabled() {
-        //TODO _rate_bf_ff_enabled
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeGetRateBfFfEnabled();
     }
 
     private JuavVector3f getAttitudeTargetAngVel() {
-        //TODO native? _attitude_target_ang_vel
-        throw new IllegalStateException("unimplemented");
+        float[] xyz = ArdupilotNative.nativeGetAttitudeTargetAngVel();
+        JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
+        return ret;
     }
 
     private JuavQuaternion getAhrsGetQuatBodyToNed() {
-        //TODO native?
-        //todo native populate this quatrainian with
-        //_ahrs.get_quat_body_to_ned(attitudeVehicleQuat); as seen in attitude_controller_run_quat
-        throw new IllegalStateException("unimplemented");
+        float[] wxyz = ArdupilotNative.getAhrsGetQuatBodyToNed();
+        JuavQuaternion ret = new JuavQuaternion(wxyz[0],wxyz[1],wxyz[2],wxyz[3]);
+        return ret;
     }
 
     private JuavQuaternion getAttitudeTargetQuat() {
-        //TODO native?
-        //todo populate from native the quatranian in _attitude_target_quat found in AC_AttitudeControl
-        throw new IllegalStateException("unimplemented");
+        float[] wxyz = ArdupilotNative.getAttitudeTargetQuat();
+        JuavQuaternion ret = new JuavQuaternion(wxyz[0],wxyz[1],wxyz[2],wxyz[3]);
+        return ret;
     }
 
     private float getThrustErrorAngle() {
-        //TODO native?
-//        todo return float found in  _thrust_error_angle of AC_AttitudeControl
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeGetAttitudeThrustErrorAngle();
     }
 
     private JuavVector3f getAhrsGyro() {
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        float[] xyz = ArdupilotNative.nativeAttitudeGetAhrsGyro();
+        JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
+        return ret;
     }
 
     private JuavVector3f getRateTargetAngVel() {
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        float[] xyz = ArdupilotNative.nativeGetRateTargetAngVel();
+        JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
+        return ret;
     }
 
     private float getAngVelRollMax() {
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeGetAngVelRollMax();
     }
 
     private float getAngVelPitchMax() {
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeGetAngVelPitchMax();
     }
 
     private float getAngVelYawMax() {
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeGetAngVelYawMax();
     }
 
     // get the roll acceleration limit in centidegrees/s/s or radians/s/s
     private float get_accel_roll_max() {
-        throw new IllegalStateException("unimplemented");
-//        return _accel_roll_max;
-    }//todo native
+        return ArdupilotNative.nativeGetAccelRollMax();
+    }
+
     private float get_accel_roll_max_radss() { return (float) Math.toRadians(get_accel_roll_max() * 0.01f); }
 
     // get the pitch acceleration limit in centidegrees/s/s or radians/s/s
     private float get_accel_pitch_max() {
-//        return _accel_pitch_max;
-        throw new IllegalStateException("unimplemented");
-    }//todo native
+        return ArdupilotNative.nativeGetAccelPitchMax();
+    }
     private float get_accel_pitch_max_radss() { return (float) Math.toRadians(get_accel_pitch_max() * 0.01f); }
 
     // get the yaw acceleration limit in centidegrees/s/s or radians/s/s
     private float get_accel_yaw_max() {
-//        return _accel_yaw_max;
-        throw new IllegalStateException("unimplemented");
-    } //todo native
+        return ArdupilotNative.nativeGetAccelYawMax();
+    }
     private float get_accel_yaw_max_radss() { return (float) Math.toRadians(get_accel_yaw_max() * 0.01f); }
 
     private void setFeedforwardScalar(float feedforwardScalar) {
-        //_feedforward_scalar
-        //TODO set value
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeSetAttitudeFeedForwardScalar(feedforwardScalar);
     }
 
     private float getFeedforwardScalar() {
-        //_feedforward_scalar
-        //TODO get value
-        //TODO native?
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeGetAttitudeFeedForwardScalar();
     }
 
     private static float getThrustAngle() {
@@ -595,37 +580,28 @@ public class AcAttitudeControl {
         throw new IllegalStateException("unimplemented");
     }
 
-    private float setThrustAngle(float newThrustAngle) {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+    private void setThrustAngle(float newThrustAngle) {
+        ArdupilotNative.nativeSetAttitudeThrustAngle(newThrustAngle);
     }
 
     private boolean getUseSqrtController() {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeAttitudeUseSqrtController();
     }
 
     private float getDt() {
-        //todo native
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeAttitudeGetDt();
     }
 
     private float getPAngleYawKp() {
-        //todo native
-//        _p_angle_yaw.kP()
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeAttitudeGetPAngleYawKp();
     }
 
     private float getPAngleRollKp() {
-        //todo native
-//        _p_angle_yaw.kP()
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeAttitudeGetPAngleRollKp();
     }
 
     private float getPAnglePitchKp() {
-        //todo native
-//        _p_angle_yaw.kP()
-        throw new IllegalStateException("unimplemented");
+        return ArdupilotNative.nativeAttitudeGetPAnglePitchKp();
     }
 
     private float getAcAttitudeAccelYControlerMaxRadss() {

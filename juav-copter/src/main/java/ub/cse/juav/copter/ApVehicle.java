@@ -1,5 +1,7 @@
 package ub.cse.juav.copter;
 
+import ub.cse.juav.jni.ArdupilotNative;
+
 public class ApVehicle implements Callback{
     ApScheduler scheduler;
 
@@ -8,9 +10,7 @@ public class ApVehicle implements Callback{
     }
 
     public void setSchedulerGDt(float f) {
-        //todo native
-        // ap_vehicle G_Dt = f
-        throw new IllegalStateException("unimplemented");
+        ArdupilotNative.nativeSetAPVehicleSchedulerGDt(f);
     }
 
 

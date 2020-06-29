@@ -31,7 +31,7 @@ public class JuavMath {
     }
 
     public static float fmodf(float val1, float val2) {
-        return val1 - (val1 % val2);
+        return val1 % val2;
     }
 
     public static float sq(float f) {

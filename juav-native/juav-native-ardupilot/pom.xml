@@ -6,21 +6,18 @@
 
     <parent>
         <groupId>ub.cse.juav2</groupId>
-        <artifactId>juav2</artifactId>
+        <artifactId>juav-native</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>juav-copter</artifactId>
+    <groupId>ub.cse.juav2</groupId>
+    <artifactId>juav-native-sitl</artifactId>
+    <version>0.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>ub.cse.juav2</groupId>
             <artifactId>juav-math</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>ub.cse.juav2</groupId>
-            <artifactId>juav-native-sitl</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

@@ -10,7 +10,7 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>juav2-math</artifactId>
+    <artifactId>juav-math</artifactId>
 
 
     <dependencies>
