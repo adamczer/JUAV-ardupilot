@@ -16,18 +16,25 @@ JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_HalLinuxNative_nativeHalLinuxSho
 
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_HalLinuxNative_nativeHalLinuxInitializationPriorToControlLoop
- (JNIEnv * env, jclass thisClass, jint argCount, jobjectArray argArray) {
-     char *args = new char [argCount];
-       for (int i=0; i<argArray; i++) {
-           jstring string = (jstring) (env->GetObjectArrayElement(argArray, i));
-           const char *rawString = env->GetStringUTFChars(string, 0);
-           args[i] = rawString;
-           // Don't forget to call `ReleaseStringUTFChars` when you're done.
-       }
+  (JNIEnv * env, jclass thisClass) {
+     char *args[] = {
+              "/home/adamczer/code/ardupilot/build/sitl/bin/arducopter",
+              "-A",
+              "udp:127.0.0.1:6001",
+              "-B",
+              "/dev/ttyS0",
+              "-C",
+              "/dev/ttyUSB0",
+              "-l",
+              "/home/erle/APM/logs",
+              "-t",
+              "/home/erle/APM/terrain/"
+             };
+       //-A udp:127.0.0.1:6001 -B /dev/ttyS0 -C /dev/ttyUSB0 -l /home/erle/APM/logs -t /home/erle/APM/terrain/
 
        //TODO switch to erle config
        // ie HAL_LINUX, ERLEBRAIN2
-       halLinux.juavHalLinuxInitializationPriorToControlLoop(argCount,args,ud);
+       halLinux.juavHalLinuxInitializationPriorToControlLoop(11,args,ud);
 
 
    }

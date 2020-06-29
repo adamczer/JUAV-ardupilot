@@ -18,10 +18,10 @@ JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_HalLinuxNative_nativeHalLinuxSho
 /*
  * Class:     ub_cse_juav_jni_HalLinuxNative
  * Method:    nativeHalLinuxInitializationPriorToControlLoop
- * Signature: (I[Ljava/lang/String;)V
+ * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_HalLinuxNative_nativeHalLinuxInitializationPriorToControlLoop
-  (JNIEnv *, jclass, jint, jobjectArray);
+  (JNIEnv *, jclass);
 
 /*
  * Class:     ub_cse_juav_jni_HalLinuxNative

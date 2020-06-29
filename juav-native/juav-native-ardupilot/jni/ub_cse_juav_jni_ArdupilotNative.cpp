@@ -557,33 +557,3 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedAngleCon
         guided->juavGuidedAngleControlRunAfterAttitude();
   }
 //MODE GUIDED
-//HAL LINUX
-JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalLinuxShouldExit
-  (JNIEnv * env, jclass thisClass) {
-       //TODO switch to erle config maybe with ifdef
-       //halLinux.juavHalLinuxShouldExit();
-  }
-
-JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalLinuxInitializationPriorToControlLoop
-  (JNIEnv * env, jclass thisClass, jint argCount, jobjectArray argArray) {
-/*    char *args = new char [argCount];
-      for (int i=0; i<argArray; i++) {
-          jstring string = (jstring) (env->GetObjectArrayElement(argArray, i));
-          const char *rawString = env->GetStringUTFChars(string, 0);
-          args[i] = rawString;
-          // Don't forget to call `ReleaseStringUTFChars` when you're done.
-      }
-*/
-      //TODO switch to erle config
-      // ie HAL_LINUX, ERLEBRAIN2
-      // halLinux.juavHalLinuxInitializationPriorToControlLoop(argCount,args,ud);
-
-
-  }
-
-JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeHalLinuxAfterShouldExit
-  (JNIEnv * env, jclass thisClass) {
-       //TODO switch to erle config
-       //halLinux.juavHalLinuxAfterShouldExit();
-  }
-//HAL LINUX

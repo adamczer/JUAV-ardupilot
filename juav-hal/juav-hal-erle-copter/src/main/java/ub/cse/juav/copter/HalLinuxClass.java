@@ -31,7 +31,7 @@ public class HalLinuxClass {
     }
 
     private void halLinuxNativeInitizationPriorToControlLoop(int argc, String[] argv) {
-        HalLinuxNative.nativeHalLinuxInitializationPriorToControlLoop(argc,argv);
+        HalLinuxNative.nativeHalLinuxInitializationPriorToControlLoop();
     }
 
 

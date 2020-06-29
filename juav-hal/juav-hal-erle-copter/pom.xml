@@ -35,7 +35,7 @@
                     <!-- MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>ub.cse.juav.copter.HalSitl</mainClass>
+                            <mainClass>ub.cse.juav.copter.HalLinuxClass</mainClass>
                         </manifest>
                     </archive>
 
