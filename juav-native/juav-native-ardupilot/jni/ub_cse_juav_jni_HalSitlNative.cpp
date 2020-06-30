@@ -13,9 +13,16 @@ AP_Vehicle * ud = AP_Vehicle::get_singleton();
 const HAL_SITL* sitl = dynamic_cast<const HAL_SITL*>(&hal);
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_HalSitlNative_nativeInitizationPriorToControlLoop
-(JNIEnv * env, jclass thisClass) {
+(JNIEnv * env, jclass thisClass, jstring javaString) {
+   const char *nativeString = env->GetStringUTFChars(javaString, 0);
+   char nativeArg0[100];
+   strcpy(nativeArg0,nativeString);
+   strcat(nativeArg0,"/build/sitl/bin/arducopter");
+   char nativeArg8[100];
+   strcpy(nativeArg8,nativeString);
+   strcat(nativeArg8,"/Tools/autotest/default_params/copter.parm");
    char *args[] = {
-         "/home/adamczer/code/ardupilot/build/sitl/bin/arducopter",
+         nativeArg0,
          "-S",
          "-I0",
          "--model",
@@ -23,9 +30,10 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_HalSitlNative_nativeInitizationPrior
          "--speedup",
          "1",
          "--defaults",
-         "/home/adamczer/code/ardupilot/Tools/autotest/default_params/copter.parm"
+         nativeArg8
         };
      sitl->juavNativeInitizationPriorToControlLoop(9,args,ud);
+     env->ReleaseStringUTFChars(javaString, nativeString);
      }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_HalSitlNative_nativeHalSitlInnerLoopAfterCallBacks

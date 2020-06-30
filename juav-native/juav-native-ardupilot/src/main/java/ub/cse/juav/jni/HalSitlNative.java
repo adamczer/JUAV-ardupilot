@@ -2,7 +2,7 @@ package ub.cse.juav.jni;
 
 public class HalSitlNative {
     //HAL SITL
-    public static native void nativeInitizationPriorToControlLoop();
+    public static native void nativeInitizationPriorToControlLoop(String arduSrc);
 
     public static native void nativeHalSitlInnerLoopAfterCallBacks();
 

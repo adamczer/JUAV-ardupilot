@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     ub_cse_juav_jni_HalSitlNative
  * Method:    nativeInitizationPriorToControlLoop
- * Signature: ()V
+ * Signature: (Ljava/lang/String;)V
  */
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_HalSitlNative_nativeInitizationPriorToControlLoop
-  (JNIEnv *, jclass);
+  (JNIEnv *, jclass, jstring);
 
 /*
  * Class:     ub_cse_juav_jni_HalSitlNative
