@@ -10,7 +10,8 @@ public class ModeLoiter extends Mode {
     }
 
     @Override
-    public void run() {
+    public void run(boolean LOG_TIMING) {
+        long time1 = System.nanoTime();
         loiterRunPriorToAttitudeControl();
 
         float target_roll = getLoiterNavTargetRoll();
@@ -20,7 +21,10 @@ public class ModeLoiter extends Mode {
         getAcAttitudeControler().inputEulerAngleRollPitchEulerRateYaw(target_roll,target_pitch,target_yaw_rate);
 
         loiterRunAfterAttitudeControl();
-
+	long time2 = System.nanoTime();
+        if (LOG_TIMING) {
+            System.out.format("Loiter: %d, %d, ", time1, time2);
+        }
     }
 
     private float getTargetYawRate() {

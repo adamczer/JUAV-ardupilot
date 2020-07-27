@@ -46,13 +46,13 @@ public abstract class Mode {
         }
     }
 
-    public void run() {
-        run(true);
+    public void run(boolean LOG_TIMING) {
+        run(LOG_TIMING);
     }
 
-    public void run(boolean b) {
-        throw new IllegalStateException("Wrong call, should be using underling implementation not this class.");
-    }
+    //public void run(boolean b) {
+    //    throw new IllegalStateException("Wrong call, should be using underling implementation not this class.");
+    //}
 
     private void nativePortionOfLandRunHorizontalControl() {
         //TODO native

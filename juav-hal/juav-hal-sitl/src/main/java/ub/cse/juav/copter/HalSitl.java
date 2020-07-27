@@ -68,7 +68,7 @@ public class HalSitl {
         modes.put(5,new ModeLoiter(acAttitudeControl));
         modes.put(4,new ModeGuided(acAttitudeControl));
 //        modes.put(6,new ModeRtl(acAttitudeControl)); //broken
-        Copter copter = new Copter();
+        Copter copter = new Copter(args[0]);
         copter.setModes(modes);
         ApScheduler apScheduler = new ApScheduler();
         apScheduler.setCopter(copter);

@@ -16,8 +16,8 @@ public class ModeGuided extends Mode{
     }
 
     @Override
-    public void run() {
-
+    public void run(boolean LOG_TIMING) {
+        long time1 = System.nanoTime();
         int guided_mode = getGuidedMode();
         // call the correct auto controller
         switch (guided_mode) {
@@ -46,6 +46,10 @@ public class ModeGuided extends Mode{
                 // run angle controller
                 angleControlRun();
                 break;
+        }
+        long time2 = System.nanoTime();
+        if (LOG_TIMING) {
+            System.out.format("Guided: %d, %d, ", time1, time2);
         }
     }
 

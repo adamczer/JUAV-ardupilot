@@ -11,8 +11,9 @@ public class ModeStabilize extends Mode{
     // stabilize_run - runs the main stabilize controller
 // should be called at 100hz or more
     @Override
-    public void run()
+    public void run(boolean LOG_TIMING)
     {
+        long time1 = System.nanoTime();
         nativePortionOfModeStabilizeRun1();
         // populate target_roll, target_pitch, target_yaw_rate return them from native code
         float target_roll = getTargetRoll();
@@ -24,6 +25,10 @@ public class ModeStabilize extends Mode{
 
         // output pilot's throttle
         nativePortionOfModeStabilizeRun2();
+        long time2 = System.nanoTime();
+	if (LOG_TIMING) {
+            System.out.format("Stabalize: %d, %d, ", time1, time2);
+        }
     }
 
     private float getTargetYawRate() {
