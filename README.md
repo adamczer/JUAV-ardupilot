@@ -23,16 +23,18 @@ once this is all up and running you can navigate to the current checkout of jUAV
 WARNING/TODO: some hardcoaded paths may still exist. 
 these types of problems will be clear and easy to fix. these have been refactored to enviornment variables
 
-JUAV_ROOT=juav checkout location
+> JUAV_ROOT=juav checkout location
 build java code
-JUAV_ROOT> mvn install
+> JUAV_ROOT> mvn install
+Build erlecopter code
+> JUAV_ROOT/juav-native/juav-native-ardupilot/jni> make erle
 create the shared libraries for ardupilot and jUAV native calls.
-JUAV_ROOT/juav-native/juav-native-ardupilot/jni> make sitl
+> JUAV_ROOT/juav-native/juav-native-ardupilot/jni> make sitl
 > ln -s $JUAV_ROOT/juav-native/juav-native-ardupilot/jni/lib/libArduCopterSitl.so /usr/local/lib/
-
 > sudo ldconfig 
 
-JUAV_ROOT/juav-hal/juav-hal-sitl> ./run-juav-copter.sh
+Run simulator
+> JUAV_ROOT/juav-hal/juav-hal-sitl> ./run-juav-copter.sh
 
 should now see the terminal waiting for the simulator to start, after fixing any path problems
 
