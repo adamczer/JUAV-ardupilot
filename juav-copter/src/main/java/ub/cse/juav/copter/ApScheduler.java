@@ -1,6 +1,6 @@
 package ub.cse.juav.copter;
 
-import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
 
 public class ApScheduler {
     private Copter copter;
@@ -10,7 +10,7 @@ public class ApScheduler {
     }
 
     public void setHalUtilPersistentDataSchedulerTask(int i) {
-        ArdupilotNative.setHalUtilPersistentDataSchedulerTask(i);
+        ArdupilotNativeWrapper.setHalUtilPersistentDataSchedulerTask(i);
     }
 
     public void loop()
@@ -28,15 +28,15 @@ public class ApScheduler {
     }
 
     private void nativeApSchedulerPostFastLoop() {
-        ArdupilotNative.nativeApSchedulerPostToFastLoop();
+        ArdupilotNativeWrapper.nativeApSchedulerPostToFastLoop();
     }
 
     private void nativeApSchedulerPriorToFastLoop() {
-        ArdupilotNative.nativeApSchedulerPriorToFastLoop();
+        ArdupilotNativeWrapper.nativeApSchedulerPriorToFastLoop();
     }
 
     public float getLoopPeriodS() {
 //        get_loop_period_s
-        return ArdupilotNative.nativeApSchedulerGetLoopPeriodS();
+        return ArdupilotNativeWrapper.nativeApSchedulerGetLoopPeriodS();
     }
 }

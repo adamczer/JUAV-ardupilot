@@ -1,7 +1,7 @@
 # this build is working off a clean checkout of ardupilot
 # @ commit 22c9081c8325ec8d980906fe7b1d23f29080a216
 # ensure ARDU_SRC env variable set to ardupilot checkout
-# ARDU_SRC=/home/adamczer/code/ardupilot
+ARDU_SRC=/home/adamczer/code/ardupilot
 #JAVA_HOME=/home/erle/program_files/jdk1.8.0_191/
 ARDU_SITL_INPUTS:=$(shell find ${ARDU_SRC}/build/sitl -type f -name "*.o" \
 | sed 's/.*loslib.c.0.o//g' \
@@ -45,7 +45,7 @@ arducopter-sitl-lib : $(ARDU_SITL_INPUTS)
 
 #BUILD native jni library replacing with reimplemented versions of files to allow access to JUAV
 juav-sitl-jni:
-	g++ -L./lib -fPIC -std=gnu++11 -I"./includes" -I"${JAVA_HOME}/include" -I"${JAVA_HOME}/include/linux" -I"$(ARDU_SRC)/libraries/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/libraries/AP_HAL/" -I"${ARDU_SRC}/build/sitl/libraries/GCS_MAVLink/" -I"$(ARDU_SRC)/libraries/AP_Common/missing/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/ArduCopter/" ub_cse_juav_jni_ArdupilotNative.cpp ub_cse_juav_jni_HalSitlNative.cpp -lArduCopterSitl -lpthread -ldl -Wl,--no-undefined -shared -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -fpermissive -o lib/libJuavSitlJni.so
+	g++ -L./lib -fPIC -std=gnu++11 -I"./includes" -I"./common-includes"  -I"${JAVA_HOME}/include" -I"${JAVA_HOME}/include/linux" -I"$(ARDU_SRC)/libraries/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/libraries/AP_HAL/" -I"${ARDU_SRC}/build/sitl/libraries/GCS_MAVLink/" -I"$(ARDU_SRC)/libraries/AP_Common/missing/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/ArduCopter/" ub_cse_juav_jni_ArdupilotNative.cpp ub_cse_juav_jni_HalSitlNative.cpp ArdupilotNativeCommon.cpp HalSitlNativeCommon.cpp -lArduCopterSitl -lpthread -ldl -Wl,--no-undefined -shared -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -fpermissive -o lib/libJuavSitlJni.so
 
 clean:
 	-rm -rf lib/*.so

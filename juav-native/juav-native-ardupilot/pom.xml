@@ -20,6 +20,13 @@
             <artifactId>juav-math</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.fiji</groupId>
+            <artifactId>fiji-common</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${env.FIJI_HOME}/lib/fivmcommon.jar</systemPath>
+        </dependency>
     </dependencies>
     
 </project>
