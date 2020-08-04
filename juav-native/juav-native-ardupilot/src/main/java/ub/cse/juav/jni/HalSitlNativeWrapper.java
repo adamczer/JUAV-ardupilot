@@ -2,22 +2,37 @@ package ub.cse.juav.jni;
 
 import com.fiji.fivm.r1.GodGiven;
 import com.fiji.fivm.r1.Import;
+import com.fiji.fivm.r1.Pointer;
+import com.fiji.fivm.r1.fivmRuntime;
 
 public class HalSitlNativeWrapper {
     //HAL SITL
 
     public static void nativeInitizationPriorToControlLoop(String arduSrc) {
+
         if(FijiJniSwitch.usingFiji) {
-            HalSitlNative_nativeInitizationPriorToControlLoop(arduSrc);
+            Pointer cString = fivmRuntime.getCString(arduSrc);
+            HalSitlNative_nativeInitizationPriorToControlLoop(cString);
         } else
             HalSitlNative.nativeInitizationPriorToControlLoop(arduSrc);
     }
 
     @Import
     @GodGiven
-    public static native void HalSitlNative_nativeInitizationPriorToControlLoop(String arduSrc);
+    private static native void HalSitlNative_testArraysSet(Pointer floatArray);
+    @Import
+    @GodGiven
+    private static native Pointer HalSitlNative_testArraysGet(Pointer floatArray);
+    @Import
+    @GodGiven
+    private static native void HalSitlNative_testArraysPrint();
+
+    @Import
+    @GodGiven
+    private static native void HalSitlNative_nativeInitizationPriorToControlLoop(Pointer arduSrcStr);
 
     public static void nativeHalSitlInnerLoopAfterCallBacks() {
+
         if(FijiJniSwitch.usingFiji) {
             HalSitlNative_nativeHalSitlInnerLoopAfterCallBacks();
         } else
@@ -26,9 +41,10 @@ public class HalSitlNativeWrapper {
 
     @Import
     @GodGiven
-    public static native void HalSitlNative_nativeHalSitlInnerLoopAfterCallBacks();
+    private static native void HalSitlNative_nativeHalSitlInnerLoopAfterCallBacks();
 
     public static boolean getHalSitlSchedulerShouldReboot() {
+
         if(FijiJniSwitch.usingFiji) {
             return HalSitlNative_getHalSitlSchedulerShouldReboot();
         } else
@@ -37,9 +53,10 @@ public class HalSitlNativeWrapper {
 
     @Import
     @GodGiven
-    public static native boolean HalSitlNative_getHalSitlSchedulerShouldReboot();
+    private static native boolean HalSitlNative_getHalSitlSchedulerShouldReboot();
 
     public static boolean getHalSitlSchedulerShouldExit() {
+
         if(FijiJniSwitch.usingFiji) {
             return HalSitlNative_getHalSitlSchedulerShouldExit();
         } else
@@ -48,9 +65,10 @@ public class HalSitlNativeWrapper {
 
     @Import
     @GodGiven
-    public static native boolean HalSitlNative_getHalSitlSchedulerShouldExit();
+    private static native boolean HalSitlNative_getHalSitlSchedulerShouldExit();
 
     public static void sitlFillStackNan() {
+
         if(FijiJniSwitch.usingFiji) {
             HalSitlNative_sitlFillStackNan();
         } else
@@ -59,6 +77,6 @@ public class HalSitlNativeWrapper {
 
     @Import
     @GodGiven
-    public static native void HalSitlNative_sitlFillStackNan();
+    private static native void HalSitlNative_sitlFillStackNan();
     //HAL SITL
 }

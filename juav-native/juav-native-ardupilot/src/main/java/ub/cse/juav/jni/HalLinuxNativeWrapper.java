@@ -14,7 +14,7 @@ public class HalLinuxNativeWrapper {
 
     @Import
     @GodGiven
-    public static native boolean HalLinuxNative_nativeHalLinuxShouldExit();
+    private static native boolean HalLinuxNative_nativeHalLinuxShouldExit();
 
     public static void nativeHalLinuxInitializationPriorToControlLoop() {
         if(FijiJniSwitch.usingFiji) {
@@ -25,7 +25,7 @@ public class HalLinuxNativeWrapper {
 
     @Import
     @GodGiven
-    public static native void HalLinuxNative_nativeHalLinuxInitializationPriorToControlLoop();
+    private static native void HalLinuxNative_nativeHalLinuxInitializationPriorToControlLoop();
 
     public static void nativeHalLinuxAfterShouldExit() {
         if(FijiJniSwitch.usingFiji) {
@@ -36,6 +36,6 @@ public class HalLinuxNativeWrapper {
 
     @Import
     @GodGiven
-    public static native void HalLinuxNative_nativeHalLinuxAfterShouldExit();
+    private static native void HalLinuxNative_nativeHalLinuxAfterShouldExit();
     //HAL LINUX
 }

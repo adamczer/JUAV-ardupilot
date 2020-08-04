@@ -46,10 +46,7 @@ arducopter-sitl-lib : $(ARDU_SITL_INPUTS)
 
 #BUILD native jni library replacing with reimplemented versions of files to allow access to JUAV
 juav-sitl-jni:
-	g++ -L./lib -fPIC -std=gnu++11 -I"./includes" -I"./common-includes"  -I"${JAVA_HOME}/include" -I"${JAVA_HOME}/include/linux" -I"$(ARDU_SRC)/libraries/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/libraries/AP_HAL/" -I"${ARDU_SRC}/build/sitl/libraries/GCS_MAVLink/" -I"$(ARDU_SRC)/libraries/AP_Common/missing/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/ArduCopter/" ub_cse_juav_jni_ArdupilotNative.cpp ub_cse_juav_jni_HalSitlNative.cpp ArdupilotNativeCommon.cpp HalSitlNativeCommon.cpp -lArduCopterSitl -lpthread -ldl -Wl,--no-undefined -shared -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -fpermissive -o lib/libJuavSitlJni.so
-
-juav-sitl-fiji:
-	g++ -L./lib -fPIC -std=gnu++11 -I"./includes" -I"./common-includes" -I"$(ARDU_SRC)/libraries/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/libraries/AP_HAL/" -I"${ARDU_SRC}/build/sitl/libraries/GCS_MAVLink/" -I"$(ARDU_SRC)/libraries/AP_Common/missing/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/ArduCopter/" ArdupilotNativeCommon.cpp HalSitlNativeCommon.cpp -lArduCopterSitl -lpthread -ldl -Wl,--no-undefined -shared -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -fpermissive -o lib/libJuavSitlFiji.so
+	g++ -g -L./lib -fPIC -std=gnu++11 -I"./includes" -I"./common-includes"  -I"${JAVA_HOME}/include" -I"${JAVA_HOME}/include/linux" -I"$(ARDU_SRC)/libraries/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/libraries/AP_HAL/" -I"${ARDU_SRC}/build/sitl/libraries/GCS_MAVLink/" -I"$(ARDU_SRC)/libraries/AP_Common/missing/" -I"$(ARDU_SRC)/libraries/AP_HAL_SITL/" -I"$(ARDU_SRC)/ArduCopter/" ub_cse_juav_jni_ArdupilotNative.cpp ub_cse_juav_jni_HalSitlNative.cpp ArdupilotNativeCommon.cpp HalSitlNativeCommon.cpp -lArduCopterSitl -lpthread -ldl -Wl,--no-undefined -shared -DCONFIG_HAL_BOARD=HAL_BOARD_SITL -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_NONE -fpermissive -o lib/libJuavSitlJni.so
 
 clean:
 	-rm -rf lib/*.so
