@@ -8,14 +8,14 @@ public class HalSitlNativeWrapper {
 
     public static void nativeInitizationPriorToControlLoop(String arduSrc) {
         if(FijiJniSwitch.usingFiji) {
-            HalSitlNative_nativeInitizationPriorToControlLoop();
+            HalSitlNative_nativeInitizationPriorToControlLoop(arduSrc);
         } else
             HalSitlNative.nativeInitizationPriorToControlLoop(arduSrc);
     }
 
     @Import
     @GodGiven
-    public static native void HalSitlNative_nativeInitizationPriorToControlLoop();
+    public static native void HalSitlNative_nativeInitizationPriorToControlLoop(String arduSrc);
 
     public static void nativeHalSitlInnerLoopAfterCallBacks() {
         if(FijiJniSwitch.usingFiji) {

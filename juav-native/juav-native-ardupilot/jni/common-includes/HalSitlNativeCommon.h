@@ -11,7 +11,7 @@ extern "C" {
  * Signature: (Ljava/lang/String;)V
  */
 void HalSitlNative_nativeInitizationPriorToControlLoop
-  (char *);
+  (const char *);
 
 /*
  * Class:     ub_cse_juav_jni_HalSitlNative

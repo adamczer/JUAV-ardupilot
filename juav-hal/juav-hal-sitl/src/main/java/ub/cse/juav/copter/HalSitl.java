@@ -37,8 +37,8 @@ public class HalSitl {
     }
 
     private void nativeInitizationPriorToControlLoop() {
-        String juavSrc = System.getenv("ARDU_SRC");
-        HalSitlNativeWrapper.nativeInitizationPriorToControlLoop(juavSrc);
+        String arduSrc = System.getenv("ARDU_SRC");
+        HalSitlNativeWrapper.nativeInitizationPriorToControlLoop(arduSrc);
     }
 
     private boolean getHalSitlSchedulerShouldReboot() {
