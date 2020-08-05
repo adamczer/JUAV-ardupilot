@@ -124,6 +124,15 @@ float ArdupilotNative_getStabilizationModeTargetRoll
  */
 float * ArdupilotNative_getAttitudeTargetQuat
   ();
+//FIJI natives eaiser then pointers
+float ArdupilotNative_getAttitudeTargetQuatW
+  ();
+float ArdupilotNative_getAttitudeTargetQuatX
+  ();
+float ArdupilotNative_getAttitudeTargetQuatY
+  ();
+float ArdupilotNative_getAttitudeTargetQuatZ
+  ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -133,6 +142,11 @@ float * ArdupilotNative_getAttitudeTargetQuat
 float * ArdupilotNative_nativeGetAttitudeTargetEulerAngle
   ();
 
+//FIJI
+float ArdupilotNative_nativeGetAttitudeTargetEulerAngleX();
+float ArdupilotNative_nativeGetAttitudeTargetEulerAngleY();
+float ArdupilotNative_nativeGetAttitudeTargetEulerAngleZ();
+
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGetAttitudeTargetEulerRate
@@ -141,6 +155,11 @@ float * ArdupilotNative_nativeGetAttitudeTargetEulerAngle
 float * ArdupilotNative_nativeGetAttitudeTargetEulerRate
   ();
 
+//FIJI
+float ArdupilotNative_nativeGetAttitudeTargetEulerRateX();
+float ArdupilotNative_nativeGetAttitudeTargetEulerRateY();
+float ArdupilotNative_nativeGetAttitudeTargetEulerRateZ();
+
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGetAttitudeTargetAngVel
@@ -148,6 +167,11 @@ float * ArdupilotNative_nativeGetAttitudeTargetEulerRate
  */
 float * ArdupilotNative_nativeGetAttitudeTargetAngVel
   ();
+
+//FIJI
+float  ArdupilotNative_nativeGetAttitudeTargetAngVelX();
+float  ArdupilotNative_nativeGetAttitudeTargetAngVelY();
+float  ArdupilotNative_nativeGetAttitudeTargetAngVelZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -260,6 +284,9 @@ void ArdupilotNative_nativeSetAttitudeTargetAngVel
  */
 float * ArdupilotNative_nativeGetRateTargetAngVel
   ();
+float ArdupilotNative_nativeGetRateTargetAngVelX();
+float ArdupilotNative_nativeGetRateTargetAngVelY();
+float ArdupilotNative_nativeGetRateTargetAngVelZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -276,7 +303,10 @@ float ArdupilotNative_nativeGetAttitudeThrustErrorAngle
  */
 float * ArdupilotNative_getAhrsGetQuatBodyToNed
   ();
-
+float ArdupilotNative_getAhrsGetQuatBodyToNedW();
+float ArdupilotNative_getAhrsGetQuatBodyToNedX();
+float ArdupilotNative_getAhrsGetQuatBodyToNedY();
+float ArdupilotNative_getAhrsGetQuatBodyToNedZ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeSetAttitudeThrustAngle
@@ -324,6 +354,9 @@ bool ArdupilotNative_nativeAttitudeUseSqrtController
  */
 float * ArdupilotNative_nativeAttitudeGetAhrsGyro
   ();
+float   ArdupilotNative_nativeAttitudeGetAhrsGyroX();
+float   ArdupilotNative_nativeAttitudeGetAhrsGyroY();
+float   ArdupilotNative_nativeAttitudeGetAhrsGyroZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative

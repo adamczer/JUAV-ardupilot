@@ -19,16 +19,6 @@ public class HalSitlNativeWrapper {
 
     @Import
     @GodGiven
-    private static native void HalSitlNative_testArraysSet(Pointer floatArray);
-    @Import
-    @GodGiven
-    private static native Pointer HalSitlNative_testArraysGet(Pointer floatArray);
-    @Import
-    @GodGiven
-    private static native void HalSitlNative_testArraysPrint();
-
-    @Import
-    @GodGiven
     private static native void HalSitlNative_nativeInitizationPriorToControlLoop(Pointer arduSrcStr);
 
     public static void nativeHalSitlInnerLoopAfterCallBacks() {
