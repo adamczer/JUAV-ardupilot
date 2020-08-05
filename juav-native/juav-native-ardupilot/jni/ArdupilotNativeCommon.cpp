@@ -10,6 +10,8 @@
 
 #include <AP_Scheduler/AP_Scheduler.h>
 #include "Copter.h"
+#include <iostream>
+using namespace std;
 
 AP_Scheduler * scheduler = AP_Scheduler::get_singleton();
 
@@ -144,7 +146,7 @@ float ArdupilotNative_getStabilizationModeTargetRoll
 // MODE STABILIZE
 
 //AC ATTITUDE CONTROL
-float attitudeTargetQuat [4];
+static float attitudeTargetQuat [4];
 float * ArdupilotNative_getAttitudeTargetQuat
   () {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
@@ -158,19 +160,27 @@ float * ArdupilotNative_getAttitudeTargetQuat
 
 float ArdupilotNative_getAttitudeTargetQuatW
   () {
-    return attitudeTargetQuat[0];
+  float ret = attitudeTargetQuat[0];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_getAttitudeTargetQuatX
   () {
-    return attitudeTargetQuat[1];
+    float ret = attitudeTargetQuat[1];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_getAttitudeTargetQuatY
   () {
-    return attitudeTargetQuat[2];
+    float ret = attitudeTargetQuat[2];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_getAttitudeTargetQuatZ
   () {
-    return attitudeTargetQuat[3];
+    float ret = attitudeTargetQuat[3];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 
 static float attitudeTargetEulerAngle [3];
@@ -186,15 +196,21 @@ float * ArdupilotNative_nativeGetAttitudeTargetEulerAngle
 
 float ArdupilotNative_nativeGetAttitudeTargetEulerAngleX
   () {
-    return attitudeTargetEulerAngle[0];
+    float ret = attitudeTargetEulerAngle[0];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeGetAttitudeTargetEulerAngleY
   () {
-    return attitudeTargetEulerAngle[1];
+    float ret = attitudeTargetEulerAngle[1];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeGetAttitudeTargetEulerAngleZ
   () {
-    return attitudeTargetEulerAngle[2];
+    float ret = attitudeTargetEulerAngle[2];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 
 static float attitudeTargetEulerRate [3];
@@ -210,15 +226,21 @@ float * ArdupilotNative_nativeGetAttitudeTargetEulerRate
 
 float ArdupilotNative_nativeGetAttitudeTargetEulerRateX
   () {
-    return attitudeTargetEulerRate[0];
+    float ret = attitudeTargetEulerRate[0];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeGetAttitudeTargetEulerRateY
   () {
-    return attitudeTargetEulerRate[1];
+    float ret = attitudeTargetEulerRate[1];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeGetAttitudeTargetEulerRateZ
   () {
-    return attitudeTargetEulerRate[2];
+    float ret = attitudeTargetEulerRate[2];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 
 static float attitudeTargetAngVel [3];
@@ -234,15 +256,21 @@ float * ArdupilotNative_nativeGetAttitudeTargetAngVel
 
 float ArdupilotNative_nativeGetAttitudeTargetAngVelX
   () {
-    return attitudeTargetAngVel[0];
+    float ret = attitudeTargetAngVel[0];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeGetAttitudeTargetAngVelY
   () {
-    return attitudeTargetAngVel[1];
+    float ret = attitudeTargetAngVel[1];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeGetAttitudeTargetAngVelZ
   () {
-    return attitudeTargetAngVel[2];
+    float ret = attitudeTargetAngVel[2];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 
 bool ArdupilotNative_nativeGetRateBfFfEnabled
@@ -326,7 +354,7 @@ static float attitudeRateTargetAngVel [3];
 float * ArdupilotNative_nativeGetRateTargetAngVel
   () {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
-    Vector3f vec = attitudeController->juavGetAttitudeRateTargetAngVel();    
+    Vector3f vec = attitudeController->juavGetAttitudeRateTargetAngVel();
      attitudeRateTargetAngVel[0] = vec.x;
      attitudeRateTargetAngVel[1] = vec.y;
      attitudeRateTargetAngVel[2] = vec.z;
@@ -334,15 +362,21 @@ float * ArdupilotNative_nativeGetRateTargetAngVel
   }
 float ArdupilotNative_nativeGetRateTargetAngVelX
   () {
-    return attitudeRateTargetAngVel[0];
+    float ret = attitudeRateTargetAngVel[0];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeGetRateTargetAngVelY
   () {
-    return attitudeRateTargetAngVel[1];
+    float ret = attitudeRateTargetAngVel[1];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeGetRateTargetAngVelZ
   () {
-    return attitudeRateTargetAngVel[2];
+    float ret = attitudeRateTargetAngVel[2];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 
 float ArdupilotNative_nativeGetAttitudeThrustErrorAngle
@@ -365,19 +399,27 @@ float * ArdupilotNative_getAhrsGetQuatBodyToNed
 
 float ArdupilotNative_getAhrsGetQuatBodyToNedW
   () {
-    return AhrsGetQuatBodyToNed[0];
+    float ret = AhrsGetQuatBodyToNed[0];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_getAhrsGetQuatBodyToNedX
   () {
-    return AhrsGetQuatBodyToNed[1];
+    float ret = AhrsGetQuatBodyToNed[1];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_getAhrsGetQuatBodyToNedY
   () {
-    return AhrsGetQuatBodyToNed[2];
+    float ret = AhrsGetQuatBodyToNed[2];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_getAhrsGetQuatBodyToNedZ
   () {
-    return AhrsGetQuatBodyToNed[3];
+    float ret = AhrsGetQuatBodyToNed[3];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 
 void ArdupilotNative_nativeSetAttitudeThrustAngle
@@ -424,15 +466,21 @@ float * ArdupilotNative_nativeAttitudeGetAhrsGyro
 
 float ArdupilotNative_nativeAttitudeGetAhrsGyroX
   () {
-    return attitudeGetAhrsGyro[0];
+    float ret = attitudeGetAhrsGyro[0];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeAttitudeGetAhrsGyroY
   () {
-    return attitudeGetAhrsGyro[1];
+    float ret = attitudeGetAhrsGyro[1];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 float ArdupilotNative_nativeAttitudeGetAhrsGyroZ
   () {
-    return attitudeGetAhrsGyro[2];
+    float ret = attitudeGetAhrsGyro[2];
+  //cout <<endl<< ret <<endl;
+    return ret;
   }
 
 void ArdupilotNative_nativeSetAttitudeFeedForwardScalar

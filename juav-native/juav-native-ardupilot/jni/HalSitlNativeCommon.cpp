@@ -3,7 +3,10 @@
 #include <AP_HAL/AP_HAL_Namespace.h>
 #include <AP_HAL_SITL/HAL_SITL_Class.h>
 #include <AP_Vehicle/AP_Vehicle.h>
+#include <stdio.h>
 
+#include <iostream>
+using namespace std;
 
 
 const AP_HAL::HAL &hal = AP_HAL::get_HAL();

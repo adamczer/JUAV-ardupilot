@@ -8,7 +8,7 @@ import com.fiji.fivm.r1.fivmRuntime;
 public class ArdupilotNativeWrapper {
     //AP SCHEDULER
     public static void nativeApSchedulerPriorToFastLoop() {
-        fivmRuntime.logPrint("nativeApSchedulerPriorToFastLoop");
+        //fivmRuntime.logPrint("\nnativeApSchedulerPriorToFastLoop");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeApSchedulerPriorToFastLoop();
         } else
@@ -20,7 +20,7 @@ public class ArdupilotNativeWrapper {
     private static native double ArdupilotNative_nativeApSchedulerPriorToFastLoop();
 
     public static void nativeApSchedulerPostToFastLoop() {
-        fivmRuntime.logPrint("nativeApSchedulerPostToFastLoop");
+        //fivmRuntime.logPrint("\nnativeApSchedulerPostToFastLoop");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeApSchedulerPostToFastLoop();
         } else
@@ -32,7 +32,7 @@ public class ArdupilotNativeWrapper {
     private static native double ArdupilotNative_nativeApSchedulerPostToFastLoop();
 
     public static void setHalUtilPersistentDataSchedulerTask(int i) {
-        fivmRuntime.logPrint("setHalUtilPersistentDataSchedulerTask");
+        //fivmRuntime.logPrint("\nsetHalUtilPersistentDataSchedulerTask");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_setHalUtilPersistentDataSchedulerTask(i);
         } else
@@ -44,7 +44,7 @@ public class ArdupilotNativeWrapper {
     private static native double ArdupilotNative_setHalUtilPersistentDataSchedulerTask(int i);
 
     public static float nativeApSchedulerGetLoopPeriodS() {
-        fivmRuntime.logPrint("nativeApSchedulerGetLoopPeriodS");
+        //fivmRuntime.logPrint("\nnativeApSchedulerGetLoopPeriodS");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeApSchedulerGetLoopPeriodS();
         } else
@@ -59,7 +59,7 @@ public class ArdupilotNativeWrapper {
 
     //COPTER
     public static void nativeFastLoopBeforeAttitudeController() {
-        fivmRuntime.logPrint("nativeFastLoopBeforeAttitudeController");
+        //fivmRuntime.logPrint("\nnativeFastLoopBeforeAttitudeController");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeFastLoopBeforeAttitudeController();
         } else
@@ -71,7 +71,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeFastLoopBeforeAttitudeController();
 
     public static void surfaceTracingInvalidateForLogging() {
-        fivmRuntime.logPrint("surfaceTracingInvalidateForLogging");
+        //fivmRuntime.logPrint("\nsurfaceTracingInvalidateForLogging");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_surfaceTracingInvalidateForLogging();
         } else
@@ -83,7 +83,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_surfaceTracingInvalidateForLogging();
 
     public static int getFlightModeNumber() {
-        fivmRuntime.logPrint("getFlightModeNumber");
+        //fivmRuntime.logPrint("\ngetFlightModeNumber");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_getFlightModeNumber();
         } else
@@ -95,7 +95,7 @@ public class ArdupilotNativeWrapper {
     private static native int ArdupilotNative_getFlightModeNumber();
 
     public static void callNativeFlightMode() {
-        fivmRuntime.logPrint("callNativeFlightMode");
+        //fivmRuntime.logPrint("\ncallNativeFlightMode");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_callNativeFlightMode();
         } else
@@ -107,7 +107,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_callNativeFlightMode();
 
     public static void nativeFastLoopAfterAttitudeController() {
-        fivmRuntime.logPrint("nativeFastLoopAfterAttitudeController");
+        //fivmRuntime.logPrint("\nnativeFastLoopAfterAttitudeController");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeFastLoopAfterAttitudeController();
         } else
@@ -122,7 +122,7 @@ public class ArdupilotNativeWrapper {
     // MODE STABILIZE
 
     public static void nativeRunBeforeStabilizationCallAttitudeController() {
-        fivmRuntime.logPrint("nativeRunBeforeStabilizationCallAttitudeController");
+        //fivmRuntime.logPrint("\nnativeRunBeforeStabilizationCallAttitudeController");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeRunBeforeStabilizationCallAttitudeController();
         } else
@@ -134,7 +134,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeRunBeforeStabilizationCallAttitudeController();
 
     public static void nativeRunAfterStabilizationCallAttitudeController() {
-        fivmRuntime.logPrint("nativeRunAfterStabilizationCallAttitudeController");
+        //fivmRuntime.logPrint("\nnativeRunAfterStabilizationCallAttitudeController");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeRunAfterStabilizationCallAttitudeController();
         } else
@@ -146,7 +146,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeRunAfterStabilizationCallAttitudeController();
 
     public static float getStabilizationModeTargetYawRate() {
-        fivmRuntime.logPrint("getStabilizationModeTargetYawRate");
+        //fivmRuntime.logPrint("\ngetStabilizationModeTargetYawRate");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_getStabilizationModeTargetYawRate();
         } else
@@ -158,7 +158,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_getStabilizationModeTargetYawRate();
 
     public static float getStabilizationModeTargetPitch() {
-        fivmRuntime.logPrint("getStabilizationModeTargetPitch");
+        //fivmRuntime.logPrint("\ngetStabilizationModeTargetPitch");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_getStabilizationModeTargetPitch();
         } else
@@ -170,7 +170,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_getStabilizationModeTargetPitch();
 
     public static float getStabilizationModeTargetRoll() {
-        fivmRuntime.logPrint("getStabilizationModeTargetRoll");
+        //fivmRuntime.logPrint("\ngetStabilizationModeTargetRoll");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_getStabilizationModeTargetRoll();
         } else
@@ -186,16 +186,16 @@ public class ArdupilotNativeWrapper {
     // AC ATTITUDE CONTROL
 
     public static float[] getAttitudeTargetQuat() {
-        fivmRuntime.logPrint("getAttitudeTargetQuat");
+        fivmRuntime.logPrint("\ngetAttitudeTargetQuat");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_getAttitudeTargetQuat();
-            float[] ret = new float[4];
+            float[] ret = {0,0,0,0};
             ret[0]=ArdupilotNative_getAttitudeTargetQuatW();
             ret[1]=ArdupilotNative_getAttitudeTargetQuatX();
             ret[2]=ArdupilotNative_getAttitudeTargetQuatY();
             ret[3]=ArdupilotNative_getAttitudeTargetQuatZ();
-//            fivmRuntime.logPrint("\nTest-valu = "+ArdupilotNative_getAttitudeTargetQuatW()+"\n");
-            System.exit(0);
+            fivmRuntime.logPrint("\n\nTest-value = "+ret[0]+"\n");
+//            System.exit(1);
             return ret;
         } else
             return ArdupilotNative.getAttitudeTargetQuat();
@@ -218,7 +218,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_getAttitudeTargetQuatZ();
 
     public static float[] nativeGetAttitudeTargetEulerAngle() {
-        fivmRuntime.logPrint("nativeGetAttitudeTargetEulerAngle");
+        //fivmRuntime.logPrint("\nnativeGetAttitudeTargetEulerAngle");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGetAttitudeTargetEulerAngle();
             float[] ret = new float[3];
@@ -244,7 +244,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAttitudeTargetEulerAngleZ();
 
     public static float[] nativeGetAttitudeTargetEulerRate() {
-        fivmRuntime.logPrint("nativeGetAttitudeTargetEulerRate");
+        //fivmRuntime.logPrint("\nnativeGetAttitudeTargetEulerRate");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGetAttitudeTargetEulerRate();
             float[] ret = new float[3];
@@ -270,7 +270,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAttitudeTargetEulerRateZ();
 
     public static float[] nativeGetAttitudeTargetAngVel() {
-        fivmRuntime.logPrint("nativeGetAttitudeTargetAngVel");
+        //fivmRuntime.logPrint("\nnativeGetAttitudeTargetAngVel");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGetAttitudeTargetAngVel();
             float[] ret = new float[3];
@@ -296,7 +296,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAttitudeTargetAngVelZ();
 
     public static boolean nativeGetRateBfFfEnabled() {
-        fivmRuntime.logPrint("nativeGetRateBfFfEnabled");
+        //fivmRuntime.logPrint("\nnativeGetRateBfFfEnabled");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetRateBfFfEnabled();
         } else
@@ -308,7 +308,7 @@ public class ArdupilotNativeWrapper {
     private static native boolean ArdupilotNative_nativeGetRateBfFfEnabled();
 
     public static float nativeGetAccelRollMax() {
-        fivmRuntime.logPrint("nativeGetAccelRollMax");
+        //fivmRuntime.logPrint("\nnativeGetAccelRollMax");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAccelRollMax();
         } else
@@ -320,7 +320,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAccelRollMax();
 
     public static float nativeGetAccelPitchMax() {
-        fivmRuntime.logPrint("nativeGetAccelPitchMax");
+        //fivmRuntime.logPrint("\nnativeGetAccelPitchMax");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAccelPitchMax();
         } else
@@ -332,7 +332,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAccelPitchMax();
 
     public static float nativeGetAccelYawMax() {
-        fivmRuntime.logPrint("nativeGetAccelYawMax");
+        //fivmRuntime.logPrint("\nnativeGetAccelYawMax");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAccelYawMax();
         } else
@@ -344,7 +344,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAccelYawMax();
 
     public static float nativeGetAttitudeInputTc() {
-        fivmRuntime.logPrint("nativeGetAttitudeInputTc");
+        //fivmRuntime.logPrint("\nnativeGetAttitudeInputTc");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAttitudeInputTc();
         } else
@@ -356,7 +356,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAttitudeInputTc();
 
     public static float nativeAttitudeGetDt() {
-        fivmRuntime.logPrint("nativeAttitudeGetDt");
+        //fivmRuntime.logPrint("\nnativeAttitudeGetDt");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeAttitudeGetDt();
         } else
@@ -368,7 +368,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeAttitudeGetDt();
 
     public static float nativeGetAngVelRollMax() {
-        fivmRuntime.logPrint("nativeGetAngVelRollMax");
+        //fivmRuntime.logPrint("\nnativeGetAngVelRollMax");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAngVelRollMax();
         } else
@@ -380,7 +380,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAngVelRollMax();
 
     public static float nativeGetAngVelPitchMax() {
-        fivmRuntime.logPrint("nativeGetAngVelPitchMax");
+        //fivmRuntime.logPrint("\nnativeGetAngVelPitchMax");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAngVelPitchMax();
         } else
@@ -392,7 +392,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAngVelPitchMax();
 
     public static float nativeGetAngVelYawMax() {
-        fivmRuntime.logPrint("nativeGetAngVelYawMax");
+        //fivmRuntime.logPrint("\nnativeGetAngVelYawMax");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAngVelYawMax();
         } else
@@ -404,7 +404,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAngVelYawMax();
 
     public static void nativeSetAttitudeTargetQuat(float w, float x, float y, float z) {
-        fivmRuntime.logPrint("nativeSetAttitudeTargetQuat");
+        //fivmRuntime.logPrint("\nnativeSetAttitudeTargetQuat");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeSetAttitudeTargetQuat(w, x, y, z);
         } else
@@ -416,7 +416,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeSetAttitudeTargetQuat(float w, float x, float y, float z);
 
     public static void nativeSetAttitudeTargetEulerAngle(float x, float y, float z) {
-        fivmRuntime.logPrint("nativeSetAttitudeTargetEulerAngle");
+        //fivmRuntime.logPrint("\nnativeSetAttitudeTargetEulerAngle");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeSetAttitudeTargetEulerAngle(x, y, z);
         } else
@@ -428,7 +428,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeSetAttitudeTargetEulerAngle(float x, float y, float z);
 
     public static void nativeSetAttitudeTargetEulerRate(float x, float y, float z) {
-        fivmRuntime.logPrint("nativeSetAttitudeTargetEulerRate");
+        //fivmRuntime.logPrint("\nnativeSetAttitudeTargetEulerRate");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeSetAttitudeTargetEulerRate(x, y, z);
         } else
@@ -440,7 +440,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeSetAttitudeTargetEulerRate(float x, float y, float z);
 
     public static void nativeSetAttitudeTargetAngVel(float x, float y, float z) {
-        fivmRuntime.logPrint("nativeSetAttitudeTargetAngVel");
+        //fivmRuntime.logPrint("\nnativeSetAttitudeTargetAngVel");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeSetAttitudeTargetAngVel(x ,y ,z);
         } else
@@ -452,7 +452,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeSetAttitudeTargetAngVel(float x, float y, float z);
 
     public static float[] nativeGetRateTargetAngVel() {
-        fivmRuntime.logPrint("nativeGetRateTargetAngVel");
+        //fivmRuntime.logPrint("\nnativeGetRateTargetAngVel");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGetRateTargetAngVel();
             float[] ret = new float[3];
@@ -478,7 +478,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetRateTargetAngVelZ();
 
     public static float nativeGetAttitudeThrustErrorAngle() {
-        fivmRuntime.logPrint("nativeGetAttitudeThrustErrorAngle");
+        //fivmRuntime.logPrint("\nnativeGetAttitudeThrustErrorAngle");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAttitudeThrustErrorAngle();
         } else
@@ -490,7 +490,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAttitudeThrustErrorAngle();
 
     public static float[] getAhrsGetQuatBodyToNed() {
-        fivmRuntime.logPrint("getAhrsGetQuatBodyToNed");
+        //fivmRuntime.logPrint("\ngetAhrsGetQuatBodyToNed");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_getAhrsGetQuatBodyToNed();
             float[] ret = new float[4];
@@ -520,7 +520,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_getAhrsGetQuatBodyToNedZ();
 
     public static void nativeSetAttitudeThrustAngle(float newThrustAngle) {
-        fivmRuntime.logPrint("nativeSetAttitudeThrustAngle");
+        //fivmRuntime.logPrint("\nnativeSetAttitudeThrustAngle");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeSetAttitudeThrustAngle(newThrustAngle);
         } else
@@ -532,7 +532,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeSetAttitudeThrustAngle(float newThrustAngle);
 
     public static float nativeAttitudeGetPAngleYawKp() {
-        fivmRuntime.logPrint("nativeAttitudeGetPAngleYawKp");
+        //fivmRuntime.logPrint("\nnativeAttitudeGetPAngleYawKp");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeAttitudeGetPAngleYawKp();
         } else
@@ -544,7 +544,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeAttitudeGetPAngleYawKp();
 
     public static float nativeAttitudeGetPAngleRollKp() {
-        fivmRuntime.logPrint("nativeAttitudeGetPAngleRollKp");
+        //fivmRuntime.logPrint("\nnativeAttitudeGetPAngleRollKp");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeAttitudeGetPAngleRollKp();
         } else
@@ -556,7 +556,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeAttitudeGetPAngleRollKp();
 
     public static float nativeAttitudeGetPAnglePitchKp() {
-        fivmRuntime.logPrint("nativeAttitudeGetPAnglePitchKp");
+        //fivmRuntime.logPrint("\nnativeAttitudeGetPAnglePitchKp");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeAttitudeGetPAnglePitchKp();
         } else
@@ -568,7 +568,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeAttitudeGetPAnglePitchKp();
 
     public static boolean nativeAttitudeUseSqrtController() {
-        fivmRuntime.logPrint("nativeAttitudeUseSqrtController");
+        //fivmRuntime.logPrint("\nnativeAttitudeUseSqrtController");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeAttitudeUseSqrtController();
         } else
@@ -580,7 +580,7 @@ public class ArdupilotNativeWrapper {
     private static native boolean ArdupilotNative_nativeAttitudeUseSqrtController();
 
     public static float[] nativeAttitudeGetAhrsGyro() {
-        fivmRuntime.logPrint("nativeAttitudeGetAhrsGyro");
+        //fivmRuntime.logPrint("\nnativeAttitudeGetAhrsGyro");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeAttitudeGetAhrsGyro();
             float[] ret = new float[3];
@@ -607,7 +607,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeAttitudeGetAhrsGyroZ();
 
     public static void nativeSetAttitudeFeedForwardScalar(float feedforwardScalar) {
-        fivmRuntime.logPrint("nativeSetAttitudeFeedForwardScalar");
+        //fivmRuntime.logPrint("\nnativeSetAttitudeFeedForwardScalar");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeSetAttitudeFeedForwardScalar(feedforwardScalar);
         } else
@@ -619,7 +619,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeSetAttitudeFeedForwardScalar(float feedforwardScalar);
 
     public static float nativeGetAttitudeFeedForwardScalar() {
-        fivmRuntime.logPrint("nativeGetAttitudeFeedForwardScalar");
+        //fivmRuntime.logPrint("\nnativeGetAttitudeFeedForwardScalar");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGetAttitudeFeedForwardScalar();
         } else
@@ -631,7 +631,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGetAttitudeFeedForwardScalar();
 
     public static void nativeSetAttitudeAngError(float w, float x, float y, float z) {
-        fivmRuntime.logPrint("nativeSetAttitudeAngError");
+        //fivmRuntime.logPrint("\nnativeSetAttitudeAngError");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeSetAttitudeAngError(w, x, y, z);
         } else
@@ -643,7 +643,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeSetAttitudeAngError(float w, float x, float y, float z);
 
     public static void nativeAttitudeSetRateTargetAngVel(float x, float y, float z) {
-        fivmRuntime.logPrint("nativeAttitudeSetRateTargetAngVel");
+        //fivmRuntime.logPrint("\nnativeAttitudeSetRateTargetAngVel");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeAttitudeSetRateTargetAngVel(x,y,z);
         } else
@@ -655,7 +655,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeAttitudeSetRateTargetAngVel(float x, float y, float z);
 
     public static void nativeAttitudeSetThrustErrorAngle(float thisThrustErrorAngle) {
-        fivmRuntime.logPrint("nativeAttitudeSetThrustErrorAngle");
+        //fivmRuntime.logPrint("\nnativeAttitudeSetThrustErrorAngle");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeAttitudeSetThrustErrorAngle(thisThrustErrorAngle);
         } else
@@ -667,7 +667,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeAttitudeSetThrustErrorAngle(float thisThrustErrorAngle);
 
     public static float nativeAttitudeGetSlewYaw() {
-        fivmRuntime.logPrint("nativeAttitudeGetSlewYaw");
+        //fivmRuntime.logPrint("\nnativeAttitudeGetSlewYaw");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeAttitudeGetSlewYaw();
         } else
@@ -683,7 +683,7 @@ public class ArdupilotNativeWrapper {
     // AP VEHICLE
 
     public static void nativeSetAPVehicleSchedulerGDt(float f) {
-        fivmRuntime.logPrint("nativeSetAPVehicleSchedulerGDt");
+        //fivmRuntime.logPrint("\nnativeSetAPVehicleSchedulerGDt");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeSetAPVehicleSchedulerGDt(f);
         } else
@@ -699,7 +699,7 @@ public class ArdupilotNativeWrapper {
     // MODE RTL
 
     public static boolean nativeModeRtlIsMotorsArmed() {
-        fivmRuntime.logPrint("nativeModeRtlIsMotorsArmed");
+        //fivmRuntime.logPrint("\nnativeModeRtlIsMotorsArmed");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeModeRtlIsMotorsArmed();
         } else
@@ -711,7 +711,7 @@ public class ArdupilotNativeWrapper {
     private static native boolean ArdupilotNative_nativeModeRtlIsMotorsArmed();
 
     public static boolean nativeModeRtlIsStateComplete() {
-        fivmRuntime.logPrint("nativeModeRtlIsStateComplete");
+        //fivmRuntime.logPrint("\nnativeModeRtlIsStateComplete");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeModeRtlIsStateComplete();
         } else
@@ -738,7 +738,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_runAttitudeControllerQuatTest();
 
     public static void inputEulerAngleRollPitchEulerRateYaw(float eulerRollAngleCd, float eulerPitchAngleCd, float eulerYawRateCds) {
-        fivmRuntime.logPrint("inputEulerAngleRollPitchEulerRateYaw");
+        //fivmRuntime.logPrint("\ninputEulerAngleRollPitchEulerRateYaw");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_inputEulerAngleRollPitchEulerRateYaw(eulerRollAngleCd, eulerPitchAngleCd, eulerYawRateCds);
         } else
@@ -752,7 +752,7 @@ public class ArdupilotNativeWrapper {
     //TEST
     //MODE LOITER
     public static void nativeLoiterRunPriorToAttitudeControl() {
-        fivmRuntime.logPrint("nativeLoiterRunPriorToAttitudeControl");
+        //fivmRuntime.logPrint("\nnativeLoiterRunPriorToAttitudeControl");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeLoiterRunPriorToAttitudeControl();
         } else
@@ -764,7 +764,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeLoiterRunPriorToAttitudeControl();
 
     public static void nativeLoiterRunAfterAttitudeControl() {
-        fivmRuntime.logPrint("nativeLoiterRunAfterAttitudeControl");
+        //fivmRuntime.logPrint("\nnativeLoiterRunAfterAttitudeControl");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeLoiterRunAfterAttitudeControl();
         } else
@@ -776,7 +776,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeLoiterRunAfterAttitudeControl();
 
     public static float nativeLoiterGetTargetYawRate() {
-        fivmRuntime.logPrint("nativeLoiterGetTargetYawRate");
+        //fivmRuntime.logPrint("\nnativeLoiterGetTargetYawRate");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeLoiterGetTargetYawRate();
         } else
@@ -788,7 +788,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeLoiterGetTargetYawRate();
 
     public static float nativeLoiterGetTargetPitch() {
-        fivmRuntime.logPrint("nativeLoiterGetTargetPitch");
+        //fivmRuntime.logPrint("\nnativeLoiterGetTargetPitch");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeLoiterGetTargetPitch();
         } else
@@ -800,7 +800,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeLoiterGetTargetPitch();
 
     public static float nativeLoiterGetTargetRoll() {
-        fivmRuntime.logPrint("nativeLoiterGetTargetRoll");
+        //fivmRuntime.logPrint("\nnativeLoiterGetTargetRoll");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeLoiterGetTargetRoll();
         } else
@@ -815,7 +815,7 @@ public class ArdupilotNativeWrapper {
     //MODE GUIDED
 
     public static int nativeGuidedGetMode() {
-        fivmRuntime.logPrint("nativeGuidedGetMode");
+        //fivmRuntime.logPrint("\nnativeGuidedGetMode");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetMode();
         } else
@@ -827,7 +827,7 @@ public class ArdupilotNativeWrapper {
     private static native int ArdupilotNative_nativeGuidedGetMode();
 
     public static void nativeGuidedTakeoffRun() {
-        fivmRuntime.logPrint("nativeGuidedTakeoffRun");
+        //fivmRuntime.logPrint("\nnativeGuidedTakeoffRun");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGuidedTakeoffRun();
         } else
@@ -839,7 +839,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeGuidedTakeoffRun();
 
     public static void nativeGuidedPosControlRunPriorToAttitude() {
-        fivmRuntime.logPrint("nativeGuidedPosControlRunPriorToAttitude");
+        //fivmRuntime.logPrint("\nnativeGuidedPosControlRunPriorToAttitude");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGuidedPosControlRunPriorToAttitude();
         } else
@@ -851,7 +851,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeGuidedPosControlRunPriorToAttitude();
 
     public static int nativeGuidedGetAutoYawMode() {
-        fivmRuntime.logPrint("nativeGuidedGetAutoYawMode");
+        //fivmRuntime.logPrint("\nnativeGuidedGetAutoYawMode");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetAutoYawMode();
         } else
@@ -863,7 +863,7 @@ public class ArdupilotNativeWrapper {
     private static native int ArdupilotNative_nativeGuidedGetAutoYawMode();
 
     public static float nativeGuidedGetWpNavRoll() {
-        fivmRuntime.logPrint("nativeGuidedGetWpNavRoll");
+        //fivmRuntime.logPrint("\nnativeGuidedGetWpNavRoll");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetWpNavRoll();
         } else
@@ -875,7 +875,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetWpNavRoll();
 
     public static float nativeGuidedGetWpNavPitch() {
-        fivmRuntime.logPrint("nativeGuidedGetWpNavPitch");
+        //fivmRuntime.logPrint("\nnativeGuidedGetWpNavPitch");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetWpNavPitch();
         } else
@@ -887,7 +887,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetWpNavPitch();
 
     public static float nativeGuidedGetTargetYawRate() {
-        fivmRuntime.logPrint("nativeGuidedGetTargetYawRate");
+        //fivmRuntime.logPrint("\nnativeGuidedGetTargetYawRate");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetTargetYawRate();
         } else
@@ -899,7 +899,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetTargetYawRate();
 
     public static float nativeGuidedGetAutoYawRateCds() {
-        fivmRuntime.logPrint("nativeGuidedGetAutoYawRateCds");
+        //fivmRuntime.logPrint("\nnativeGuidedGetAutoYawRateCds");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetAutoYawRateCds();
         } else
@@ -911,7 +911,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetAutoYawRateCds();
 
     public static float nativeGuidedGetAutoYawYaw() {
-        fivmRuntime.logPrint("nativeGuidedGetAutoYawYaw");
+        //fivmRuntime.logPrint("\nnativeGuidedGetAutoYawYaw");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetAutoYawYaw();
         } else
@@ -923,7 +923,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetAutoYawYaw();
 
     public static void nativeGuidedVelControlRunPriorToAttitude() {
-        fivmRuntime.logPrint("nativeGuidedVelControlRunPriorToAttitude");
+        //fivmRuntime.logPrint("\nnativeGuidedVelControlRunPriorToAttitude");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGuidedVelControlRunPriorToAttitude();
         } else
@@ -935,7 +935,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeGuidedVelControlRunPriorToAttitude();
 
     public static float nativeGuidedGetPosControlRoll() {
-        fivmRuntime.logPrint("nativeGuidedGetPosControlRoll");
+        //fivmRuntime.logPrint("\nnativeGuidedGetPosControlRoll");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetPosControlRoll();
         } else
@@ -947,7 +947,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetPosControlRoll();
 
     public static float nativeGuidedGetPosControlPitch() {
-        fivmRuntime.logPrint("nativeGuidedGetPosControlPitch");
+        //fivmRuntime.logPrint("\nnativeGuidedGetPosControlPitch");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetPosControlPitch();
         } else
@@ -959,7 +959,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetPosControlPitch();
 
     public static void nativeGuidedPosVelControlRunPriorToAttitude() {
-        fivmRuntime.logPrint("nativeGuidedPosVelControlRunPriorToAttitude");
+        //fivmRuntime.logPrint("\nnativeGuidedPosVelControlRunPriorToAttitude");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGuidedPosVelControlRunPriorToAttitude();
         } else
@@ -971,7 +971,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeGuidedPosVelControlRunPriorToAttitude();
 
     public static void nativeGuidedAngleControlRunPriorToAttitude() {
-        fivmRuntime.logPrint("nativeGuidedAngleControlRunPriorToAttitude");
+        //fivmRuntime.logPrint("\nnativeGuidedAngleControlRunPriorToAttitude");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGuidedAngleControlRunPriorToAttitude();
         } else
@@ -983,7 +983,7 @@ public class ArdupilotNativeWrapper {
     private static native void ArdupilotNative_nativeGuidedAngleControlRunPriorToAttitude();
 
     public static float nativeGuidedGetAngleControlRunRollIn() {
-        fivmRuntime.logPrint("nativeGuidedGetAngleControlRunRollIn");
+        //fivmRuntime.logPrint("\nnativeGuidedGetAngleControlRunRollIn");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetAngleControlRunRollIn();
         } else
@@ -995,7 +995,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetAngleControlRunRollIn();
 
     public static float nativeGuidedGetAngleControlRunPitchIn() {
-        fivmRuntime.logPrint("nativeGuidedGetAngleControlRunPitchIn");
+        //fivmRuntime.logPrint("\nnativeGuidedGetAngleControlRunPitchIn");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetAngleControlRunPitchIn();
         } else
@@ -1007,7 +1007,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetAngleControlRunPitchIn();
 
     public static boolean nativeGuidedIsAngleStateUseYawRate() {
-        fivmRuntime.logPrint("nativeGuidedIsAngleStateUseYawRate");
+        //fivmRuntime.logPrint("\nnativeGuidedIsAngleStateUseYawRate");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedIsAngleStateUseYawRate();
         } else
@@ -1019,7 +1019,7 @@ public class ArdupilotNativeWrapper {
     private static native boolean ArdupilotNative_nativeGuidedIsAngleStateUseYawRate();
 
     public static float nativeGuidedGetAngleControlRunYawRateIn() {
-        fivmRuntime.logPrint("nativeGuidedGetAngleControlRunYawRateIn");
+        //fivmRuntime.logPrint("\nnativeGuidedGetAngleControlRunYawRateIn");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetAngleControlRunYawRateIn();
         } else
@@ -1031,7 +1031,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetAngleControlRunYawRateIn();
 
     public static float nativeGuidedGetAngleControlRunYawIn() {
-        fivmRuntime.logPrint("nativeGuidedGetAngleControlRunYawIn");
+        //fivmRuntime.logPrint("\nnativeGuidedGetAngleControlRunYawIn");
         if(FijiJniSwitch.usingFiji) {
             return ArdupilotNative_nativeGuidedGetAngleControlRunYawIn();
         } else
@@ -1043,7 +1043,7 @@ public class ArdupilotNativeWrapper {
     private static native float ArdupilotNative_nativeGuidedGetAngleControlRunYawIn();
 
     public static void nativeGuidedAngleControlRunAfterAttitude() {
-        fivmRuntime.logPrint("nativeGuidedAngleControlRunAfterAttitude");
+        //fivmRuntime.logPrint("\nnativeGuidedAngleControlRunAfterAttitude");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_nativeGuidedAngleControlRunAfterAttitude();
         } else
