@@ -161,8 +161,8 @@ float * ArdupilotNative_getAttitudeTargetQuat
 float ArdupilotNative_getAttitudeTargetQuatW
   () {
   float ret = attitudeTargetQuat[0];
-  //cout <<endl<< ret <<endl;
-    return ret;
+  cout <<endl<<"quat0 about to return from c = "<< ret <<endl;
+  return ret;
   }
 float ArdupilotNative_getAttitudeTargetQuatX
   () {

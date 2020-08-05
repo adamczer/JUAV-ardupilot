@@ -189,13 +189,15 @@ public class ArdupilotNativeWrapper {
         fivmRuntime.logPrint("\ngetAttitudeTargetQuat");
         if(FijiJniSwitch.usingFiji) {
             ArdupilotNative_getAttitudeTargetQuat();
-            float[] ret = {0,0,0,0};
-            ret[0]=ArdupilotNative_getAttitudeTargetQuatW();
-            ret[1]=ArdupilotNative_getAttitudeTargetQuatX();
-            ret[2]=ArdupilotNative_getAttitudeTargetQuatY();
-            ret[3]=ArdupilotNative_getAttitudeTargetQuatZ();
-            fivmRuntime.logPrint("\n\nTest-value = "+ret[0]+"\n");
-//            System.exit(1);
+            float[] ret = new float[4];
+            float f = ArdupilotNative_getAttitudeTargetQuatW();
+            fivmRuntime.logPrint("\nquat0 recieved from c code = ");
+            fivmRuntime.logPrint(""+f+"\n");
+            System.exit(0);
+//            ret[0]=ArdupilotNative_getAttitudeTargetQuatW();
+//            ret[1]=ArdupilotNative_getAttitudeTargetQuatX();
+//            ret[2]=ArdupilotNative_getAttitudeTargetQuatY();
+//            ret[3]=ArdupilotNative_getAttitudeTargetQuatZ();
             return ret;
         } else
             return ArdupilotNative.getAttitudeTargetQuat();

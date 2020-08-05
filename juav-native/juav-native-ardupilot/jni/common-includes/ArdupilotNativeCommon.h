@@ -125,14 +125,10 @@ float ArdupilotNative_getStabilizationModeTargetRoll
 float * ArdupilotNative_getAttitudeTargetQuat
   ();
 //FIJI natives eaiser then pointers
-float ArdupilotNative_getAttitudeTargetQuatW
-  ();
-float ArdupilotNative_getAttitudeTargetQuatX
-  ();
-float ArdupilotNative_getAttitudeTargetQuatY
-  ();
-float ArdupilotNative_getAttitudeTargetQuatZ
-  ();
+float ArdupilotNative_getAttitudeTargetQuatW();
+float ArdupilotNative_getAttitudeTargetQuatX();
+float ArdupilotNative_getAttitudeTargetQuatY();
+float ArdupilotNative_getAttitudeTargetQuatZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
