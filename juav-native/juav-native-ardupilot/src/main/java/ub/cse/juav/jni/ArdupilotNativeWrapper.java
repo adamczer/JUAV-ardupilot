@@ -186,7 +186,7 @@ public class ArdupilotNativeWrapper {
     // AC ATTITUDE CONTROL
 
     public static float[] getAttitudeTargetQuat() {
-        fivmRuntime.logPrint("\ngetAttitudeTargetQuat");
+//        fivmRuntime.logPrint("\ngetAttitudeTargetQuat");
 //        if(FijiJniSwitch.usingFiji) {
 //            ArdupilotNative_getAttitudeTargetQuat();
 //            float[] ret = new float[4];
