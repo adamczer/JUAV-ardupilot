@@ -23,7 +23,7 @@
 
   JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeApSchedulerGetLoopPeriodS
     (JNIEnv * env, jclass thisClass) {
-       return ArdupilotNative_nativeApSchedulerGetLoopPeriodS();
+       return retriveFloatFromInt(ArdupilotNative_nativeApSchedulerGetLoopPeriodS());
     }
 
   JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_setHalUtilPersistentDataSchedulerTask
@@ -71,17 +71,17 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeRunAfterStabil
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_getStabilizationModeTargetYawRate
   (JNIEnv * env, jclass thisClass) {
-  return ArdupilotNative_getStabilizationModeTargetYawRate();
+  return retriveFloatFromInt(ArdupilotNative_getStabilizationModeTargetYawRate());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_getStabilizationModeTargetPitch
   (JNIEnv * env, jclass thisClass) {
-  return ArdupilotNative_getStabilizationModeTargetPitch();
+  return retriveFloatFromInt(ArdupilotNative_getStabilizationModeTargetPitch());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_getStabilizationModeTargetRoll
   (JNIEnv * env, jclass thisClass) {
-  return ArdupilotNative_getStabilizationModeTargetRoll();
+  return retriveFloatFromInt(ArdupilotNative_getStabilizationModeTargetRoll());
   }
 
 // MODE STABILIZE
@@ -130,62 +130,62 @@ JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetRateBfF
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAccelRollMax
   (JNIEnv * env, jclass thisClass) {
-     return ArdupilotNative_nativeGetAccelRollMax();
+     return retriveFloatFromInt(ArdupilotNative_nativeGetAccelRollMax());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAccelPitchMax
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGetAccelPitchMax();
+    return retriveFloatFromInt(ArdupilotNative_nativeGetAccelPitchMax());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAccelYawMax
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGetAccelYawMax();
+    return retriveFloatFromInt(ArdupilotNative_nativeGetAccelYawMax());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAttitudeInputTc
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGetAttitudeInputTc();
+    return retriveFloatFromInt(ArdupilotNative_nativeGetAttitudeInputTc());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeGetDt
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeAttitudeGetDt();
+    return retriveFloatFromInt(ArdupilotNative_nativeAttitudeGetDt());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAngVelRollMax
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGetAngVelRollMax();
+    return retriveFloatFromInt(ArdupilotNative_nativeGetAngVelRollMax());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAngVelPitchMax
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGetAngVelPitchMax();
+    return retriveFloatFromInt(ArdupilotNative_nativeGetAngVelPitchMax());
   }
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAngVelYawMax
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGetAngVelYawMax();
+    return retriveFloatFromInt(ArdupilotNative_nativeGetAngVelYawMax());
   }
 
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeTargetQuat
   (JNIEnv * env, jclass thisClass, jfloat q1, jfloat q2, jfloat q3, jfloat q4) {
-    ArdupilotNative_nativeSetAttitudeTargetQuat(q1,q2,q3,q4);
+    ArdupilotNative_nativeSetAttitudeTargetQuat(hideFloatInInt(q1),hideFloatInInt(q2),hideFloatInInt(q3),hideFloatInInt(q4));
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeTargetEulerAngle
   (JNIEnv * env, jclass thisClass, jfloat x, jfloat y, jfloat z) {
-    ArdupilotNative_nativeSetAttitudeTargetEulerAngle(x, y, z);
+    ArdupilotNative_nativeSetAttitudeTargetEulerAngle(hideFloatInInt(x), hideFloatInInt(y), hideFloatInInt(z));
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeTargetEulerRate
   (JNIEnv * env, jclass thisClass, jfloat x, jfloat y, jfloat z) {
-      ArdupilotNative_nativeSetAttitudeTargetEulerRate(x,y,z);
+      ArdupilotNative_nativeSetAttitudeTargetEulerRate(hideFloatInInt(x),hideFloatInInt(y),hideFloatInInt(z));
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeTargetAngVel
   (JNIEnv * env, jclass thisClass, jfloat x, jfloat y, jfloat z) {
-        ArdupilotNative_nativeSetAttitudeTargetAngVel(x,y,z);
+        ArdupilotNative_nativeSetAttitudeTargetAngVel(hideFloatInInt(x),hideFloatInInt(y),hideFloatInInt(z));
     }
 
 JNIEXPORT jfloatArray JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetRateTargetAngVel
@@ -196,7 +196,7 @@ JNIEXPORT jfloatArray JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetRate
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAttitudeThrustErrorAngle
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGetAttitudeThrustErrorAngle();
+    return retriveFloatFromInt(ArdupilotNative_nativeGetAttitudeThrustErrorAngle());
   }
 
 JNIEXPORT jfloatArray JNICALL Java_ub_cse_juav_jni_ArdupilotNative_getAhrsGetQuatBodyToNed
@@ -207,21 +207,21 @@ JNIEXPORT jfloatArray JNICALL Java_ub_cse_juav_jni_ArdupilotNative_getAhrsGetQua
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeThrustAngle
   (JNIEnv * env, jclass thisClass, jfloat newThrustAngle) {
-       ArdupilotNative_nativeSetAttitudeThrustAngle(newThrustAngle);
+       ArdupilotNative_nativeSetAttitudeThrustAngle(hideFloatInInt(newThrustAngle));
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeGetPAngleYawKp
   (JNIEnv * env, jclass thisClass) {
-   return ArdupilotNative_nativeAttitudeGetPAngleYawKp();
+   return retriveFloatFromInt(ArdupilotNative_nativeAttitudeGetPAngleYawKp());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeGetPAngleRollKp
   (JNIEnv * env, jclass thisClass) {
-   return ArdupilotNative_nativeAttitudeGetPAngleRollKp();
+   return retriveFloatFromInt(ArdupilotNative_nativeAttitudeGetPAngleRollKp());
   }
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeGetPAnglePitchKp
   (JNIEnv * env, jclass thisClass) {
-   return ArdupilotNative_nativeAttitudeGetPAnglePitchKp();
+   return retriveFloatFromInt(ArdupilotNative_nativeAttitudeGetPAnglePitchKp());
   }
 
 JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeUseSqrtController
@@ -237,38 +237,38 @@ JNIEXPORT jfloatArray JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitud
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeFeedForwardScalar
   (JNIEnv * env, jclass thisClass, jfloat newFeedForwardScalar) {
-    ArdupilotNative_nativeSetAttitudeFeedForwardScalar(newFeedForwardScalar);
+    ArdupilotNative_nativeSetAttitudeFeedForwardScalar(hideFloatInInt(newFeedForwardScalar));
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetAttitudeFeedForwardScalar
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGetAttitudeFeedForwardScalar();
+    return retriveFloatFromInt(ArdupilotNative_nativeGetAttitudeFeedForwardScalar());
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAttitudeAngError
   (JNIEnv * env, jclass thisClass, jfloat w, jfloat x, jfloat y, jfloat z) {
-    ArdupilotNative_nativeSetAttitudeAngError(w,x,y,z);
+    ArdupilotNative_nativeSetAttitudeAngError(hideFloatInInt(w),hideFloatInInt(x),hideFloatInInt(y),hideFloatInInt(z));
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetRateTargetAngVel
   (JNIEnv * env, jclass thisClass, jfloat x, jfloat y, jfloat z) {
-      ArdupilotNative_nativeAttitudeSetRateTargetAngVel(x,y,z);
+      ArdupilotNative_nativeAttitudeSetRateTargetAngVel(hideFloatInInt(x),hideFloatInInt(y),hideFloatInInt(z));
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetThrustErrorAngle
   (JNIEnv * env, jclass thisClass, jfloat newThrustErrorAngle) {
-      ArdupilotNative_nativeAttitudeSetThrustErrorAngle(newThrustErrorAngle);
+      ArdupilotNative_nativeAttitudeSetThrustErrorAngle(hideFloatInInt(newThrustErrorAngle));
   }
 
   JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeGetSlewYaw
     (JNIEnv * env, jclass thisClass) {
-      return ArdupilotNative_nativeAttitudeGetSlewYaw();
+      return retriveFloatFromInt(ArdupilotNative_nativeAttitudeGetSlewYaw());
     }
 
   //AP VEHICLE
   JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeSetAPVehicleSchedulerGDt
     (JNIEnv * env, jclass thisClass, jfloat newGDt) {
-        ArdupilotNative_nativeSetAPVehicleSchedulerGDt(newGDt);
+        ArdupilotNative_nativeSetAPVehicleSchedulerGDt(hideFloatInInt(newGDt));
     }
   //AP VEHICLE
 
@@ -292,7 +292,7 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAttitudeSetThr
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_inputEulerAngleRollPitchEulerRateYaw
   (JNIEnv * env, jclass thisClass, jfloat eulerRollAngleCd, jfloat eulerPitchAngleCd, jfloat eulerYawRateCds) {
-    ArdupilotNative_inputEulerAngleRollPitchEulerRateYaw(eulerRollAngleCd,eulerPitchAngleCd,eulerYawRateCds);
+    ArdupilotNative_inputEulerAngleRollPitchEulerRateYaw(hideFloatInInt(eulerRollAngleCd),hideFloatInInt(eulerPitchAngleCd),hideFloatInInt(eulerYawRateCds));
   }
    // TEST
 
@@ -309,17 +309,17 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterRunAfter
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterGetTargetYawRate
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeLoiterGetTargetYawRate();
+    return retriveFloatFromInt(ArdupilotNative_nativeLoiterGetTargetYawRate());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterGetTargetPitch
   (JNIEnv * env, jclass thisClass) {
-      return ArdupilotNative_nativeLoiterGetTargetPitch();
+      return retriveFloatFromInt(ArdupilotNative_nativeLoiterGetTargetPitch());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeLoiterGetTargetRoll
   (JNIEnv * env, jclass thisClass) {
-  return ArdupilotNative_nativeLoiterGetTargetRoll();
+  return retriveFloatFromInt(ArdupilotNative_nativeLoiterGetTargetRoll());
   }
 
 // MODE GUIDED
@@ -347,27 +347,27 @@ JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoY
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetWpNavRoll
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGuidedGetWpNavRoll();
+    return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetWpNavRoll());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetWpNavPitch
   (JNIEnv * env, jclass thisClass) {
-      return ArdupilotNative_nativeGuidedGetWpNavPitch();
+      return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetWpNavPitch());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetTargetYawRate
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGuidedGetTargetYawRate();
+    return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetTargetYawRate());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoYawRateCds
   (JNIEnv * env, jclass thisClass) {
-  return ArdupilotNative_nativeGuidedGetAutoYawRateCds();
+  return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetAutoYawRateCds());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoYawYaw
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGuidedGetAutoYawYaw();
+    return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetAutoYawYaw());
   }
 
 
@@ -378,12 +378,12 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedVelContr
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetPosControlRoll
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGuidedGetPosControlRoll();
+    return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetPosControlRoll());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetPosControlPitch
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGuidedGetPosControlPitch();
+    return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetPosControlPitch());
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedPosVelControlRunPriorToAttitude
@@ -398,12 +398,12 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedAngleCon
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAngleControlRunRollIn
   (JNIEnv * env, jclass thisClass) {
-    return ArdupilotNative_nativeGuidedGetAngleControlRunRollIn();
+    return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetAngleControlRunRollIn());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAngleControlRunPitchIn
   (JNIEnv * env, jclass thisClass) {
-     return ArdupilotNative_nativeGuidedGetAngleControlRunPitchIn();
+     return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetAngleControlRunPitchIn());
   }
 
 JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedIsAngleStateUseYawRate
@@ -413,12 +413,12 @@ JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedIsAn
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAngleControlRunYawRateIn
   (JNIEnv * env, jclass thisClass) {
-       return ArdupilotNative_nativeGuidedGetAngleControlRunYawRateIn();
+       return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetAngleControlRunYawRateIn());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAngleControlRunYawIn
   (JNIEnv * env, jclass thisClass) {
-       return ArdupilotNative_nativeGuidedGetAngleControlRunYawIn();
+       return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetAngleControlRunYawIn());
   }
 
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedAngleControlRunAfterAttitude
