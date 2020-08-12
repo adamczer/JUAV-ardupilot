@@ -1,7 +1,7 @@
 package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
-import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
 
 public class ModeStabilize extends Mode{
     public ModeStabilize(AcAttitudeControl acAttitudeControl) {
@@ -27,23 +27,23 @@ public class ModeStabilize extends Mode{
     }
 
     private float getTargetYawRate() {
-        return ArdupilotNative.getStabilizationModeTargetYawRate();
+        return ArdupilotNativeWrapper.getStabilizationModeTargetYawRate();
     }
 
     private float getTargetPitch() {
-        return ArdupilotNative.getStabilizationModeTargetPitch();
+        return ArdupilotNativeWrapper.getStabilizationModeTargetPitch();
     }
 
     private float getTargetRoll() {
-        return ArdupilotNative.getStabilizationModeTargetRoll();
+        return ArdupilotNativeWrapper.getStabilizationModeTargetRoll();
     }
 
     private void nativePortionOfModeStabilizeRun1() {
-        ArdupilotNative.nativeRunBeforeStabilizationCallAttitudeController();
+        ArdupilotNativeWrapper.nativeRunBeforeStabilizationCallAttitudeController();
     }
 
     private void nativePortionOfModeStabilizeRun2() {
-        ArdupilotNative.nativeRunAfterStabilizationCallAttitudeController();
+        ArdupilotNativeWrapper.nativeRunAfterStabilizationCallAttitudeController();
     }
 
 }

@@ -1,14 +1,10 @@
 package ub.cse.juav.copter;
 
 import ub.cse.juav.copter.modes.*;
-import ub.cse.juav.jni.ArdupilotNative;
-import ub.cse.juav.jni.HalSitlNative;
+import ub.cse.juav.jni.FijiJniSwitch;
+import ub.cse.juav.jni.HalSitlNativeWrapper;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HalSitl {
     void run(int argc, String[] argv, List<Callback> callbacks) {
@@ -33,24 +29,24 @@ public class HalSitl {
     }
 
     private void halSitlInnerLoopAfterCallbacks() {
-        HalSitlNative.nativeHalSitlInnerLoopAfterCallBacks();
+        HalSitlNativeWrapper.nativeHalSitlInnerLoopAfterCallBacks();
     }
 
     private void fillStackNan() {
-        HalSitlNative.sitlFillStackNan();
+        HalSitlNativeWrapper.sitlFillStackNan();
     }
 
     private void nativeInitizationPriorToControlLoop() {
-        String juavSrc = System.getenv("ARDU_SRC");
-        HalSitlNative.nativeInitizationPriorToControlLoop(juavSrc);
+        String arduSrc = System.getenv("ARDU_SRC");
+        HalSitlNativeWrapper.nativeInitizationPriorToControlLoop(arduSrc);
     }
 
     private boolean getHalSitlSchedulerShouldReboot() {
-        return HalSitlNative.getHalSitlSchedulerShouldReboot();
+        return HalSitlNativeWrapper.getHalSitlSchedulerShouldReboot();
     }
 
     private boolean getHalSitlSchedulerShouldExit() {
-        return HalSitlNative.getHalSitlSchedulerShouldExit();
+        return HalSitlNativeWrapper.getHalSitlSchedulerShouldExit();
     }
 
     private void actuallyReboot() {
@@ -60,6 +56,9 @@ public class HalSitl {
     }
 
     public static void main(String[] args) {
+        if(Arrays.asList(args).contains("fiji"))
+            FijiJniSwitch.usingFiji=true;
+
         System.loadLibrary("JuavSitlJni");
 
         AcAttitudeControl acAttitudeControl = new AcAttitudeControl();

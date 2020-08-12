@@ -1,6 +1,6 @@
 package ub.cse.juav.copter;
 
-import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
 
 public class ApVehicle implements Callback{
     ApScheduler scheduler;
@@ -10,7 +10,7 @@ public class ApVehicle implements Callback{
     }
 
     public void setSchedulerGDt(float f) {
-        ArdupilotNative.nativeSetAPVehicleSchedulerGDt(f);
+        ArdupilotNativeWrapper.nativeSetAPVehicleSchedulerGDt(f);
     }
 
 

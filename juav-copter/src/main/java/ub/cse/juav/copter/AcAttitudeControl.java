@@ -1,6 +1,6 @@
 package ub.cse.juav.copter;
 
-import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
 import ub.cse.juav.math.*;
 
 import javax.vecmath.Vector2f;
@@ -442,19 +442,19 @@ public class AcAttitudeControl {
     }
 
     private void setThrustErrorAngle(float thisThrustErrorAngle) {
-        ArdupilotNative.nativeAttitudeSetThrustErrorAngle(thisThrustErrorAngle);
+        ArdupilotNativeWrapper.nativeAttitudeSetThrustErrorAngle(thisThrustErrorAngle);
     }
 
     private void setAttitudeTargetAngVel(JuavVector3f thisAttitudeTargetAngVel) {
-        ArdupilotNative.nativeSetAttitudeTargetAngVel(thisAttitudeTargetAngVel.x,thisAttitudeTargetAngVel.y,thisAttitudeTargetAngVel.z);
+        ArdupilotNativeWrapper.nativeSetAttitudeTargetAngVel(thisAttitudeTargetAngVel.x,thisAttitudeTargetAngVel.y,thisAttitudeTargetAngVel.z);
     }
 
     private void setAttitudeTargetEulerRate(JuavVector3f thisAttitudeTargetEulerRate) {
-        ArdupilotNative.nativeSetAttitudeTargetEulerRate(thisAttitudeTargetEulerRate.x,thisAttitudeTargetEulerRate.y,thisAttitudeTargetEulerRate.z);
+        ArdupilotNativeWrapper.nativeSetAttitudeTargetEulerRate(thisAttitudeTargetEulerRate.x,thisAttitudeTargetEulerRate.y,thisAttitudeTargetEulerRate.z);
     }
 
     private void setAttitudeTargetEulerAngle(JuavVector3f thisAttitudeTargetEulerAngle) {
-        ArdupilotNative.nativeSetAttitudeTargetEulerAngle(thisAttitudeTargetEulerAngle.x,thisAttitudeTargetEulerAngle.y,thisAttitudeTargetEulerAngle.z);
+        ArdupilotNativeWrapper.nativeSetAttitudeTargetEulerAngle(thisAttitudeTargetEulerAngle.x,thisAttitudeTargetEulerAngle.y,thisAttitudeTargetEulerAngle.z);
     }
 
     private float get_slew_yaw_rads() {
@@ -467,112 +467,112 @@ public class AcAttitudeControl {
     }
 
     private float getSlewYaw() {
-        return ArdupilotNative.nativeAttitudeGetSlewYaw();
+        return ArdupilotNativeWrapper.nativeAttitudeGetSlewYaw();
     }
 
     private float getInputTc () {
-        return ArdupilotNative.nativeGetAttitudeInputTc();
+        return ArdupilotNativeWrapper.nativeGetAttitudeInputTc();
     }
 
     private JuavVector3f getAttitudeTargetEulerRate() {
-        float [] xyz = ArdupilotNative.nativeGetAttitudeTargetEulerRate();
+        float [] xyz = ArdupilotNativeWrapper.nativeGetAttitudeTargetEulerRate();
         JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
         return ret;
     }
 
     private JuavVector3f getAttitudeTargetEulerAngle() {
-        float [] xyz = ArdupilotNative.nativeGetAttitudeTargetEulerAngle();
+        float [] xyz = ArdupilotNativeWrapper.nativeGetAttitudeTargetEulerAngle();
         JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
         return ret;
     }
 
     private void setRateTargetAngVel(JuavVector3f thisRateTargetAngVel) {
-        ArdupilotNative.nativeAttitudeSetRateTargetAngVel(thisRateTargetAngVel.x,thisRateTargetAngVel.y,thisRateTargetAngVel.z);
+        ArdupilotNativeWrapper.nativeAttitudeSetRateTargetAngVel(thisRateTargetAngVel.x,thisRateTargetAngVel.y,thisRateTargetAngVel.z);
     }
 
     private void setAttitudeTargetQuat(JuavQuaternion thisAttitudeTargetQuat) {
-        ArdupilotNative.nativeSetAttitudeTargetQuat(thisAttitudeTargetQuat.w,thisAttitudeTargetQuat.x,thisAttitudeTargetQuat.y,thisAttitudeTargetQuat.z);
+        ArdupilotNativeWrapper.nativeSetAttitudeTargetQuat(thisAttitudeTargetQuat.w,thisAttitudeTargetQuat.x,thisAttitudeTargetQuat.y,thisAttitudeTargetQuat.z);
     }
 
     private void setAttitudeAngError(JuavQuaternion juavQuaternion) {
-        ArdupilotNative.nativeSetAttitudeAngError(juavQuaternion.w,juavQuaternion.x,juavQuaternion.y,juavQuaternion.z);
+        ArdupilotNativeWrapper.nativeSetAttitudeAngError(juavQuaternion.w,juavQuaternion.x,juavQuaternion.y,juavQuaternion.z);
     }
 
     private boolean getRateBfFfEnabled() {
-        return ArdupilotNative.nativeGetRateBfFfEnabled();
+        return ArdupilotNativeWrapper.nativeGetRateBfFfEnabled();
     }
 
     private JuavVector3f getAttitudeTargetAngVel() {
-        float[] xyz = ArdupilotNative.nativeGetAttitudeTargetAngVel();
+        float[] xyz = ArdupilotNativeWrapper.nativeGetAttitudeTargetAngVel();
         JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
         return ret;
     }
 
     private JuavQuaternion getAhrsGetQuatBodyToNed() {
-        float[] wxyz = ArdupilotNative.getAhrsGetQuatBodyToNed();
+        float[] wxyz = ArdupilotNativeWrapper.getAhrsGetQuatBodyToNed();
         JuavQuaternion ret = new JuavQuaternion(wxyz[0],wxyz[1],wxyz[2],wxyz[3]);
         return ret;
     }
 
     private JuavQuaternion getAttitudeTargetQuat() {
-        float[] wxyz = ArdupilotNative.getAttitudeTargetQuat();
+        float[] wxyz = ArdupilotNativeWrapper.getAttitudeTargetQuat();
         JuavQuaternion ret = new JuavQuaternion(wxyz[0],wxyz[1],wxyz[2],wxyz[3]);
         return ret;
     }
 
     private float getThrustErrorAngle() {
-        return ArdupilotNative.nativeGetAttitudeThrustErrorAngle();
+        return ArdupilotNativeWrapper.nativeGetAttitudeThrustErrorAngle();
     }
 
     private JuavVector3f getAhrsGyro() {
-        float[] xyz = ArdupilotNative.nativeAttitudeGetAhrsGyro();
+        float[] xyz = ArdupilotNativeWrapper.nativeAttitudeGetAhrsGyro();
         JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
         return ret;
     }
 
     private JuavVector3f getRateTargetAngVel() {
-        float[] xyz = ArdupilotNative.nativeGetRateTargetAngVel();
+        float[] xyz = ArdupilotNativeWrapper.nativeGetRateTargetAngVel();
         JuavVector3f ret = new JuavVector3f(xyz[0],xyz[1],xyz[2]);
         return ret;
     }
 
     private float getAngVelRollMax() {
-        return ArdupilotNative.nativeGetAngVelRollMax();
+        return ArdupilotNativeWrapper.nativeGetAngVelRollMax();
     }
 
     private float getAngVelPitchMax() {
-        return ArdupilotNative.nativeGetAngVelPitchMax();
+        return ArdupilotNativeWrapper.nativeGetAngVelPitchMax();
     }
 
     private float getAngVelYawMax() {
-        return ArdupilotNative.nativeGetAngVelYawMax();
+        return ArdupilotNativeWrapper.nativeGetAngVelYawMax();
     }
 
     // get the roll acceleration limit in centidegrees/s/s or radians/s/s
     private float get_accel_roll_max() {
-        return ArdupilotNative.nativeGetAccelRollMax();
+        return ArdupilotNativeWrapper.nativeGetAccelRollMax();
     }
 
     private float get_accel_roll_max_radss() { return (float) Math.toRadians(get_accel_roll_max() * 0.01f); }
 
     // get the pitch acceleration limit in centidegrees/s/s or radians/s/s
     private float get_accel_pitch_max() {
-        return ArdupilotNative.nativeGetAccelPitchMax();
+        return ArdupilotNativeWrapper.nativeGetAccelPitchMax();
     }
     private float get_accel_pitch_max_radss() { return (float) Math.toRadians(get_accel_pitch_max() * 0.01f); }
 
     // get the yaw acceleration limit in centidegrees/s/s or radians/s/s
     private float get_accel_yaw_max() {
-        return ArdupilotNative.nativeGetAccelYawMax();
+        return ArdupilotNativeWrapper.nativeGetAccelYawMax();
     }
     private float get_accel_yaw_max_radss() { return (float) Math.toRadians(get_accel_yaw_max() * 0.01f); }
 
     private void setFeedforwardScalar(float feedforwardScalar) {
-        ArdupilotNative.nativeSetAttitudeFeedForwardScalar(feedforwardScalar);
+        ArdupilotNativeWrapper.nativeSetAttitudeFeedForwardScalar(feedforwardScalar);
     }
 
     private float getFeedforwardScalar() {
-        return ArdupilotNative.nativeGetAttitudeFeedForwardScalar();
+        return ArdupilotNativeWrapper.nativeGetAttitudeFeedForwardScalar();
     }
 
     private static float getThrustAngle() {
@@ -581,27 +581,27 @@ public class AcAttitudeControl {
     }
 
     private void setThrustAngle(float newThrustAngle) {
-        ArdupilotNative.nativeSetAttitudeThrustAngle(newThrustAngle);
+        ArdupilotNativeWrapper.nativeSetAttitudeThrustAngle(newThrustAngle);
     }
 
     private boolean getUseSqrtController() {
-        return ArdupilotNative.nativeAttitudeUseSqrtController();
+        return ArdupilotNativeWrapper.nativeAttitudeUseSqrtController();
     }
 
     private float getDt() {
-        return ArdupilotNative.nativeAttitudeGetDt();
+        return ArdupilotNativeWrapper.nativeAttitudeGetDt();
     }
 
     private float getPAngleYawKp() {
-        return ArdupilotNative.nativeAttitudeGetPAngleYawKp();
+        return ArdupilotNativeWrapper.nativeAttitudeGetPAngleYawKp();
     }
 
     private float getPAngleRollKp() {
-        return ArdupilotNative.nativeAttitudeGetPAngleRollKp();
+        return ArdupilotNativeWrapper.nativeAttitudeGetPAngleRollKp();
     }
 
     private float getPAnglePitchKp() {
-        return ArdupilotNative.nativeAttitudeGetPAnglePitchKp();
+        return ArdupilotNativeWrapper.nativeAttitudeGetPAnglePitchKp();
     }
 
     private float getAcAttitudeAccelYControlerMaxRadss() {

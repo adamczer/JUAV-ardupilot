@@ -1,7 +1,7 @@
 package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
-import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
 
 import static ub.cse.juav.copter.modes.Mode.RTLState.*;
 
@@ -153,11 +153,11 @@ public class ModeRtl extends Mode{
     }
 
     private boolean isMotorsArmed() {
-        return ArdupilotNative.nativeModeRtlIsMotorsArmed();
+        return ArdupilotNativeWrapper.nativeModeRtlIsMotorsArmed();
     }
 
     private boolean isStateComplete() {
-        return ArdupilotNative.nativeModeRtlIsStateComplete();
+        return ArdupilotNativeWrapper.nativeModeRtlIsStateComplete();
     }
 
     private RTLState getState() {
