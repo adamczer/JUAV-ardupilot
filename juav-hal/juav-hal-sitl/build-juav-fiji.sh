@@ -20,7 +20,6 @@ $FIJI_HOME/bin/fivmc \
 --link-dynamic JuavSitlJni \
 -o JuavFiji ./build/*.class \
 --64 \
---no-opt \
 --main ub.cse.juav.copter.HalSitl
 
 cp libs/* .
