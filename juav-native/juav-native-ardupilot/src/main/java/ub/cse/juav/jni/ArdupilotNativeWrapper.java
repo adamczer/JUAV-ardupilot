@@ -57,14 +57,14 @@ public class ArdupilotNativeWrapper {
     public static float nativeApSchedulerGetLoopPeriodS() {
         //fivmRuntime.logPrint("\nnativeApSchedulerGetLoopPeriodS");
         if(FijiJniSwitch.usingFiji) {
-            return ArdupilotNative_nativeApSchedulerGetLoopPeriodSGodGiven();
+            return floatFromIntWrapping(ArdupilotNative_nativeApSchedulerGetLoopPeriodSGodGiven());
         } else
             return ArdupilotNative.nativeApSchedulerGetLoopPeriodS();
     }
 
     @Import
     @GodGiven
-    private static native float ArdupilotNative_nativeApSchedulerGetLoopPeriodSGodGiven();
+    private static native int ArdupilotNative_nativeApSchedulerGetLoopPeriodSGodGiven();
 
     //AP SCHEDULER
 
