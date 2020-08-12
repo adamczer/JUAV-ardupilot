@@ -36,6 +36,8 @@ void ArdupilotNative_setHalUtilPersistentDataSchedulerTask
  */
 float ArdupilotNative_nativeApSchedulerGetLoopPeriodS
   ();
+int ArdupilotNative_nativeApSchedulerGetLoopPeriodSGodGiven
+  ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -100,6 +102,8 @@ void ArdupilotNative_nativeRunAfterStabilizationCallAttitudeController
  */
 float ArdupilotNative_getStabilizationModeTargetYawRate
   ();
+int ArdupilotNative_getStabilizationModeTargetYawRateGodGiven
+  ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -108,7 +112,8 @@ float ArdupilotNative_getStabilizationModeTargetYawRate
  */
 float ArdupilotNative_getStabilizationModeTargetPitch
   ();
-
+int ArdupilotNative_getStabilizationModeTargetPitchGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    getStabilizationModeTargetRoll
@@ -116,7 +121,8 @@ float ArdupilotNative_getStabilizationModeTargetPitch
  */
 float ArdupilotNative_getStabilizationModeTargetRoll
   ();
-
+int ArdupilotNative_getStabilizationModeTargetRollGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    getAttitudeTargetQuat
@@ -125,10 +131,10 @@ float ArdupilotNative_getStabilizationModeTargetRoll
 float * ArdupilotNative_getAttitudeTargetQuat
   ();
 //FIJI natives eaiser then pointers
-float ArdupilotNative_getAttitudeTargetQuatW();
-float ArdupilotNative_getAttitudeTargetQuatX();
-float ArdupilotNative_getAttitudeTargetQuatY();
-float ArdupilotNative_getAttitudeTargetQuatZ();
+int ArdupilotNative_getAttitudeTargetQuatW();
+int ArdupilotNative_getAttitudeTargetQuatX();
+int ArdupilotNative_getAttitudeTargetQuatY();
+int ArdupilotNative_getAttitudeTargetQuatZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -139,9 +145,9 @@ float * ArdupilotNative_nativeGetAttitudeTargetEulerAngle
   ();
 
 //FIJI
-float ArdupilotNative_nativeGetAttitudeTargetEulerAngleX();
-float ArdupilotNative_nativeGetAttitudeTargetEulerAngleY();
-float ArdupilotNative_nativeGetAttitudeTargetEulerAngleZ();
+int ArdupilotNative_nativeGetAttitudeTargetEulerAngleX();
+int ArdupilotNative_nativeGetAttitudeTargetEulerAngleY();
+int ArdupilotNative_nativeGetAttitudeTargetEulerAngleZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -152,9 +158,9 @@ float * ArdupilotNative_nativeGetAttitudeTargetEulerRate
   ();
 
 //FIJI
-float ArdupilotNative_nativeGetAttitudeTargetEulerRateX();
-float ArdupilotNative_nativeGetAttitudeTargetEulerRateY();
-float ArdupilotNative_nativeGetAttitudeTargetEulerRateZ();
+int ArdupilotNative_nativeGetAttitudeTargetEulerRateX();
+int ArdupilotNative_nativeGetAttitudeTargetEulerRateY();
+int ArdupilotNative_nativeGetAttitudeTargetEulerRateZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -165,9 +171,9 @@ float * ArdupilotNative_nativeGetAttitudeTargetAngVel
   ();
 
 //FIJI
-float  ArdupilotNative_nativeGetAttitudeTargetAngVelX();
-float  ArdupilotNative_nativeGetAttitudeTargetAngVelY();
-float  ArdupilotNative_nativeGetAttitudeTargetAngVelZ();
+int  ArdupilotNative_nativeGetAttitudeTargetAngVelX();
+int  ArdupilotNative_nativeGetAttitudeTargetAngVelY();
+int  ArdupilotNative_nativeGetAttitudeTargetAngVelZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -184,13 +190,16 @@ bool ArdupilotNative_nativeGetRateBfFfEnabled
  */
 float ArdupilotNative_nativeGetAccelRollMax
   ();
-
+int ArdupilotNative_nativeGetAccelRollMaxGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGetAccelPitchMax
  * Signature: ()F
  */
 float ArdupilotNative_nativeGetAccelPitchMax
+  ();
+int ArdupilotNative_nativeGetAccelPitchMaxGodGiven
   ();
 
 /*
@@ -200,13 +209,16 @@ float ArdupilotNative_nativeGetAccelPitchMax
  */
 float ArdupilotNative_nativeGetAccelYawMax
   ();
-
+int ArdupilotNative_nativeGetAccelYawMaxGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGetAttitudeInputTc
  * Signature: ()F
  */
 float ArdupilotNative_nativeGetAttitudeInputTc
+  ();
+int ArdupilotNative_nativeGetAttitudeInputTcGodGiven
   ();
 
 /*
@@ -216,7 +228,8 @@ float ArdupilotNative_nativeGetAttitudeInputTc
  */
 float ArdupilotNative_nativeAttitudeGetDt
   ();
-
+int ArdupilotNative_nativeAttitudeGetDtGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGetAngVelRollMax
@@ -224,7 +237,8 @@ float ArdupilotNative_nativeAttitudeGetDt
  */
 float ArdupilotNative_nativeGetAngVelRollMax
   ();
-
+int ArdupilotNative_nativeGetAngVelRollMaxGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGetAngVelPitchMax
@@ -232,7 +246,8 @@ float ArdupilotNative_nativeGetAngVelRollMax
  */
 float ArdupilotNative_nativeGetAngVelPitchMax
   ();
-
+int ArdupilotNative_nativeGetAngVelPitchMaxGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGetAngVelYawMax
@@ -240,7 +255,8 @@ float ArdupilotNative_nativeGetAngVelPitchMax
  */
 float ArdupilotNative_nativeGetAngVelYawMax
   ();
-
+int ArdupilotNative_nativeGetAngVelYawMaxGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeSetAttitudeTargetQuat
@@ -280,9 +296,9 @@ void ArdupilotNative_nativeSetAttitudeTargetAngVel
  */
 float * ArdupilotNative_nativeGetRateTargetAngVel
   ();
-float ArdupilotNative_nativeGetRateTargetAngVelX();
-float ArdupilotNative_nativeGetRateTargetAngVelY();
-float ArdupilotNative_nativeGetRateTargetAngVelZ();
+int ArdupilotNative_nativeGetRateTargetAngVelX();
+int ArdupilotNative_nativeGetRateTargetAngVelY();
+int ArdupilotNative_nativeGetRateTargetAngVelZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -291,7 +307,8 @@ float ArdupilotNative_nativeGetRateTargetAngVelZ();
  */
 float ArdupilotNative_nativeGetAttitudeThrustErrorAngle
   ();
-
+int ArdupilotNative_nativeGetAttitudeThrustErrorAngleGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    getAhrsGetQuatBodyToNed
@@ -299,10 +316,10 @@ float ArdupilotNative_nativeGetAttitudeThrustErrorAngle
  */
 float * ArdupilotNative_getAhrsGetQuatBodyToNed
   ();
-float ArdupilotNative_getAhrsGetQuatBodyToNedW();
-float ArdupilotNative_getAhrsGetQuatBodyToNedX();
-float ArdupilotNative_getAhrsGetQuatBodyToNedY();
-float ArdupilotNative_getAhrsGetQuatBodyToNedZ();
+int ArdupilotNative_getAhrsGetQuatBodyToNedW();
+int ArdupilotNative_getAhrsGetQuatBodyToNedX();
+int ArdupilotNative_getAhrsGetQuatBodyToNedY();
+int ArdupilotNative_getAhrsGetQuatBodyToNedZ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeSetAttitudeThrustAngle
@@ -318,7 +335,8 @@ void ArdupilotNative_nativeSetAttitudeThrustAngle
  */
 float ArdupilotNative_nativeAttitudeGetPAngleYawKp
   ();
-
+int ArdupilotNative_nativeAttitudeGetPAngleYawKpGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeAttitudeGetPAngleRollKp
@@ -326,7 +344,8 @@ float ArdupilotNative_nativeAttitudeGetPAngleYawKp
  */
 float ArdupilotNative_nativeAttitudeGetPAngleRollKp
   ();
-
+int ArdupilotNative_nativeAttitudeGetPAngleRollKpGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeAttitudeGetPAnglePitchKp
@@ -334,7 +353,8 @@ float ArdupilotNative_nativeAttitudeGetPAngleRollKp
  */
 float ArdupilotNative_nativeAttitudeGetPAnglePitchKp
   ();
-
+int ArdupilotNative_nativeAttitudeGetPAnglePitchKpGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeAttitudeUseSqrtController
@@ -350,9 +370,9 @@ bool ArdupilotNative_nativeAttitudeUseSqrtController
  */
 float * ArdupilotNative_nativeAttitudeGetAhrsGyro
   ();
-float   ArdupilotNative_nativeAttitudeGetAhrsGyroX();
-float   ArdupilotNative_nativeAttitudeGetAhrsGyroY();
-float   ArdupilotNative_nativeAttitudeGetAhrsGyroZ();
+int   ArdupilotNative_nativeAttitudeGetAhrsGyroX();
+int   ArdupilotNative_nativeAttitudeGetAhrsGyroY();
+int   ArdupilotNative_nativeAttitudeGetAhrsGyroZ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
@@ -369,7 +389,8 @@ void ArdupilotNative_nativeSetAttitudeFeedForwardScalar
  */
 float ArdupilotNative_nativeGetAttitudeFeedForwardScalar
   ();
-
+int ArdupilotNative_nativeGetAttitudeFeedForwardScalarGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeSetAttitudeAngError
@@ -401,7 +422,8 @@ void ArdupilotNative_nativeAttitudeSetThrustErrorAngle
  */
 float ArdupilotNative_nativeAttitudeGetSlewYaw
   ();
-
+int ArdupilotNative_nativeAttitudeGetSlewYawGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeSetAPVehicleSchedulerGDt
@@ -465,7 +487,8 @@ void ArdupilotNative_nativeLoiterRunAfterAttitudeControl
  */
 float ArdupilotNative_nativeLoiterGetTargetYawRate
   ();
-
+int ArdupilotNative_nativeLoiterGetTargetYawRateGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeLoiterGetTargetPitch
@@ -473,7 +496,8 @@ float ArdupilotNative_nativeLoiterGetTargetYawRate
  */
 float ArdupilotNative_nativeLoiterGetTargetPitch
   ();
-
+int ArdupilotNative_nativeLoiterGetTargetPitchGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeLoiterGetTargetRoll
@@ -481,7 +505,8 @@ float ArdupilotNative_nativeLoiterGetTargetPitch
  */
 float ArdupilotNative_nativeLoiterGetTargetRoll
   ();
-
+int ArdupilotNative_nativeLoiterGetTargetRollGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedGetMode
@@ -521,7 +546,8 @@ int ArdupilotNative_nativeGuidedGetAutoYawMode
  */
 float ArdupilotNative_nativeGuidedGetWpNavRoll
   ();
-
+int ArdupilotNative_nativeGuidedGetWpNavRollGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedGetWpNavPitch
@@ -529,7 +555,8 @@ float ArdupilotNative_nativeGuidedGetWpNavRoll
  */
 float ArdupilotNative_nativeGuidedGetWpNavPitch
   ();
-
+int ArdupilotNative_nativeGuidedGetWpNavPitchGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedGetTargetYawRate
@@ -537,7 +564,8 @@ float ArdupilotNative_nativeGuidedGetWpNavPitch
  */
 float ArdupilotNative_nativeGuidedGetTargetYawRate
   ();
-
+int ArdupilotNative_nativeGuidedGetTargetYawRateGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedGetAutoYawRateCds
@@ -545,7 +573,8 @@ float ArdupilotNative_nativeGuidedGetTargetYawRate
  */
 float ArdupilotNative_nativeGuidedGetAutoYawRateCds
   ();
-
+int ArdupilotNative_nativeGuidedGetAutoYawRateCdsGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedGetAutoYawYaw
@@ -553,7 +582,8 @@ float ArdupilotNative_nativeGuidedGetAutoYawRateCds
  */
 float ArdupilotNative_nativeGuidedGetAutoYawYaw
   ();
-
+int ArdupilotNative_nativeGuidedGetAutoYawYawGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedVelControlRunPriorToAttitude
@@ -569,7 +599,8 @@ void ArdupilotNative_nativeGuidedVelControlRunPriorToAttitude
  */
 float ArdupilotNative_nativeGuidedGetPosControlRoll
   ();
-
+int ArdupilotNative_nativeGuidedGetPosControlRollGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedGetPosControlPitch
@@ -577,7 +608,8 @@ float ArdupilotNative_nativeGuidedGetPosControlRoll
  */
 float ArdupilotNative_nativeGuidedGetPosControlPitch
   ();
-
+int ArdupilotNative_nativeGuidedGetPosControlPitchGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedPosVelControlRunPriorToAttitude
@@ -601,7 +633,8 @@ void ArdupilotNative_nativeGuidedAngleControlRunPriorToAttitude
  */
 float ArdupilotNative_nativeGuidedGetAngleControlRunRollIn
   ();
-
+int ArdupilotNative_nativeGuidedGetAngleControlRunRollInGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedGetAngleControlRunPitchIn
@@ -609,7 +642,8 @@ float ArdupilotNative_nativeGuidedGetAngleControlRunRollIn
  */
 float ArdupilotNative_nativeGuidedGetAngleControlRunPitchIn
   ();
-
+int ArdupilotNative_nativeGuidedGetAngleControlRunPitchInGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedIsAngleStateUseYawRate
@@ -625,7 +659,8 @@ bool ArdupilotNative_nativeGuidedIsAngleStateUseYawRate
  */
 float ArdupilotNative_nativeGuidedGetAngleControlRunYawRateIn
   ();
-
+int ArdupilotNative_nativeGuidedGetAngleControlRunYawRateInGodGiven
+  ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGuidedGetAngleControlRunYawIn
@@ -633,7 +668,8 @@ float ArdupilotNative_nativeGuidedGetAngleControlRunYawRateIn
  */
 float ArdupilotNative_nativeGuidedGetAngleControlRunYawIn
   ();
-
+int ArdupilotNative_nativeGuidedGetAngleControlRunYawInGodGiven
+  ();
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
