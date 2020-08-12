@@ -23,6 +23,13 @@ unsigned char const * p = reinterpret_cast<unsigned char const *>(&ret);
   return value;
 }
 
+float retriveFloatFromInt(int ret) {
+unsigned char const * p = reinterpret_cast<unsigned char const *>(&ret);
+  float value;
+  std::memcpy(&value, p, sizeof(float));
+  return value;
+}
+
 // AP SCHEDULER vv
   void ArdupilotNative_nativeApSchedulerPriorToFastLoop
     () {
@@ -383,11 +390,19 @@ void ArdupilotNative_nativeSetAttitudeTargetQuat
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
     attitudeController->juavSetAttitudeTargetQuat(q1,q2,q3,q4);
   }
+void ArdupilotNative_nativeSetAttitudeTargetQuatGodGiven
+  (int q1, int q2, int q3, int q4) {
+  ArdupilotNative_nativeSetAttitudeTargetQuat(retriveFloatFromInt(q1),retriveFloatFromInt(q2),retriveFloatFromInt(q3),retriveFloatFromInt(q4));
+  }
 
 void ArdupilotNative_nativeSetAttitudeTargetEulerAngle
   (float x, float y, float z) {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
     attitudeController->juavSetAttitudeTargetEulerAngle(x, y, z);
+  }
+void ArdupilotNative_nativeSetAttitudeTargetEulerAngleGodGiven
+  (int x, int y, int z) {
+  ArdupilotNative_nativeSetAttitudeTargetEulerAngle(retriveFloatFromInt(x),retriveFloatFromInt(y),retriveFloatFromInt(z));
   }
 
 void ArdupilotNative_nativeSetAttitudeTargetEulerRate
@@ -395,12 +410,21 @@ void ArdupilotNative_nativeSetAttitudeTargetEulerRate
       AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
       attitudeController->juavSetAttitudeTargetEulerRate(x,y,z);
   }
+void ArdupilotNative_nativeSetAttitudeTargetEulerRateGodGiven
+  (int x, int y, int z) {
+  ArdupilotNative_nativeSetAttitudeTargetEulerRate(retriveFloatFromInt(x),retriveFloatFromInt(y),retriveFloatFromInt(z));
+  }
 
 void ArdupilotNative_nativeSetAttitudeTargetAngVel
   (float x, float y, float z) {
         AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
         attitudeController->juavSetAttitudeTargetAngVel(x,y,z);
     }
+void ArdupilotNative_nativeSetAttitudeTargetAngVelGodGiven
+  (int x, int y, int z) {
+        ArdupilotNative_nativeSetAttitudeTargetAngVel(retriveFloatFromInt(x),retriveFloatFromInt(y),retriveFloatFromInt(z));
+    }
+
 static float attitudeRateTargetAngVel [3];
 float * ArdupilotNative_nativeGetRateTargetAngVel
   () {
@@ -476,6 +500,11 @@ void ArdupilotNative_nativeSetAttitudeThrustAngle
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
         return attitudeController->juavSetAttitudeThrustAngle(newThrustAngle);
   }
+void ArdupilotNative_nativeSetAttitudeThrustAngleGodGiven
+  (int newThrustAngle) {
+    ArdupilotNative_nativeSetAttitudeThrustAngle(retriveFloatFromInt(newThrustAngle));
+  }
+
 
 float ArdupilotNative_nativeAttitudeGetPAngleYawKp
   () {
@@ -546,6 +575,10 @@ void ArdupilotNative_nativeSetAttitudeFeedForwardScalar
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
     attitudeController->juavAttitudeSetFeedForwardScalar(newFeedForwardScalar);
   }
+void ArdupilotNative_nativeSetAttitudeFeedForwardScalarGodGiven
+  (int newFeedForwardScalar) {
+  ArdupilotNative_nativeSetAttitudeFeedForwardScalar(retriveFloatFromInt(newFeedForwardScalar));
+  }
 
 float ArdupilotNative_nativeGetAttitudeFeedForwardScalar
   () {
@@ -562,17 +595,29 @@ void ArdupilotNative_nativeSetAttitudeAngError
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
     attitudeController->juavAttitudeSetAttitudeAngError(w,x,y,z);
   }
+void ArdupilotNative_nativeSetAttitudeAngErrorGodGiven
+  (int w, int x, int y, int z) {
+  ArdupilotNative_nativeSetAttitudeAngError(retriveFloatFromInt(w),retriveFloatFromInt(x),retriveFloatFromInt(y),retriveFloatFromInt(z));
+  }
 
 void ArdupilotNative_nativeAttitudeSetRateTargetAngVel
   (float x, float y, float z) {
       AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
       attitudeController->juavSetAttitudeRateTargetAngVel(x,y,z);
   }
+void ArdupilotNative_nativeAttitudeSetRateTargetAngVelGodGiven
+  (int x, int y, int z) {
+      ArdupilotNative_nativeAttitudeSetRateTargetAngVel(retriveFloatFromInt(x),retriveFloatFromInt(y),retriveFloatFromInt(z));
+  }
 
 void ArdupilotNative_nativeAttitudeSetThrustErrorAngle
   (float newThrustErrorAngle) {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
           attitudeController->juavSetAttitudeThrustErrorAngle(newThrustErrorAngle);
+  }
+void ArdupilotNative_nativeAttitudeSetThrustErrorAngleGodGiven
+  (int newThrustErrorAngle) {
+    ArdupilotNative_nativeAttitudeSetThrustErrorAngle(retriveFloatFromInt(newThrustErrorAngle));
   }
 
   float ArdupilotNative_nativeAttitudeGetSlewYaw
@@ -591,6 +636,10 @@ void ArdupilotNative_nativeAttitudeSetThrustErrorAngle
         AP_Vehicle& vehicle = *AP_Vehicle::get_singleton();
         vehicle.juavSetAPVehicleSchedulerGDt(newGDt);
     }
+  void ArdupilotNative_nativeSetAPVehicleSchedulerGDtGodGiven
+      (int newGDt) {
+          ArdupilotNative_nativeSetAPVehicleSchedulerGDt(retriveFloatFromInt(newGDt));
+      }
   //AP VEHICLE
 
   // MODE RTL
@@ -618,6 +667,10 @@ void ArdupilotNative_inputEulerAngleRollPitchEulerRateYaw
   (float eulerRollAngleCd, float eulerPitchAngleCd, float eulerYawRateCds) {
     AC_AttitudeControl_t* attitudeController = copter.juavNativeGetAttitudeController();
         attitudeController->input_euler_angle_roll_pitch_euler_rate_yaw(eulerRollAngleCd,eulerPitchAngleCd,eulerYawRateCds);
+  }
+void ArdupilotNative_inputEulerAngleRollPitchEulerRateYawGodGiven
+  (int eulerRollAngleCd, int eulerPitchAngleCd, int eulerYawRateCds) {
+    ArdupilotNative_inputEulerAngleRollPitchEulerRateYaw(retriveFloatFromInt(eulerRollAngleCd),retriveFloatFromInt(eulerPitchAngleCd),retriveFloatFromInt(eulerYawRateCds));
   }
    // TEST
 
