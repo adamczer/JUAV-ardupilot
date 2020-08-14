@@ -1,4 +1,4 @@
-# this build is working off a clean checkout of ardupilot
+ this build is working off a clean checkout of ardupilot
 # @ commit 22c9081c8325ec8d980906fe7b1d23f29080a216
 # ensure ARDU_SRC env variable set to ardupilot checkout
 #ARDU_SRC=/home/adamczer/code/ardupilot
