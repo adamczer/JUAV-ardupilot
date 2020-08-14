@@ -1,4 +1,4 @@
- this build is working off a clean checkout of ardupilot
+# this build is working off a clean checkout of ardupilot
 # @ commit 22c9081c8325ec8d980906fe7b1d23f29080a216
 # ensure ARDU_SRC env variable set to ardupilot checkout
 #ARDU_SRC=/home/adamczer/code/ardupilot
@@ -39,7 +39,6 @@ juav-erle-copter-lib:
 # resotore original sources by checking out file
 # this file needs to be installed to /usr/local/lib/libArduCopterSitl.so
 arducopter-sitl-lib : $(ARDU_SITL_INPUTS)
-	mkdir -p lib
 	-$(shell sim_vehicle.py -v ArduCopter --console --map)
 	g++ -std=gnu++11 -o lib/libArduCopterSitl.so -shared $(ARDU_SITL_INPUTS)
 	
