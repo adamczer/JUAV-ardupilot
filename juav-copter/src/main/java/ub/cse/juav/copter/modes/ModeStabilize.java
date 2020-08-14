@@ -2,6 +2,7 @@ package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
 import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.copter.Copter;
 
 public class ModeStabilize extends Mode{
     public ModeStabilize(AcAttitudeControl acAttitudeControl) {
@@ -11,7 +12,7 @@ public class ModeStabilize extends Mode{
     // stabilize_run - runs the main stabilize controller
 // should be called at 100hz or more
     @Override
-    public void run(boolean LOG_TIMING)
+    public void run()
     {
         long time1 = System.nanoTime();
         nativePortionOfModeStabilizeRun1();
@@ -26,7 +27,7 @@ public class ModeStabilize extends Mode{
         // output pilot's throttle
         nativePortionOfModeStabilizeRun2();
         long time2 = System.nanoTime();
-	if (LOG_TIMING) {
+	if (Copter.LOG_TIMING) {
             System.out.format("Stabalize: %d, %d, ", time1, time2);
         }
     }

@@ -1,5 +1,7 @@
 package ub.cse.juav.copter.modes;
 
+import ub.cse.juav.copter.Copter;
+
 import ub.cse.juav.copter.AcAttitudeControl;
 
 import java.util.HashMap;
@@ -46,8 +48,8 @@ public abstract class Mode {
         }
     }
 
-    public void run(boolean LOG_TIMING) {
-        run(LOG_TIMING);
+    public void run() {
+        run(true);
     }
 
     //public void run(boolean b) {
