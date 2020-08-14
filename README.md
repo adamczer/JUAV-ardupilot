@@ -33,7 +33,9 @@ Build erlecopter code
 
 create the shared libraries for ardupilot and jUAV native calls.
 > JUAV_ROOT/juav-native/juav-native-ardupilot/jni> make sitl
+
 > ln -s $JUAV_ROOT/juav-native/juav-native-ardupilot/jni/lib/libArduCopterSitl.so /usr/local/lib/
+
 > sudo ldconfig 
 
 Run simulator
