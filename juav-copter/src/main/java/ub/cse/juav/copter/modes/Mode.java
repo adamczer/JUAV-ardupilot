@@ -52,9 +52,9 @@ public abstract class Mode {
         run(true);
     }
 
-    //public void run(boolean b) {
-    //    throw new IllegalStateException("Wrong call, should be using underling implementation not this class.");
-    //}
+    public void run(boolean b) {
+        throw new IllegalStateException("Wrong call, should be using underling implementation not this class.");
+    }
 
     private void nativePortionOfLandRunHorizontalControl() {
         //TODO native
