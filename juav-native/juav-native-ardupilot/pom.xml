@@ -25,14 +25,14 @@
             <artifactId>fiji-common</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
-            <systemPath>${env.FIJI_HOME}/lib/fivmcommon.jar</systemPath>
+            <systemPath>${env.JUAV_SRC}/lib/fivmcommon.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.fiji</groupId>
             <artifactId>fiji-runtime</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
-            <systemPath>${env.FIJI_HOME}/lib/fivmr.jar</systemPath>
+            <systemPath>${env.JUAV_SRC}/lib/fivmr.jar</systemPath>
         </dependency>
     </dependencies>
     
