@@ -1,5 +1,7 @@
 package ub.cse.juav.copter.modes;
 
+import ub.cse.juav.copter.Copter;
+
 import ub.cse.juav.copter.AcAttitudeControl;
 
 import java.util.HashMap;

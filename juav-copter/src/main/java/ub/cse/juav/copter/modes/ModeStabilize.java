@@ -2,6 +2,7 @@ package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
 import ub.cse.juav.jni.ArdupilotNativeWrapper;
+import ub.cse.juav.copter.Copter;
 
 public class ModeStabilize extends Mode{
     public ModeStabilize(AcAttitudeControl acAttitudeControl) {
@@ -13,6 +14,7 @@ public class ModeStabilize extends Mode{
     @Override
     public void run()
     {
+        long time1 = System.nanoTime();
         nativePortionOfModeStabilizeRun1();
         // populate target_roll, target_pitch, target_yaw_rate return them from native code
         float target_roll = getTargetRoll();
@@ -24,6 +26,10 @@ public class ModeStabilize extends Mode{
 
         // output pilot's throttle
         nativePortionOfModeStabilizeRun2();
+        long time2 = System.nanoTime();
+	if (Copter.LOG_TIMING) {
+            System.out.format("Stabalize: %d, %d, ", time1, time2);
+        }
     }
 
     private float getTargetYawRate() {

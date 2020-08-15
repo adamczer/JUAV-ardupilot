@@ -1,6 +1,7 @@
 package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
+import ub.cse.juav.copter.Copter;
 import ub.cse.juav.jni.ArdupilotNativeWrapper;
 
 public class ModeGuided extends Mode{
@@ -17,7 +18,7 @@ public class ModeGuided extends Mode{
 
     @Override
     public void run() {
-
+        long time1 = System.nanoTime();
         int guided_mode = getGuidedMode();
         // call the correct auto controller
         switch (guided_mode) {
@@ -46,6 +47,10 @@ public class ModeGuided extends Mode{
                 // run angle controller
                 angleControlRun();
                 break;
+        }
+        long time2 = System.nanoTime();
+        if (Copter.LOG_TIMING) {
+            System.out.format("Guided: %d, %d, ", time1, time2);
         }
     }
 

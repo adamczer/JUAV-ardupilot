@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Copter {
     Map<Integer,Mode> modes;
+    public static boolean LOG_TIMING = false;
 
     public void setModes(Map<Integer,Mode> modes) {
         this.modes = modes;
@@ -31,7 +32,12 @@ public class Copter {
 
         int mode = getModeNumber();
         if(modes.containsKey(mode)) {
+            long time1 = System.nanoTime();
             modes.get(mode).run();
+            long time2 = System.nanoTime();
+            if (this.LOG_TIMING) {
+                System.out.format("%d, %d\n", time1, time2);
+            }
         } else {
             callNativeMode();
         }
