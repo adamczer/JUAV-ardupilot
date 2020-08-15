@@ -33,7 +33,7 @@ public class Copter {
         int mode = getModeNumber();
         if(modes.containsKey(mode)) {
             long time1 = System.nanoTime();
-            modes.get(mode).run(LOG_TIMING);
+            modes.get(mode).run();
             long time2 = System.nanoTime();
             if (this.LOG_TIMING) {
                 System.out.format("%d, %d\n", time1, time2);
