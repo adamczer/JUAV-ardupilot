@@ -1,8 +1,9 @@
 package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
-import ub.cse.juav.jni.ArdupilotNative;
 import ub.cse.juav.copter.Copter;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
+
 
 public class ModeLoiter extends Mode {
 //    Loiter mode = 5
@@ -29,22 +30,22 @@ public class ModeLoiter extends Mode {
     }
 
     private float getTargetYawRate() {
-        return ArdupilotNative.nativeLoiterGetTargetYawRate();
+        return ArdupilotNativeWrapper.nativeLoiterGetTargetYawRate();
     }
 
     private float getLoiterNavTargetPitch() {
-        return ArdupilotNative.nativeLoiterGetTargetPitch();
+        return ArdupilotNativeWrapper.nativeLoiterGetTargetPitch();
     }
 
     private float getLoiterNavTargetRoll() {
-        return ArdupilotNative.nativeLoiterGetTargetRoll();
+        return ArdupilotNativeWrapper.nativeLoiterGetTargetRoll();
     }
 
     private void loiterRunAfterAttitudeControl() {
-        ArdupilotNative.nativeLoiterRunAfterAttitudeControl();
+        ArdupilotNativeWrapper.nativeLoiterRunAfterAttitudeControl();
     }
 
     private void loiterRunPriorToAttitudeControl() {
-        ArdupilotNative.nativeLoiterRunPriorToAttitudeControl();
+        ArdupilotNativeWrapper.nativeLoiterRunPriorToAttitudeControl();
     }
 }

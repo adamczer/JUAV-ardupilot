@@ -1,8 +1,8 @@
 package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
-import ub.cse.juav.jni.ArdupilotNative;
 import ub.cse.juav.copter.Copter;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
 
 public class ModeGuided extends Mode{
 
@@ -55,63 +55,63 @@ public class ModeGuided extends Mode{
     }
 
     private void angleControlRun() {
-        ArdupilotNative.nativeGuidedAngleControlRunPriorToAttitude();
-        float rollIn = ArdupilotNative.nativeGuidedGetAngleControlRunRollIn();
-        float pitchIn = ArdupilotNative.nativeGuidedGetAngleControlRunPitchIn();
-        if(ArdupilotNative.nativeGuidedIsAngleStateUseYawRate()) {
-            float yawRateIn = ArdupilotNative.nativeGuidedGetAngleControlRunYawRateIn();
+        ArdupilotNativeWrapper.nativeGuidedAngleControlRunPriorToAttitude();
+        float rollIn = ArdupilotNativeWrapper.nativeGuidedGetAngleControlRunRollIn();
+        float pitchIn = ArdupilotNativeWrapper.nativeGuidedGetAngleControlRunPitchIn();
+        if(ArdupilotNativeWrapper.nativeGuidedIsAngleStateUseYawRate()) {
+            float yawRateIn = ArdupilotNativeWrapper.nativeGuidedGetAngleControlRunYawRateIn();
             getAcAttitudeControler().inputEulerAngleRollPitchEulerRateYaw(rollIn, pitchIn, yawRateIn);
         } else {
-            float yawIn = ArdupilotNative.nativeGuidedGetAngleControlRunYawIn();
+            float yawIn = ArdupilotNativeWrapper.nativeGuidedGetAngleControlRunYawIn();
             getAcAttitudeControler().inputEulerAngleRollPitchYaw(rollIn, pitchIn,
                     yawIn,true);
         }
 
-        ArdupilotNative.nativeGuidedAngleControlRunAfterAttitude();
+        ArdupilotNativeWrapper.nativeGuidedAngleControlRunAfterAttitude();
     }
 
     private void posvelControlRun() {
-        ArdupilotNative.nativeGuidedPosVelControlRunPriorToAttitude();
-        float posControlRoll = ArdupilotNative.nativeGuidedGetPosControlRoll();
-        float posControlPitch = ArdupilotNative.nativeGuidedGetPosControlPitch();
+        ArdupilotNativeWrapper.nativeGuidedPosVelControlRunPriorToAttitude();
+        float posControlRoll = ArdupilotNativeWrapper.nativeGuidedGetPosControlRoll();
+        float posControlPitch = ArdupilotNativeWrapper.nativeGuidedGetPosControlPitch();
         attitudeControlCommon(posControlRoll,posControlPitch);
     }
 
     private void velControlRun() {
-        ArdupilotNative.nativeGuidedVelControlRunPriorToAttitude();
-        float posControlRoll = ArdupilotNative.nativeGuidedGetPosControlRoll();
-        float posControlPitch = ArdupilotNative.nativeGuidedGetPosControlPitch();
+        ArdupilotNativeWrapper.nativeGuidedVelControlRunPriorToAttitude();
+        float posControlRoll = ArdupilotNativeWrapper.nativeGuidedGetPosControlRoll();
+        float posControlPitch = ArdupilotNativeWrapper.nativeGuidedGetPosControlPitch();
         attitudeControlCommon(posControlRoll,posControlPitch);
     }
 
     private void attitudeControlCommon(float roll, float pitch) {
-        int autoYawMode = ArdupilotNative.nativeGuidedGetAutoYawMode();
+        int autoYawMode = ArdupilotNativeWrapper.nativeGuidedGetAutoYawMode();
         if (autoYawMode == 0/*AUTO_YAW_HOLD*/) {
-            float targetYawRate = ArdupilotNative.nativeGuidedGetTargetYawRate();
+            float targetYawRate = ArdupilotNativeWrapper.nativeGuidedGetTargetYawRate();
             // roll & pitch from waypoint controller, yaw rate from pilot
             getAcAttitudeControler().inputEulerAngleRollPitchEulerRateYaw(roll, pitch, targetYawRate);
         } else if (autoYawMode == 6 /*AUTO_YAW_RATE*/) {
-            float autoYawRateCds = ArdupilotNative.nativeGuidedGetAutoYawRateCds();
+            float autoYawRateCds = ArdupilotNativeWrapper.nativeGuidedGetAutoYawRateCds();
             // roll & pitch from velocity controller, yaw rate from mavlink command or mission item
             getAcAttitudeControler().inputEulerAngleRollPitchEulerRateYaw(roll, pitch, autoYawRateCds);
         } else {
-            float autoYawYaw = ArdupilotNative.nativeGuidedGetAutoYawYaw();
+            float autoYawYaw = ArdupilotNativeWrapper.nativeGuidedGetAutoYawYaw();
             getAcAttitudeControler().inputEulerAngleRollPitchYaw(roll, pitch, autoYawYaw, true);
         }
     }
 
     private void posControlRun() {
-        ArdupilotNative.nativeGuidedPosControlRunPriorToAttitude();
-        float wpNavRoll = ArdupilotNative.nativeGuidedGetWpNavRoll();
-        float wpNavPitch = ArdupilotNative.nativeGuidedGetWpNavPitch();
+        ArdupilotNativeWrapper.nativeGuidedPosControlRunPriorToAttitude();
+        float wpNavRoll = ArdupilotNativeWrapper.nativeGuidedGetWpNavRoll();
+        float wpNavPitch = ArdupilotNativeWrapper.nativeGuidedGetWpNavPitch();
         attitudeControlCommon(wpNavRoll,wpNavPitch);
     }
 
     private void takeoffRun() {
-        ArdupilotNative.nativeGuidedTakeoffRun();
+        ArdupilotNativeWrapper.nativeGuidedTakeoffRun();
     }
 
     private int getGuidedMode() {
-        return ArdupilotNative.nativeGuidedGetMode();
+        return ArdupilotNativeWrapper.nativeGuidedGetMode();
     }
 }

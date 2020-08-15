@@ -33,23 +33,23 @@ public class ModeStabilize extends Mode{
     }
 
     private float getTargetYawRate() {
-        return ArdupilotNative.getStabilizationModeTargetYawRate();
+        return ArdupilotNativeWrapper.getStabilizationModeTargetYawRate();
     }
 
     private float getTargetPitch() {
-        return ArdupilotNative.getStabilizationModeTargetPitch();
+        return ArdupilotNativeWrapper.getStabilizationModeTargetPitch();
     }
 
     private float getTargetRoll() {
-        return ArdupilotNative.getStabilizationModeTargetRoll();
+        return ArdupilotNativeWrapper.getStabilizationModeTargetRoll();
     }
 
     private void nativePortionOfModeStabilizeRun1() {
-        ArdupilotNative.nativeRunBeforeStabilizationCallAttitudeController();
+        ArdupilotNativeWrapper.nativeRunBeforeStabilizationCallAttitudeController();
     }
 
     private void nativePortionOfModeStabilizeRun2() {
-        ArdupilotNative.nativeRunAfterStabilizationCallAttitudeController();
+        ArdupilotNativeWrapper.nativeRunAfterStabilizationCallAttitudeController();
     }
 
 }

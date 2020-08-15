@@ -1,7 +1,7 @@
 package ub.cse.juav.copter;
 
 import ub.cse.juav.copter.modes.Mode;
-import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
 
 import java.util.Map;
 
@@ -44,23 +44,23 @@ public class Copter {
     }
 
     private void callNativeMode() {
-        ArdupilotNative.callNativeFlightMode();
+        ArdupilotNativeWrapper.callNativeFlightMode();
     }
 
     private int getModeNumber() {
 //        STABILIZE = 0 , RTL = 6, else run is native
-        return ArdupilotNative.getFlightModeNumber();
+        return ArdupilotNativeWrapper.getFlightModeNumber();
     }
 
     private void surfaceTracingInvalidateForLogging() {
-        ArdupilotNative.surfaceTracingInvalidateForLogging();
+        ArdupilotNativeWrapper.surfaceTracingInvalidateForLogging();
     }
 
     private void nativeFastLoop1() {
-        ArdupilotNative.nativeFastLoopBeforeAttitudeController();
+        ArdupilotNativeWrapper.nativeFastLoopBeforeAttitudeController();
     }
 
     private void nativeFastLoop2() {
-        ArdupilotNative.nativeFastLoopAfterAttitudeController();
+        ArdupilotNativeWrapper.nativeFastLoopAfterAttitudeController();
     }
 }
