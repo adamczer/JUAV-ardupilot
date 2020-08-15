@@ -1,7 +1,7 @@
 package ub.cse.juav.copter.modes;
 
 import ub.cse.juav.copter.AcAttitudeControl;
-import ub.cse.juav.jni.ArdupilotNative;
+import ub.cse.juav.jni.ArdupilotNativeWrapper;
 import ub.cse.juav.copter.Copter;
 
 public class ModeStabilize extends Mode{
