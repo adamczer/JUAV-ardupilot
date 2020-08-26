@@ -3,6 +3,8 @@ package ub.cse.juav.copter.modes;
 import ub.cse.juav.copter.AcAttitudeControl;
 import ub.cse.juav.jni.ArdupilotNativeWrapper;
 import ub.cse.juav.copter.Copter;
+import com.fiji.fivm.r1.fivmRuntime;
+import ub.cse.juav.jni.FijiJniSwitch;
 
 public class ModeStabilize extends Mode{
     public ModeStabilize(AcAttitudeControl acAttitudeControl) {
@@ -28,7 +30,11 @@ public class ModeStabilize extends Mode{
         nativePortionOfModeStabilizeRun2();
         long time2 = System.nanoTime();
 	if (Copter.LOG_TIMING) {
-            System.out.format("Stabalize: %d, %d, ", time1, time2);
+            if (FijiJniSwitch.usingFiji) {
+		fivmRuntime.logPrint(String.format("Stabilize: %d, %d, ", time1, time2));
+            } else {
+                System.out.format("Stabilize: %d, %d, ", time1, time2);
+            }
         }
     }
 
