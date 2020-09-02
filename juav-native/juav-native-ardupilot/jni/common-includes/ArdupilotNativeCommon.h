@@ -493,14 +493,14 @@ int ArdupilotNative_nativeGuidedGetAutoYawMode
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
- * Method:    nativeGuidedGetWpNavRoll
+ * Method:    nativeGetWpNavRoll
  * Signature: ()F
  */
 int ArdupilotNative_nativeGuidedGetWpNavRoll
   ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
- * Method:    nativeGuidedGetWpNavPitch
+ * Method:    nativeGetWpNavPitch
  * Signature: ()F
  */
 int ArdupilotNative_nativeGuidedGetWpNavPitch
@@ -608,6 +608,36 @@ int ArdupilotNative_nativeGuidedGetAngleControlRunYawIn
  */
 void ArdupilotNative_nativeGuidedAngleControlRunAfterAttitude
   ();
+
+
+//MODE AUTO
+int ArdupilotNative_nativeGetModeAutoMode
+  ();
+  void ArdupilotNative_nativeAutoModeTakeoffRun
+    ();
+  void ArdupilotNative_nativeAutoModeLandRun
+    ();
+  void ArdupilotNative_nativeAutoModeRtlRun
+    ();
+  void ArdupilotNative_nativeAutoModeNavGuidedRun
+    ();
+  void ArdupilotNative_nativeAutoModeLoiterToAltRun
+    ();
+  void ArdupilotNative_nativeAutoModePayloadPlaceRun();
+  int ArdupilotNative_nativeAutoModeGetTargetYawRate();
+  int ArdupilotNative_nativeAutoModeGetAutoYawYaw();
+  void ArdupilotNative_nativeAutoModeWpRunPriorToAttitudeControl();
+  int ArdupilotNative_nativeAutoModeGetAutoYawMode
+    ();
+int ArdupilotNative_nativeGetCopterCircleNavRoll();
+int ArdupilotNative_nativeGetCopterCircleNavPitch();
+int ArdupilotNative_nativeGetCopterCircleNavYaw();
+void ArdupilotNative_nativeAutoModeCircleRunPriorToAttitude();
+
+void ArdupilotNative_nativeAutoModeSplineRunPriorToAttitude();
+void ArdupilotNative_nativeAutoModeLoiterRunPriorToAttitude();
+bool ArdupilotNative_nativeAutoModeIsNavGuidedEnabled();
+//MODE AUTO
 
 #ifdef __cplusplus
 }

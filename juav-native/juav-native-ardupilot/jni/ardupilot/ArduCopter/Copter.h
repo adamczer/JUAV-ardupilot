@@ -234,6 +234,7 @@ public:
     void juavSurfaceTracingInvalidateForLogging();
     Mode* juavGetNativeCurrentFlightMode();
     AC_AttitudeControl_t* juavNativeGetAttitudeController();
+    AC_Circle* juavGetCircleNav() {return circle_nav;}
 
 private:
 

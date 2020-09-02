@@ -387,6 +387,19 @@ public:
         FUNCTOR_BIND_MEMBER(&ModeAuto::verify_command, bool, const AP_Mission::Mission_Command &),
         FUNCTOR_BIND_MEMBER(&ModeAuto::exit_mission, void)};
 
+    void juavAutoModeTakeOffRun() {takeoff_run();}
+    void juavAutoModeLandRun() {land_run();}
+    void juavAutoModeRtlRun() {rtl_run();}
+    void juavAutoModeNavGuidedRun() {nav_guided_run();}
+    void juavAutoModeNavPayloadPlaceRun(){payload_place_run();}
+    void juavAutoModeLoiterToAltRun() {loiter_to_alt_run();}
+    AutoYaw juavGetAutoYaw() {return auto_yaw;}
+    void juav_wp_run_prior_to_attitude_control();
+    float juavGetTargetYawRate();
+    void juav_circle_run_prior_to_attitude();
+    void juav_spline_run_prior_to_attitude();
+    void juav_loiter_run_prior_to_attitude();
+    bool juav_is_nav_guided_enabled();
 protected:
 
     const char *name() const override { return "AUTO"; }

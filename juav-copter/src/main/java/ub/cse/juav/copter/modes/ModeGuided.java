@@ -102,8 +102,8 @@ public class ModeGuided extends Mode{
 
     private void posControlRun() {
         ArdupilotNativeWrapper.nativeGuidedPosControlRunPriorToAttitude();
-        float wpNavRoll = ArdupilotNativeWrapper.nativeGuidedGetWpNavRoll();
-        float wpNavPitch = ArdupilotNativeWrapper.nativeGuidedGetWpNavPitch();
+        float wpNavRoll = ArdupilotNativeWrapper.nativeGetWpNavRoll();
+        float wpNavPitch = ArdupilotNativeWrapper.nativeGetWpNavPitch();
         attitudeControlCommon(wpNavRoll,wpNavPitch);
     }
 
