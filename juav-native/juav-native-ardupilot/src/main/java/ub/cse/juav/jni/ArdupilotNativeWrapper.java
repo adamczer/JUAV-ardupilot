@@ -870,29 +870,29 @@ public class ArdupilotNativeWrapper {
     @GodGiven
     private static native int ArdupilotNative_nativeGuidedGetAutoYawMode();
 
-    public static float nativeGuidedGetWpNavRoll() {
+    public static float nativeGetWpNavRoll() {
         //fivmRuntime.logPrint("\nnativeGuidedGetWpNavRoll");
         if(FijiJniSwitch.usingFiji) {
-            return floatFromIntWrapping(ArdupilotNative_nativeGuidedGetWpNavRoll());
+            return floatFromIntWrapping(ArdupilotNative_nativeGetWpNavRoll());
         } else
-            return ArdupilotNative.nativeGuidedGetWpNavRoll();
+            return ArdupilotNative.nativeGetWpNavRoll();
     }
 
     @Import
     @GodGiven
-    private static native int ArdupilotNative_nativeGuidedGetWpNavRoll();
+    private static native int ArdupilotNative_nativeGetWpNavRoll();
 
-    public static float nativeGuidedGetWpNavPitch() {
+    public static float nativeGetWpNavPitch() {
         //fivmRuntime.logPrint("\nnativeGuidedGetWpNavPitch");
         if(FijiJniSwitch.usingFiji) {
-            return floatFromIntWrapping(ArdupilotNative_nativeGuidedGetWpNavPitch());
+            return floatFromIntWrapping(ArdupilotNative_nativeGetWpNavPitch());
         } else
-            return ArdupilotNative.nativeGuidedGetWpNavPitch();
+            return ArdupilotNative.nativeGetWpNavPitch();
     }
 
     @Import
     @GodGiven
-    private static native int ArdupilotNative_nativeGuidedGetWpNavPitch();
+    private static native int ArdupilotNative_nativeGetWpNavPitch();
 
     public static float nativeGuidedGetTargetYawRate() {
         //fivmRuntime.logPrint("\nnativeGuidedGetTargetYawRate");
@@ -1061,5 +1061,205 @@ public class ArdupilotNativeWrapper {
     @Import
     @GodGiven
     private static native void ArdupilotNative_nativeGuidedAngleControlRunAfterAttitude();
+
     //MODE GUIDED
+
+    //MODE AUTO
+    public static int nativeGetModeAutoMode() {
+        if(FijiJniSwitch.usingFiji) {
+            return ArdupilotNative_nativeGetModeAutoMode();
+        } else
+           return ArdupilotNative.nativeGetModeAutoMode();
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeGetModeAutoMode();
+
+    public static void nativeAutoModeTakeoffRun() {                      if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModeTakeoffRun();
+        } else
+            ArdupilotNative.nativeAutoModeTakeoffRun();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeTakeoffRun();
+
+    public static void nativeAutoModeLandRun() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModeLandRun();
+        } else
+            ArdupilotNative.nativeAutoModeLandRun();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeLandRun();
+
+    public static void nativeAutoModeRtlRun() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModeRtlRun();
+        } else
+            ArdupilotNative.nativeAutoModeRtlRun();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeRtlRun();
+
+    public static void nativeAutoModeNavGuidedRun() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModeNavGuidedRun();
+        } else
+            ArdupilotNative.nativeAutoModeNavGuidedRun();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeNavGuidedRun();
+
+    public static void nativeAutoModeLoiterToAltRun() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModeLoiterToAltRun();
+        } else
+            ArdupilotNative.nativeAutoModeLoiterToAltRun();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeLoiterToAltRun();
+    //
+
+    public static void modeAutoWpRunPriorToAttitudeControl() {
+        if(FijiJniSwitch.usingFiji) {            ArdupilotNative_nativeAutoModeWpRunPriorToAttitudeControl();
+        } else
+        ArdupilotNative.nativeAutoModeWpRunPriorToAttitudeControl();
+    }
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeWpRunPriorToAttitudeControl();
+
+    public static int nativeAutoModeGetAutoYawMode() {
+        if(FijiJniSwitch.usingFiji) {
+            return ArdupilotNative_nativeAutoModeGetAutoYawMode();
+        } else
+        return ArdupilotNative.nativeAutoModeGetAutoYawMode();
+    }
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeAutoModeGetAutoYawMode();
+
+    public static float nativeAutoModeGetTargetYawRate() {
+        if(FijiJniSwitch.usingFiji) {
+            return floatFromIntWrapping(ArdupilotNative_nativeAutoModeGetTargetYawRate());
+        } else
+            return ArdupilotNative.nativeAutoModeGetTargetYawRate();
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeAutoModeGetTargetYawRate();
+
+    public static float nativeAutoModeGetAutoYawYaw() {
+        if(FijiJniSwitch.usingFiji) {
+            return ArdupilotNative_nativeAutoModeGetAutoYawYaw();
+        } else
+        return ArdupilotNative.nativeAutoModeGetAutoYawYaw();
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeAutoModeGetAutoYawYaw();
+
+    public static void nativeAutoModeCircleRunPriorToAttitude() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModeCircleRunPriorToAttitude();
+        } else
+        ArdupilotNative.nativeAutoModeCircleRunPriorToAttitude();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeCircleRunPriorToAttitude();
+
+    public static float nativeGetCopterCircleNavRoll() {
+
+        if(FijiJniSwitch.usingFiji) {
+            return floatFromIntWrapping(ArdupilotNative_nativeGetCopterCircleNavRoll());
+        } else
+            return ArdupilotNative.nativeGetCopterCircleNavRoll();
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeGetCopterCircleNavRoll();
+
+    public static float nativeGetCopterCircleNavPitch() {
+        if(FijiJniSwitch.usingFiji) {
+            return floatFromIntWrapping(ArdupilotNative_nativeGetCopterCircleNavPitch());
+        } else
+            return ArdupilotNative.nativeGetCopterCircleNavPitch();
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeGetCopterCircleNavPitch();
+
+    public static float nativeGetCopterCircleNavYaw() {
+        if(FijiJniSwitch.usingFiji) {
+            return floatFromIntWrapping(ArdupilotNative_nativeGetCopterCircleNavYaw());
+        } else
+            return ArdupilotNative.nativeGetCopterCircleNavYaw();
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeGetCopterCircleNavYaw();
+
+    public static void nativeAutoModeSplineRunPriorToAttitude() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModeSplineRunPriorToAttitude();
+        } else
+        ArdupilotNative.nativeAutoModeSplineRunPriorToAttitude();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeSplineRunPriorToAttitude();
+
+    public static void nativeAutoModeLoiterRunPriorToAttitude() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModeLoiterRunPriorToAttitude();
+        } else
+            ArdupilotNative.nativeAutoModeLoiterRunPriorToAttitude();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModeLoiterRunPriorToAttitude();
+
+    public static void nativeAutoModePayloadPlaceRun() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeAutoModePayloadPlaceRun();
+        } else
+        ArdupilotNative.nativeAutoModePayloadPlaceRun();
+    }
+
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeAutoModePayloadPlaceRun();
+
+    public static boolean nativeAutoModeIsNavGuidedEnabled() {
+        if(FijiJniSwitch.usingFiji) {
+            return ArdupilotNative_nativeAutoModeIsNavGuidedEnabled();
+    } else
+        return ArdupilotNative.nativeAutoModeIsNavGuidedEnabled();
+    }
+
+    @Import
+    @GodGiven
+    private static native boolean ArdupilotNative_nativeAutoModeIsNavGuidedEnabled();
+
+    //MODE AUTO
 }

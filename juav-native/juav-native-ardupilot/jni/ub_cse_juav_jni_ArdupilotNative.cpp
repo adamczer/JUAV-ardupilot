@@ -345,14 +345,14 @@ JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoY
   ArdupilotNative_nativeGuidedGetAutoYawMode();
   }
 
-JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetWpNavRoll
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetWpNavRoll
   (JNIEnv * env, jclass thisClass) {
-    return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetWpNavRoll());
+    return retriveFloatFromInt(ArdupilotNative_nativeGetWpNavRoll());
   }
 
-JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetWpNavPitch
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetWpNavPitch
   (JNIEnv * env, jclass thisClass) {
-      return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetWpNavPitch());
+      return retriveFloatFromInt(ArdupilotNative_nativeGetWpNavPitch());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetTargetYawRate
@@ -426,3 +426,100 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedAngleCon
        ArdupilotNative_nativeGuidedAngleControlRunAfterAttitude();
   }
 //MODE GUIDED
+
+//MODE AUTO
+
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetModeAutoMode
+  (JNIEnv * env, jclass thisClass) {
+    return ArdupilotNative_nativeGetModeAutoMode();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeTakeoffRun
+  (JNIEnv * env, jclass thisClass) {
+   ArdupilotNative_nativeAutoModeTakeoffRun();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeLandRun
+  (JNIEnv * env, jclass thisClass) {
+   ArdupilotNative_nativeAutoModeLandRun();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeRtlRun
+  (JNIEnv * env, jclass thisClass) {
+   ArdupilotNative_nativeAutoModeRtlRun();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeNavGuidedRun
+  (JNIEnv * env, jclass thisClass) {
+   ArdupilotNative_nativeAutoModeNavGuidedRun();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeLoiterToAltRun
+  (JNIEnv * env, jclass thisClass) {
+   ArdupilotNative_nativeAutoModeLoiterToAltRun();
+  }
+
+  /////
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeGetTargetYawRate
+  (JNIEnv * env, jclass thisClass) {
+   return retriveFloatFromInt(ArdupilotNative_nativeAutoModeGetTargetYawRate());
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeGetAutoYawYaw
+  (JNIEnv * env, jclass thisClass) {
+  return retriveFloatFromInt(ArdupilotNative_nativeAutoModeGetAutoYawYaw());
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeWpRunPriorToAttitudeControl
+  (JNIEnv * env, jclass thisClass) {
+ ArdupilotNative_nativeAutoModeWpRunPriorToAttitudeControl();
+  }
+
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeGetAutoYawMode
+  (JNIEnv * env, jclass thisClass) {
+  return ArdupilotNative_nativeAutoModeGetAutoYawMode();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeCircleRunPriorToAttitude
+  (JNIEnv * env, jclass thisClass) {
+  ArdupilotNative_nativeAutoModeCircleRunPriorToAttitude();
+  }
+
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCopterCircleNavRoll
+  (JNIEnv * env, jclass thisClass) {
+  return retriveFloatFromInt(ArdupilotNative_nativeGetCopterCircleNavRoll());
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCopterCircleNavPitch
+  (JNIEnv * env, jclass thisClass) {
+  return retriveFloatFromInt(ArdupilotNative_nativeGetCopterCircleNavPitch());
+  }
+
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCopterCircleNavYaw
+  (JNIEnv * env, jclass thisClass) {
+  return retriveFloatFromInt(ArdupilotNative_nativeGetCopterCircleNavYaw());
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeSplineRunPriorToAttitude
+  (JNIEnv * env, jclass thisClass) {
+  ArdupilotNative_nativeAutoModeSplineRunPriorToAttitude();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeLoiterRunPriorToAttitude
+  (JNIEnv * env, jclass thisClass) {
+  ArdupilotNative_nativeAutoModeLoiterRunPriorToAttitude();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModePayloadPlaceRun
+  (JNIEnv * env, jclass thisClass) {
+  ArdupilotNative_nativeAutoModePayloadPlaceRun();
+  }
+
+JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeIsNavGuidedEnabled
+  (JNIEnv * env, jclass thisClass) {
+  ArdupilotNative_nativeAutoModeIsNavGuidedEnabled();
+  }
+
+//MODE AUTO
