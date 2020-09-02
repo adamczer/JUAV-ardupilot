@@ -66,6 +66,7 @@ public class HalSitl {
         modes.put(0,new ModeStabilize(acAttitudeControl));
         modes.put(5,new ModeLoiter(acAttitudeControl));
         modes.put(4,new ModeGuided(acAttitudeControl));
+        modes.put(3,new ModeAuto(acAttitudeControl));
 //        modes.put(6,new ModeRtl(acAttitudeControl)); //broken
         Copter copter = new Copter();
         copter.setModes(modes);
