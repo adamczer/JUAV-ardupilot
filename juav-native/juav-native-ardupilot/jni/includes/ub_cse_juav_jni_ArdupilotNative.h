@@ -489,18 +489,18 @@ JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoY
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
- * Method:    nativeGuidedGetWpNavRoll
+ * Method:    nativeGetWpNavRoll
  * Signature: ()F
  */
-JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetWpNavRoll
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetWpNavRoll
   (JNIEnv *, jclass);
 
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
- * Method:    nativeGuidedGetWpNavPitch
+ * Method:    nativeGetWpNavPitch
  * Signature: ()F
  */
-JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetWpNavPitch
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetWpNavPitch
   (JNIEnv *, jclass);
 
 /*
@@ -613,6 +613,150 @@ JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAng
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedAngleControlRunAfterAttitude
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGetModeAutoMode
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetModeAutoMode
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeTakeoffRun
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeTakeoffRun
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeLandRun
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeLandRun
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeRtlRun
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeRtlRun
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeNavGuidedRun
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeNavGuidedRun
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeLoiterToAltRun
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeLoiterToAltRun
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeGetTargetYawRate
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeGetTargetYawRate
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeGetAutoYawYaw
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeGetAutoYawYaw
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeWpRunPriorToAttitudeControl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeWpRunPriorToAttitudeControl
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeGetAutoYawMode
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeGetAutoYawMode
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeCircleRunPriorToAttitude
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeCircleRunPriorToAttitude
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGetCopterCircleNavRoll
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCopterCircleNavRoll
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGetCopterCircleNavPitch
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCopterCircleNavPitch
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGetCopterCircleNavYaw
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCopterCircleNavYaw
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeSplineRunPriorToAttitude
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeSplineRunPriorToAttitude
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeLoiterRunPriorToAttitude
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeLoiterRunPriorToAttitude
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModePayloadPlaceRun
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModePayloadPlaceRun
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeAutoModeIsNavGuidedEnabled
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeIsNavGuidedEnabled
   (JNIEnv *, jclass);
 
 #ifdef __cplusplus

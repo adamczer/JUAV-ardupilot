@@ -713,3 +713,110 @@ void ArdupilotNative_nativeGuidedAngleControlRunAfterAttitude
         guided->juavGuidedAngleControlRunAfterAttitude();
   }
 //MODE GUIDED
+
+//MODE AUTO
+int ArdupilotNative_nativeGetModeAutoMode
+  () {
+    ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+         return modeAuto->mode();
+  }
+
+  void ArdupilotNative_nativeAutoModeTakeoffRun
+    () {
+     ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+     modeAuto->juavAutoModeTakeOffRun();
+    }
+
+  void ArdupilotNative_nativeAutoModeLandRun
+    () {
+     ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+     modeAuto->juavAutoModeLandRun();
+    }
+
+  void ArdupilotNative_nativeAutoModeRtlRun
+    () {
+     ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+     modeAuto->juavAutoModeRtlRun();
+    }
+
+  void ArdupilotNative_nativeAutoModeNavGuidedRun
+    () {
+     ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+     modeAuto->juavAutoModeNavGuidedRun();
+    }
+
+  void ArdupilotNative_nativeAutoModeLoiterToAltRun
+    () {
+     ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+     modeAuto->juavAutoModeLoiterToAltRun();
+    }
+
+
+    //////////
+int ArdupilotNative_nativeAutoModeGetTargetYawRate() {
+    ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+    return hideFloatInInt(modeAuto->juavGetTargetYawRate());
+
+}
+
+int ArdupilotNative_nativeAutoModeGetAutoYawYaw() {
+ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+  return hideFloatInInt(modeAuto->juavGetAutoYaw().yaw());
+}
+
+void ArdupilotNative_nativeAutoModeWpRunPriorToAttitudeControl
+  () {
+ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+  modeAuto->juav_wp_run_prior_to_attitude_control();
+  }
+
+int ArdupilotNative_nativeAutoModeGetAutoYawMode
+  () {
+  ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+    return modeAuto->juavGetAutoYaw().mode();
+  }
+
+void ArdupilotNative_nativeAutoModeCircleRunPriorToAttitude
+  () {
+   ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+       modeAuto->juav_circle_run_prior_to_attitude();
+  }
+
+int ArdupilotNative_nativeGetCopterCircleNavRoll
+  () {
+    return hideFloatInInt(copter.juavGetCircleNav()->get_roll());
+  }
+
+int ArdupilotNative_nativeGetCopterCircleNavPitch
+  () {
+return hideFloatInInt(copter.juavGetCircleNav()->get_pitch());
+  }
+
+int ArdupilotNative_nativeGetCopterCircleNavYaw
+  () {
+return hideFloatInInt(copter.juavGetCircleNav()->get_yaw());
+  }
+
+//
+
+void ArdupilotNative_nativeAutoModeSplineRunPriorToAttitude() {
+   ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+          modeAuto->juav_spline_run_prior_to_attitude();
+  }
+
+void ArdupilotNative_nativeAutoModeLoiterRunPriorToAttitude() {
+   ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+          modeAuto->juav_loiter_run_prior_to_attitude();
+}
+
+void ArdupilotNative_nativeAutoModePayloadPlaceRun() {
+ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+          modeAuto->juavAutoModeNavPayloadPlaceRun();
+}
+
+bool ArdupilotNative_nativeAutoModeIsNavGuidedEnabled() {
+    ModeAuto* modeAuto = dynamic_cast<ModeAuto*>(copter.juavGetNativeCurrentFlightMode());
+             return modeAuto->juav_is_nav_guided_enabled();
+}
+
+//MODE AUTO

@@ -133,8 +133,8 @@ public class ArdupilotNative {
 
     public static native void nativeGuidedPosControlRunPriorToAttitude();
     public static native int nativeGuidedGetAutoYawMode();
-    public static native float nativeGuidedGetWpNavRoll();
-    public static native float nativeGuidedGetWpNavPitch();
+    public static native float nativeGetWpNavRoll();
+    public static native float nativeGetWpNavPitch();
     public static native float nativeGuidedGetTargetYawRate();
     public static native float nativeGuidedGetAutoYawRateCds();
     public static native float nativeGuidedGetAutoYawYaw();
@@ -153,6 +153,34 @@ public class ArdupilotNative {
     public static native float nativeGuidedGetAngleControlRunYawRateIn();
     public static native float nativeGuidedGetAngleControlRunYawIn();
     public static native void nativeGuidedAngleControlRunAfterAttitude();
-
     //MODE GUIDED
+
+    //MODE AUTO
+
+    public static native int nativeGetModeAutoMode();
+    public static native void nativeAutoModeTakeoffRun();
+    public static native void nativeAutoModeLandRun();
+    public static native void nativeAutoModeRtlRun();
+    public static native void nativeAutoModeNavGuidedRun();
+    public static native void nativeAutoModeLoiterToAltRun();
+
+    public static native float nativeAutoModeGetTargetYawRate();
+    public static native float nativeAutoModeGetAutoYawYaw();
+    public static native void nativeAutoModeWpRunPriorToAttitudeControl();
+    public static native int nativeAutoModeGetAutoYawMode();
+
+    public static native void nativeAutoModeCircleRunPriorToAttitude();
+    public static native float nativeGetCopterCircleNavRoll();
+    public static native float nativeGetCopterCircleNavPitch();
+    public static native float nativeGetCopterCircleNavYaw();
+
+    public static native void nativeAutoModeSplineRunPriorToAttitude();
+
+    public static native void nativeAutoModeLoiterRunPriorToAttitude();
+
+    public static native void nativeAutoModePayloadPlaceRun();
+
+    public static native boolean nativeAutoModeIsNavGuidedEnabled();
+
+    //MODE AUTO
 }
