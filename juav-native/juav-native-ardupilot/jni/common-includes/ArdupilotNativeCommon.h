@@ -496,14 +496,14 @@ int ArdupilotNative_nativeGuidedGetAutoYawMode
  * Method:    nativeGetWpNavRoll
  * Signature: ()F
  */
-int ArdupilotNative_nativeGuidedGetWpNavRoll
+int ArdupilotNative_nativeGetWpNavRoll
   ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative
  * Method:    nativeGetWpNavPitch
  * Signature: ()F
  */
-int ArdupilotNative_nativeGuidedGetWpNavPitch
+int ArdupilotNative_nativeGetWpNavPitch
   ();
 /*
  * Class:     ub_cse_juav_jni_ArdupilotNative

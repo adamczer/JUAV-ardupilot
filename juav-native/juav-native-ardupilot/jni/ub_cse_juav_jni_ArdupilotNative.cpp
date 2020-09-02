@@ -347,12 +347,12 @@ JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetAutoY
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetWpNavRoll
   (JNIEnv * env, jclass thisClass) {
-    return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetWpNavRoll());
+    return retriveFloatFromInt(ArdupilotNative_nativeGetWpNavRoll());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetWpNavPitch
   (JNIEnv * env, jclass thisClass) {
-      return retriveFloatFromInt(ArdupilotNative_nativeGuidedGetWpNavPitch());
+      return retriveFloatFromInt(ArdupilotNative_nativeGetWpNavPitch());
   }
 
 JNIEXPORT jfloat JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGuidedGetTargetYawRate
