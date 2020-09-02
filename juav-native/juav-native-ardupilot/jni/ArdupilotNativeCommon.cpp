@@ -616,14 +616,14 @@ int ArdupilotNative_nativeGuidedGetAutoYawMode
   return guided->juavGetAutoYaw().mode();
   }
 
-int ArdupilotNative_nativeGuidedGetWpNavRoll
+int ArdupilotNative_nativeGetWpNavRoll
   () {
     Mode* mode = copter.juavGetNativeCurrentFlightMode();
     return hideFloatInInt(mode->juavGetWpNav()->get_roll());
   }
 
 
-int ArdupilotNative_nativeGuidedGetWpNavPitch
+int ArdupilotNative_nativeGetWpNavPitch
   () {
       Mode* mode = copter.juavGetNativeCurrentFlightMode();
       return hideFloatInInt(mode->juavGetWpNav()->get_pitch());
