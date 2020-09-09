@@ -4,16 +4,41 @@ import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalSitlNativeWrapper;
 
+import javax.realtime.PeriodicParameters;
+import javax.realtime.PriorityParameters;
+import javax.realtime.RealtimeThread;
+import javax.realtime.RelativeTime;
 import java.util.*;
 
 public class HalSitl {
-    void run(int argc, String[] argv, List<Callback> callbacks) {
+    void run(int argc, String[] argv, final List<Callback> callbacks) {
         nativeInitizationPriorToControlLoop();
 
+        if (FijiJniSwitch.usingFiji)
+        {
+            RelativeTime rt =
+                    new RelativeTime( 0 , 1953125 ) ;
+            RealtimeThread t = new RealtimeThread(new PriorityParameters( 80) ,
+                    new PeriodicParameters( rt )) {
+                @Override
+                public void run() {
+                    while (!getHalSitlSchedulerShouldReboot()) {
+                        halLogic(callbacks);
+                        waitForNextPeriod();
+                    }
+                }
+            };
+            t.start();
+        } else {
+            while (!getHalSitlSchedulerShouldReboot())
+                halLogic(callbacks);
+        }
+        actuallyReboot();
+    }
 
-        while (!getHalSitlSchedulerShouldReboot()){
+    private void halLogic(List<Callback> callbacks) {
             if (getHalSitlSchedulerShouldExit()){
-            System.out.println("Exiting\n");
+                System.out.println("Exiting\n");
                 System.exit(0);
             }
             fillStackNan();
@@ -23,9 +48,6 @@ public class HalSitl {
 
             halSitlInnerLoopAfterCallbacks();
 
-
-        }
-        actuallyReboot();
     }
 
     private void halSitlInnerLoopAfterCallbacks() {
