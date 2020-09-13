@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Copter {
     Map<Integer,Mode> modes;
-    public static boolean LOG_TIMING = true;
+    public static boolean LOG_TIMING = false;
 
     public void setModes(Map<Integer,Mode> modes) {
         this.modes = modes;
