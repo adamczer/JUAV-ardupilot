@@ -2,12 +2,13 @@ package ub.cse.juav.copter;
 
 import ub.cse.juav.copter.modes.Mode;
 import ub.cse.juav.jni.ArdupilotNativeWrapper;
-
+import com.fiji.fivm.r1.fivmRuntime;
+import ub.cse.juav.jni.FijiJniSwitch;
 import java.util.Map;
 
 public class Copter {
     Map<Integer,Mode> modes;
-    public static boolean LOG_TIMING = false;
+    public static boolean LOG_TIMING = true;
 
     public void setModes(Map<Integer,Mode> modes) {
         this.modes = modes;
@@ -35,7 +36,12 @@ public class Copter {
             long time1 = System.nanoTime();
             modes.get(mode).run();
             long time2 = System.nanoTime();
-            if (this.LOG_TIMING) {
+            if (FijiJniSwitch.usingFiji) {
+		fivmRuntime.logPrint(Long.toString(time1));
+		fivmRuntime.logPrint(", ");
+		fivmRuntime.logPrint(Long.toString(time2));
+		fivmRuntime.logPrint("\n");
+            } else {
                 System.out.format("%d, %d\n", time1, time2);
             }
         } else {
