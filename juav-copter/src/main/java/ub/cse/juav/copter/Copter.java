@@ -36,13 +36,15 @@ public class Copter {
             long time1 = System.nanoTime();
             modes.get(mode).run();
             long time2 = System.nanoTime();
-            if (FijiJniSwitch.usingFiji) {
-		fivmRuntime.logPrint(Long.toString(time1));
-		fivmRuntime.logPrint(", ");
-		fivmRuntime.logPrint(Long.toString(time2));
-		fivmRuntime.logPrint("\n");
-            } else {
-                System.out.format("%d, %d\n", time1, time2);
+            if (this.LOG_TIMING) {
+                if (FijiJniSwitch.usingFiji) {
+		    fivmRuntime.logPrint(Long.toString(time1));
+		    fivmRuntime.logPrint(", ");
+		    fivmRuntime.logPrint(Long.toString(time2));
+		    fivmRuntime.logPrint("\n");
+                } else {
+                    System.out.format("%d, %d\n", time1, time2);
+                }
             }
         } else {
             callNativeMode();
