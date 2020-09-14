@@ -54,7 +54,11 @@ public class ModeGuided extends Mode{
         long time2 = System.nanoTime();
         if (Copter.LOG_TIMING) {
             if (FijiJniSwitch.usingFiji) {
-		fivmRuntime.logPrint(String.format("Guided: %d, %d, ", time1, time2));
+		fivmRuntime.logPrint("Guided: ");
+		fivmRuntime.logPrint(Long.toString(time1));
+		fivmRuntime.logPrint(", ");
+		fivmRuntime.logPrint(Long.toString(time2));
+		fivmRuntime.logPrint(", ");
             } else {
                 System.out.format("Guided: %d, %d, ", time1, time2);
             }

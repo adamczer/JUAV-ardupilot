@@ -28,7 +28,11 @@ public class ModeLoiter extends Mode {
 	long time2 = System.nanoTime();
         if (Copter.LOG_TIMING) {
             if (FijiJniSwitch.usingFiji) {
-		fivmRuntime.logPrint(String.format("Loiter: %d, %d, ", time1, time2));
+		fivmRuntime.logPrint("Loiter: ");
+		fivmRuntime.logPrint(Long.toString(time1));
+		fivmRuntime.logPrint(", ");
+		fivmRuntime.logPrint(Long.toString(time2));
+		fivmRuntime.logPrint(", ");
             } else {
                 System.out.format("Loiter: %d, %d, ", time1, time2);
             }
