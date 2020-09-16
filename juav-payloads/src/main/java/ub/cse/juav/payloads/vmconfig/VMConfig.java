@@ -42,7 +42,8 @@ public class VMConfig {
 		}
 
 		try {
-			Thread.sleep(duration);
+			while(true)
+				Thread.sleep(duration);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

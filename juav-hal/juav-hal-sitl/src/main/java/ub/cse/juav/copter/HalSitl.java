@@ -12,8 +12,6 @@ import java.util.*;
 
 public class HalSitl {
     void run(int argc, String[] argv, final List<Callback> callbacks) {
-        nativeInitizationPriorToControlLoop();
-
         if (FijiJniSwitch.usingFiji)
         {
             RelativeTime rt =
@@ -22,18 +20,21 @@ public class HalSitl {
                     new PeriodicParameters( rt )) {
                 @Override
                 public void run() {
+                    nativeInitizationPriorToControlLoop();
                     while (!getHalSitlSchedulerShouldReboot()) {
                         halLogic(callbacks);
                         waitForNextPeriod();
                     }
+                    actuallyReboot();
                 }
             };
             t.start();
         } else {
+            nativeInitizationPriorToControlLoop();
             while (!getHalSitlSchedulerShouldReboot())
                 halLogic(callbacks);
+            actuallyReboot();
         }
-        actuallyReboot();
     }
 
     private void halLogic(List<Callback> callbacks) {
@@ -78,8 +79,8 @@ public class HalSitl {
     }
 
     public static void main(String[] args) {
-        if(Arrays.asList(args).contains("fiji"))
-            FijiJniSwitch.usingFiji=true;
+        if(Arrays.asList(args).contains("java"))
+            FijiJniSwitch.usingFiji=false;
 
         System.loadLibrary("JuavSitlJni");
 
