@@ -30,7 +30,7 @@ public class VMConfig {
 			System.out.println("Thread Priority RR Max: "+ThreadPriority.RR_MAX);
 			System.out.println("Thread Priority RR  Min: "+ThreadPriority.RR_MIN);
 			
-			tsm.initTimeSlice(i, quantum, numThreads, ThreadPriority.FIFO_MAX - 1);
+			tsm.initTimeSlice(i, quantum, numThreads, ThreadPriority.FIFO_MAX - (i+1));
 		}
 
 		tsm.start();

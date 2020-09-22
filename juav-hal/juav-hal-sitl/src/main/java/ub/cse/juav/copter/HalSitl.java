@@ -12,29 +12,10 @@ import java.util.*;
 
 public class HalSitl {
     void run(int argc, String[] argv, final List<Callback> callbacks) {
-        if (FijiJniSwitch.usingFiji)
-        {
-            RelativeTime rt =
-                    new RelativeTime( 0 , 1953125 ) ;
-            RealtimeThread t = new RealtimeThread(new PriorityParameters( 80) ,
-                    new PeriodicParameters( rt )) {
-                @Override
-                public void run() {
-                    nativeInitizationPriorToControlLoop();
-                    while (!getHalSitlSchedulerShouldReboot()) {
-                        halLogic(callbacks);
-                        waitForNextPeriod();
-                    }
-                    actuallyReboot();
-                }
-            };
-            t.start();
-        } else {
             nativeInitizationPriorToControlLoop();
             while (!getHalSitlSchedulerShouldReboot())
                 halLogic(callbacks);
             actuallyReboot();
-        }
     }
 
     private void halLogic(List<Callback> callbacks) {
