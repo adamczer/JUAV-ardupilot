@@ -15,10 +15,10 @@
     <dependencies>
         <dependency>
             <groupId>org.fiji</groupId>
-            <artifactId>fiji-scj</artifactId>
+            <artifactId>fiji-rtsj</artifactId>
             <version>1.0.0</version>
             <scope>system</scope>
-            <systemPath>${env.JUAV_SRC}/lib/scj.jar</systemPath>
+            <systemPath>${env.JUAV_SRC}/lib/rtsj.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.fiji</groupId>
