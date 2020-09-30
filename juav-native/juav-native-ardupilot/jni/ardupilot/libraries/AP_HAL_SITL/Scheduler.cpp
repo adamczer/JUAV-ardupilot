@@ -75,12 +75,13 @@ bool Scheduler::in_main_thread() const
  */
 bool Scheduler::semaphore_wait_hack_required()
 {
-    if (pthread_self() != _main_ctx) {
+//    if (pthread_self() != _main_ctx) {
         // only the main thread ever moves stuff forwards
-        return false;
-    }
+//        return false;
+//    }
 
-    return _in_semaphore_take_wait;
+//    return _in_semaphore_take_wait;
+return false;
 }
 
 void Scheduler::delay_microseconds(uint16_t usec)
