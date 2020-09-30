@@ -334,9 +334,9 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
         AP_HAL::panic("Failed to set stack of size %u for thread %s", alloc_stack, name);
     }
 #endif
-    if (pthread_create(&thread, &a->attr, thread_create_trampoline, a) != 0) {
-        goto failed;
-    }
+    //if (pthread_create(&thread, &a->attr, thread_create_trampoline, a) != 0) {
+    //    goto failed;
+    //}
     a->next = threads;
     threads = a;
     return true;
