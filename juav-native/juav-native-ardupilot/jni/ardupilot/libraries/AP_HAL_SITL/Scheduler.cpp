@@ -50,14 +50,15 @@ Scheduler::Scheduler(SITL_State *sitlState) :
 
 void Scheduler::init()
 {
-    _main_ctx = pthread_self();
+    //_main_ctx = pthread_self();
 }
 
 bool Scheduler::in_main_thread() const
 {
-    if (!_in_timer_proc && !_in_io_proc && pthread_self() == _main_ctx) {
+/*    if (!_in_timer_proc && !_in_io_proc && pthread_self() == _main_ctx) {
         return true;
     }
+    return false; */
     return false;
 }
 
@@ -299,7 +300,7 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     // safety margin
     stack_size += 2300;
     
-    pthread_t thread {};
+    //pthread_t thread {};
     const uint32_t alloc_stack = MAX(size_t(PTHREAD_STACK_MIN),stack_size);
 
     struct thread_attr *a = new struct thread_attr;
@@ -324,9 +325,9 @@ bool Scheduler::thread_create(AP_HAL::MemberProc proc, const char *name, uint32_
     a->f[0] = proc;
     a->name = name;
 
-    if (pthread_attr_init(&a->attr) != 0) {
-        goto failed;
-    }
+   // if (pthread_attr_init(&a->attr) != 0) {
+   //     goto failed;
+   // }
 #if SITL_STACK_CHECKING_ENABLED
     if (pthread_attr_setstack(&a->attr, a->stack, alloc_stack) != 0) {
         AP_HAL::panic("Failed to set stack of size %u for thread %s", alloc_stack, name);
