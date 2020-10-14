@@ -759,6 +759,38 @@ JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModePayloa
 JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeIsNavGuidedEnabled
   (JNIEnv *, jclass);
 
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGetCurrentLongitude
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCurrentLongitude
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGetCurrentLatitude
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCurrentLatitude
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGetCurrentAltitude
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCurrentAltitude
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     ub_cse_juav_jni_ArdupilotNative
+ * Method:    nativeGetLatestGpsReading
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetLatestGpsReading
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

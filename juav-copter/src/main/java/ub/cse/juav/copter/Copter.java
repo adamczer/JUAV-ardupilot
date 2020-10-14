@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Copter {
     Map<Integer,Mode> modes;
-    public static boolean LOG_TIMING = false;
+    public static boolean LOG_TIMING = true;
 
     public void setModes(Map<Integer,Mode> modes) {
         this.modes = modes;
@@ -37,13 +37,20 @@ public class Copter {
             modes.get(mode).run();
             long time2 = System.nanoTime();
             if (this.LOG_TIMING) {
+                ArdupilotNativeWrapper.nativeGetLatestGpsReading();
                 if (FijiJniSwitch.usingFiji) {
 		    fivmRuntime.logPrint(Long.toString(time1));
 		    fivmRuntime.logPrint(", ");
 		    fivmRuntime.logPrint(Long.toString(time2));
+            fivmRuntime.logPrint(", ");
+            fivmRuntime.logPrint(Float.toString(ArdupilotNativeWrapper.nativeGetCurrentLatitude()));
+            fivmRuntime.logPrint(", ");
+            fivmRuntime.logPrint(Float.toString(ArdupilotNativeWrapper.nativeGetCurrentLongitude()));
+            fivmRuntime.logPrint(", ");
+            fivmRuntime.logPrint(Float.toString(ArdupilotNativeWrapper.nativeGetCurrentAltitude()));
 		    fivmRuntime.logPrint("\n");
                 } else {
-                    System.out.format("%d, %d\n", time1, time2);
+                    System.out.format("%d, %d, %s, %s, %s\n", time1, time2,String.format("%.20f",ArdupilotNativeWrapper.nativeGetCurrentLatitude()),String.format("%.20f",ArdupilotNativeWrapper.nativeGetCurrentLongitude()),String.format("%.20f",ArdupilotNativeWrapper.nativeGetCurrentAltitude()));
                 }
             }
         } else {

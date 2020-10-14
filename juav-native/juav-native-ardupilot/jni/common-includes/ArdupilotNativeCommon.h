@@ -639,6 +639,13 @@ void ArdupilotNative_nativeAutoModeLoiterRunPriorToAttitude();
 bool ArdupilotNative_nativeAutoModeIsNavGuidedEnabled();
 //MODE AUTO
 
+
+//positional information
+int ArdupilotNative_nativeGetCurrentLongitude();
+int ArdupilotNative_nativeGetCurrentLatitude();
+int ArdupilotNative_nativeGetCurrentAltitude();
+void ArdupilotNative_nativeGetLatestGpsReading();
+
 #ifdef __cplusplus
 }
 #endif

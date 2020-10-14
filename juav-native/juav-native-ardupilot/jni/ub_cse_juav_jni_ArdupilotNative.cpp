@@ -523,3 +523,24 @@ JNIEXPORT jboolean JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeAutoModeIs
   }
 
 //MODE AUTO
+
+//positional information
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCurrentLongitude
+  (JNIEnv * env, jclass thisClass){
+   return ArdupilotNative_nativeGetCurrentLongitude();
+  }
+
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCurrentLatitude
+  (JNIEnv * env, jclass thisClass){
+   return ArdupilotNative_nativeGetCurrentLatitude();
+  }
+
+JNIEXPORT jint JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetCurrentAltitude
+  (JNIEnv * env, jclass thisClass){
+   return ArdupilotNative_nativeGetCurrentAltitude();
+  }
+
+JNIEXPORT void JNICALL Java_ub_cse_juav_jni_ArdupilotNative_nativeGetLatestGpsReading
+  (JNIEnv * env, jclass thisClass) {
+  ArdupilotNative_nativeGetLatestGpsReading();
+  }

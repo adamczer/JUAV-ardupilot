@@ -183,4 +183,11 @@ public class ArdupilotNative {
     public static native boolean nativeAutoModeIsNavGuidedEnabled();
 
     //MODE AUTO
+
+    //positional information
+
+    public static native int nativeGetCurrentLongitude();
+    public static native int nativeGetCurrentLatitude();
+    public static native int nativeGetCurrentAltitude();
+    public static native void nativeGetLatestGpsReading();
 }
