@@ -1,12 +1,10 @@
 package ub.cse.juav.copter;
 
 import ub.cse.juav.copter.modes.*;
+import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalLinuxNativeWrapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HalLinuxClass {
     void run(int argc, String[] argv, List<Callback> callbacks){
@@ -34,6 +32,8 @@ public class HalLinuxClass {
 
     public static void main(String[] args) {
         System.loadLibrary("JuavErleCopterJni");
+        if(Arrays.asList(args).contains("fiji"))
+            FijiJniSwitch.usingFiji=true;
 
         AcAttitudeControl acAttitudeControl = new AcAttitudeControl();
         Map<Integer,Mode> modes = new HashMap<>();
