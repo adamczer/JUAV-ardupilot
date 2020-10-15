@@ -353,9 +353,9 @@ void Copter::update_flight_mode()
     const Location &loc = AP::gps().location();
     fprintf(autopilotLog,"%s", flightmode->name());
     fprintf(autopilotLog,": ");
-    fprintf(autopilotLog,"%ld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
+    fprintf(autopilotLog,"%lld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
     fprintf(autopilotLog,", ");
-    fprintf(autopilotLog,"%ld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
+    fprintf(autopilotLog,"%lld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
     fprintf(autopilotLog,", ");
     fprintf(autopilotLog,"%.20f",convertint32toFloat(loc.lng));
     fprintf(autopilotLog,", ");
