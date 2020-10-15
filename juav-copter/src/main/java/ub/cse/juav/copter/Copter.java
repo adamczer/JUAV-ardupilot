@@ -20,9 +20,9 @@ public class Copter {
         if (LOG_TIMING) {
             try {
                 if (FijiJniSwitch.usingFiji)
-                    timingLog = new FileOutputStream("jUAV-fiji-" + System.currentTimeMillis() + ".log");
+                    timingLog = new FileOutputStream("jUAV-fiji.log",true);
                 else
-                    timingLog = new FileOutputStream("jUAV-java-" + System.currentTimeMillis() + ".log");
+                    timingLog = new FileOutputStream("jUAV-java.log",true);
             } catch (IOException e) {
                 throw new IllegalStateException("metrics logging enabled and could not create log file in working dir.",e);
             }

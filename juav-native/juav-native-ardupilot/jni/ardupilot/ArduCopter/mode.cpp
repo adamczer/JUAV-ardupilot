@@ -338,7 +338,7 @@ float convertint32toFloat(int32_t lat_or_lon) {
     return result;
 }
 
-FILE *autopilotLog = fopen("ardupilot_c.log", "w");
+FILE *autopilotLog = fopen("ardupilot_c.log", "a");
 // update_flight_mode - calls the appropriate attitude controllers based on flight mode
 // called at 100hz or more
 void Copter::update_flight_mode()
