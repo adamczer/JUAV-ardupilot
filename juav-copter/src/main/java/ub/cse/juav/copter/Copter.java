@@ -2,18 +2,19 @@ package ub.cse.juav.copter;
 
 import ub.cse.juav.copter.modes.Mode;
 import ub.cse.juav.jni.ArdupilotNativeWrapper;
+import com.fiji.fivm.r1.fivmRuntime;
 import ub.cse.juav.jni.FijiJniSwitch;
 
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Map;
+import java.lang.String;
 
 public class Copter {
     Map<Integer,Mode> modes;
     public static boolean LOG_TIMING = true;
     FileOutputStream timingLog;
-    PrintStream ps;
 
     public Copter() {
         if (LOG_TIMING) {
@@ -22,7 +23,6 @@ public class Copter {
                     timingLog = new FileOutputStream("jUAV-fiji-" + System.currentTimeMillis() + ".log");
                 else
                     timingLog = new FileOutputStream("jUAV-java-" + System.currentTimeMillis() + ".log");
-                ps = new PrintStream(timingLog,true);
             } catch (IOException e) {
                 throw new IllegalStateException("metrics logging enabled and could not create log file in working dir.",e);
             }
@@ -57,7 +57,16 @@ public class Copter {
             long time2 = System.nanoTime();
             if (this.LOG_TIMING) {
                 ArdupilotNativeWrapper.nativeGetLatestGpsReading();
-                ps.printf("%s : %d, %d, %.20f, %.20f, %.20f\n",modes.get(mode).getClass().getSimpleName(),time1,time2,ArdupilotNativeWrapper.nativeGetCurrentLatitude(),ArdupilotNativeWrapper.nativeGetCurrentLongitude(),ArdupilotNativeWrapper.nativeGetCurrentAltitude());
+                try {
+                    timingLog.write((modes.get(mode).getClass().getSimpleName()+": "+
+                            time1 + ", " + time2 + ", " +
+                                    ArdupilotNativeWrapper.nativeGetCurrentLatitude()*1e10 + ", " +
+                                    ArdupilotNativeWrapper.nativeGetCurrentLongitude()*1e10 + ", " +
+                                    ArdupilotNativeWrapper.nativeGetCurrentAltitude()*1e10+"\n").getBytes()
+                    );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             callNativeMode();
