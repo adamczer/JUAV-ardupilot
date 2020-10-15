@@ -4,11 +4,28 @@ import ub.cse.juav.copter.modes.Mode;
 import ub.cse.juav.jni.ArdupilotNativeWrapper;
 import com.fiji.fivm.r1.fivmRuntime;
 import ub.cse.juav.jni.FijiJniSwitch;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
 
 public class Copter {
     Map<Integer,Mode> modes;
     public static boolean LOG_TIMING = true;
+    FileWriter timingLog;
+
+    public Copter() {
+        if (LOG_TIMING) {
+            try {
+                if (FijiJniSwitch.usingFiji)
+                    timingLog = new FileWriter("jUAV-fiji-" + System.currentTimeMillis() + ".log");
+                else
+                    timingLog = new FileWriter("jUAV-java-" + System.currentTimeMillis() + ".log");
+            } catch (IOException e) {
+                throw new IllegalStateException("metrics logging enabled and could not create log file in working dir.",e);
+            }
+        }
+    }
 
     public void setModes(Map<Integer,Mode> modes) {
         this.modes = modes;
@@ -38,19 +55,15 @@ public class Copter {
             long time2 = System.nanoTime();
             if (this.LOG_TIMING) {
                 ArdupilotNativeWrapper.nativeGetLatestGpsReading();
-                if (FijiJniSwitch.usingFiji) {
-		    fivmRuntime.logPrint(Long.toString(time1));
-		    fivmRuntime.logPrint(", ");
-		    fivmRuntime.logPrint(Long.toString(time2));
-            fivmRuntime.logPrint(", ");
-            fivmRuntime.logPrint(Float.toString(ArdupilotNativeWrapper.nativeGetCurrentLatitude()));
-            fivmRuntime.logPrint(", ");
-            fivmRuntime.logPrint(Float.toString(ArdupilotNativeWrapper.nativeGetCurrentLongitude()));
-            fivmRuntime.logPrint(", ");
-            fivmRuntime.logPrint(Float.toString(ArdupilotNativeWrapper.nativeGetCurrentAltitude()));
-		    fivmRuntime.logPrint("\n");
-                } else {
-                    System.out.format("%d, %d, %s, %s, %s\n", time1, time2,String.format("%.20f",ArdupilotNativeWrapper.nativeGetCurrentLatitude()),String.format("%.20f",ArdupilotNativeWrapper.nativeGetCurrentLongitude()),String.format("%.20f",ArdupilotNativeWrapper.nativeGetCurrentAltitude()));
+                try {
+                    timingLog.write(modes.get(mode).getClass().getSimpleName()+": "+
+                            time1 + ", " + time2 + ", " +
+                                    String.format("%.20f", ArdupilotNativeWrapper.nativeGetCurrentLatitude()) + ", " +
+                                    String.format("%.20f", ArdupilotNativeWrapper.nativeGetCurrentLongitude()) + ", " +
+                                    String.format("%.20f", ArdupilotNativeWrapper.nativeGetCurrentAltitude())+"\n"
+                    );
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         } else {

@@ -28,7 +28,6 @@ public class ModeAuto extends Mode{
     @Override
     public void run() {
         // call the correct auto controller
-        long time1 = System.nanoTime();
         switch (getCurrentAutoMode()) {
 
             case 0:
@@ -72,18 +71,6 @@ public class ModeAuto extends Mode{
             case 10:
                 payloadPlaceRun();
                 break;
-        }
-	long time2 = System.nanoTime();
-        if (Copter.LOG_TIMING) {
-            if (FijiJniSwitch.usingFiji) {
-		fivmRuntime.logPrint("Auto: ");
-		fivmRuntime.logPrint(Long.toString(time1));
-		fivmRuntime.logPrint(", ");
-		fivmRuntime.logPrint(Long.toString(time2));
-		fivmRuntime.logPrint(", ");
-            } else {
-                System.out.format("Auto: %d, %d, ", time1, time2);
-            }
         }
     }
 

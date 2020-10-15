@@ -269,7 +269,6 @@ float AP_Scheduler::load_average()
 
 void AP_Scheduler::loop()
 {
-    /*
     // wait for an INS sample
     hal.util->persistent_data.scheduler_task = -3;
     _rsem.give();
@@ -352,7 +351,7 @@ void AP_Scheduler::loop()
     // check loop time
     perf_info.check_loop_time(sample_time_us - _loop_timer_start_us);
         
-    _loop_timer_start_us = sample_time_us; */
+    _loop_timer_start_us = sample_time_us;
 }
 
 void AP_Scheduler::update_logging()

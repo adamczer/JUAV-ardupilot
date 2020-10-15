@@ -152,7 +152,7 @@ static void fill_stack_nan(void)
 
 void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
 {
-   /*assert(callbacks);
+   assert(callbacks);
 
          _sitl_state->init(argc, argv);
 
@@ -231,7 +231,7 @@ void HAL_SITL::run(int argc, char * const argv[], Callbacks* callbacks) const
              }
          }
 
-         actually_reboot();*/
+         actually_reboot();
 }
 
 void HAL_SITL::actually_reboot()
