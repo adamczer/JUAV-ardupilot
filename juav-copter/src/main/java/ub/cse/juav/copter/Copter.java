@@ -46,6 +46,8 @@ public class Copter {
 
     // update_flight_mode - calls the appropriate attitude controllers based on flight mode
 // called at 100hz or more
+    float lastLat =0,lastLong=0;
+    int flushCount = 0;
     void update_flight_mode()
     {
         surfaceTracingInvalidateForLogging();  // invalidate surface tracking alt, flight mode will set to true if used
@@ -57,15 +59,23 @@ public class Copter {
             long time2 = System.nanoTime();
             if (this.LOG_TIMING) {
                 ArdupilotNativeWrapper.nativeGetLatestGpsReading();
-                try {
-                    timingLog.write((modes.get(mode).getClass().getSimpleName()+": "+
-                            time1 + ", " + time2 + ", " +
-                                    ArdupilotNativeWrapper.nativeGetCurrentLatitude()*1e10 + ", " +
-                                    ArdupilotNativeWrapper.nativeGetCurrentLongitude()*1e10 + ", " +
-                                    ArdupilotNativeWrapper.nativeGetCurrentAltitude()*1e10+"\n").getBytes()
-                    );
-                } catch (IOException e) {
-                    e.printStackTrace();
+                float lat = ArdupilotNativeWrapper.nativeGetCurrentLatitude();
+                float lon = ArdupilotNativeWrapper.nativeGetCurrentLongitude();
+                if(lastLat!=lat || lastLong !=lon) {
+                    lastLong = lon;
+                    lastLat = lat;
+                    try {
+                        timingLog.write((modes.get(mode).getClass().getSimpleName() + ": " +
+                                time1 + ", " + time2 + ", " +
+                                lat * 1e10 + ", " +
+                                lon * 1e10 + ", " +
+                                ArdupilotNativeWrapper.nativeGetCurrentAltitude() * 1e10 + "\n").getBytes()
+                        );
+                        if(flushCount++%100==0)
+                            timingLog.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         } else {

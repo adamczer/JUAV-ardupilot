@@ -339,6 +339,9 @@ float convertint32toFloat(int32_t lat_or_lon) {
 }
 
 FILE *autopilotLog = fopen("ardupilot_c.log", "a");
+int flushCount = 0;
+int32_t lastLat =0;
+int32_t lastLng = 0;
 // update_flight_mode - calls the appropriate attitude controllers based on flight mode
 // called at 100hz or more
 void Copter::update_flight_mode()
@@ -351,19 +354,24 @@ void Copter::update_flight_mode()
     struct timespec end;
     clock_gettime(CLOCK_REALTIME, &end);
     const Location &loc = AP::gps().location();
-    fprintf(autopilotLog,"%s", flightmode->name());
-    fprintf(autopilotLog,": ");
-    fprintf(autopilotLog,"%lld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
-    fprintf(autopilotLog,", ");
-    fprintf(autopilotLog,"%lld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
-    fprintf(autopilotLog,", ");
-    fprintf(autopilotLog,"%.20f",convertint32toFloat(loc.lng));
-    fprintf(autopilotLog,", ");
-    fprintf(autopilotLog,"%.20f", convertint32toFloat(loc.lat));
-    fprintf(autopilotLog,", ");
-    fprintf(autopilotLog,"%.20f ",(float)(loc.alt * 0.01f));
-    fprintf(autopilotLog,"\n");
-    fflush(autopilotLog);
+    if(lastLat != loc.lat || lastLng != loc.lng) {
+        lastLng = loc.lng;
+        lastLat = loc.lat;
+        fprintf(autopilotLog,"%s", flightmode->name());
+        fprintf(autopilotLog,": ");
+        fprintf(autopilotLog,"%lld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
+        fprintf(autopilotLog,", ");
+        fprintf(autopilotLog,"%lld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
+        fprintf(autopilotLog,", ");
+        fprintf(autopilotLog,"%.20f",convertint32toFloat(loc.lng));
+        fprintf(autopilotLog,", ");
+        fprintf(autopilotLog,"%.20f", convertint32toFloat(loc.lat));
+        fprintf(autopilotLog,", ");
+        fprintf(autopilotLog,"%.20f ",(float)(loc.alt * 0.01f));
+        fprintf(autopilotLog,"\n");
+          if (flushCount++%100==0)
+            fflush(autopilotLog);
+        }
 }
 
 // exit_mode - high level call to organise cleanup as a flight mode is exited
