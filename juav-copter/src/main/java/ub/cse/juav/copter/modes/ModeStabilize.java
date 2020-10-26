@@ -3,8 +3,6 @@ package ub.cse.juav.copter.modes;
 import ub.cse.juav.copter.AcAttitudeControl;
 import ub.cse.juav.jni.ArdupilotNativeWrapper;
 import ub.cse.juav.copter.Copter;
-import com.fiji.fivm.r1.fivmRuntime;
-import ub.cse.juav.jni.FijiJniSwitch;
 
 public class ModeStabilize extends Mode{
     public ModeStabilize(AcAttitudeControl acAttitudeControl) {
