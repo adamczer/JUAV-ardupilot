@@ -354,14 +354,15 @@ void Copter::update_flight_mode()
     struct timespec end;
     clock_gettime(CLOCK_REALTIME, &end);
     const Location &loc = AP::gps().location();
-    if(lastLat != loc.lat || lastLng != loc.lng) {
+    //if(lastLat != loc.lat || lastLng != loc.lng) {
+    {
         lastLng = loc.lng;
         lastLat = loc.lat;
         fprintf(autopilotLog,"%s", flightmode->name());
         fprintf(autopilotLog,": ");
-        fprintf(autopilotLog,"%lld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
+        fprintf(autopilotLog,"%ld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
         fprintf(autopilotLog,", ");
-        fprintf(autopilotLog,"%lld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
+        fprintf(autopilotLog,"%ld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
         fprintf(autopilotLog,", ");
         fprintf(autopilotLog,"%.20f",convertint32toFloat(loc.lng));
         fprintf(autopilotLog,", ");

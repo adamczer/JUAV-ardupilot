@@ -61,7 +61,8 @@ public class Copter {
                 ArdupilotNativeWrapper.nativeGetLatestGpsReading();
                 float lat = ArdupilotNativeWrapper.nativeGetCurrentLatitude();
                 float lon = ArdupilotNativeWrapper.nativeGetCurrentLongitude();
-                if(lastLat!=lat || lastLong !=lon) {
+//                if(lastLat!=lat || lastLong !=lon) {
+                {
                     lastLong = lon;
                     lastLat = lat;
                     try {

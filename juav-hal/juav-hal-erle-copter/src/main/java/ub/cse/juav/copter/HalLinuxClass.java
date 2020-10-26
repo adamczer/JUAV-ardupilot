@@ -5,16 +5,35 @@ import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalLinuxNativeWrapper;
 
 import java.util.*;
+import javax.realtime.*;
 
 public class HalLinuxClass {
-    void run(int argc, String[] argv, List<Callback> callbacks){
-        halLinuxNativeInitizationPriorToControlLoop(argc, argv);
-        while (!halLinuxShouldExit()) {
-            for (Callback c:callbacks) {
-                c.loop();
+    void run(final int argc, final String[] argv, final List<Callback> callbacks){
+        if (FijiJniSwitch.usingFiji) {
+            RelativeTime rt = new RelativeTime(Long.parseLong(argv[1]),Integer.parseInt(argv[2]));
+            RealtimeThread t = new RealtimeThread(new PriorityParameters(Integer.parseInt(argv[3])),new PeriodicParameters(rt)){
+                @Override
+                public void run() {
+                    halLinuxNativeInitizationPriorToControlLoop(argc, argv);
+                    while (!halLinuxShouldExit()) {
+                        for (Callback c:callbacks) {
+                            c.loop();
+                        }
+                        currentRealtimeThread().waitForNextPeriod();
+                    }
+                    halLinuxNativeAfterShouldExit();
+                }
+            };
+            t.start();
+        } else {
+            halLinuxNativeInitizationPriorToControlLoop(argc, argv);
+            while (!halLinuxShouldExit()) {
+                for (Callback c : callbacks) {
+                    c.loop();
+                }
             }
+            halLinuxNativeAfterShouldExit();
         }
-        halLinuxNativeAfterShouldExit();
     }
 
     private void halLinuxNativeAfterShouldExit() {
@@ -31,6 +50,7 @@ public class HalLinuxClass {
 
 
     public static void main(String[] args) {
+
         System.loadLibrary("JuavErleCopterJni");
         if(Arrays.asList(args).contains("fiji"))
             FijiJniSwitch.usingFiji=true;
