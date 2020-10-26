@@ -3,6 +3,7 @@ package ub.cse.juav.copter;
 import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalLinuxNativeWrapper;
+import ub.cse.juav.payloads.DumbyAStarRunnable;
 
 import java.util.*;
 import javax.realtime.*;
@@ -72,5 +73,16 @@ public class HalLinuxClass {
         callbacks.add(vehicle);
         HalLinuxClass hal = new HalLinuxClass();
         hal.run(args.length, args, callbacks);
+
+
+        DumbyAStarRunnable dumbyAStarRunnable = new DumbyAStarRunnable();
+        Thread payload;
+        if (FijiJniSwitch.usingFiji) {
+            payload = new RealtimeThread(dumbyAStarRunnable);
+            payload.setPriority(11);
+        } else {
+            payload = new Thread(dumbyAStarRunnable);
+        }
+        payload.start();
     }
 }

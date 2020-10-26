@@ -1,4 +1,4 @@
-package ub.cse.juav.copter;
+package ub.cse.juav.payloads;
 public class DumbyPi implements Runnable {
     public DumbyPi() {
 	

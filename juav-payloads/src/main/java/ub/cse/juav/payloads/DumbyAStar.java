@@ -1,9 +1,8 @@
-package ub.cse.juav.copter;
+package ub.cse.juav.payloads;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.lang.Math;
 import java.util.Random;
-import com.fiji.fivm.r1.fivmRuntime;
-import ub.cse.juav.jni.FijiJniSwitch;
 
 public class DumbyAStar {
 
@@ -114,15 +113,15 @@ public class DumbyAStar {
 		}
 	}
 
-	void aStarSearch() {
+	void aStarSearch(FileOutputStream aStarLog, boolean logAStar) {
 		int i,j;
 		long time1 = System.currentTimeMillis();
-		if (FijiJniSwitch.usingFiji) {
-			fivmRuntime.logPrint("RELEASE AT ");
-			fivmRuntime.logPrint(Long.toString(System.nanoTime()));
-			fivmRuntime.logPrint("\n");
-		} else {
-			System.out.format("RELEASE AT %d\n", System.nanoTime());
+		if (logAStar) {
+			try {
+				aStarLog.write(("RELEASE AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		while (!this.openListEmpty()) {
 			if ((System.currentTimeMillis() - time1) < this.WORK_MILLI) {
@@ -147,12 +146,12 @@ public class DumbyAStar {
 				this.processSuccessor(i + 1, j - 1, i, j);
 				if (this.foundDest == true) return;
 			} else {
-				if (FijiJniSwitch.usingFiji) {
-					fivmRuntime.logPrint("INTERUPT AT ");
-					fivmRuntime.logPrint(Long.toString(System.nanoTime()));
-					fivmRuntime.logPrint("\n");
-				} else {
-					System.out.format("INTERUPT AT %d\n", System.nanoTime());
+				if (logAStar) {
+					try {
+						aStarLog.write(("INTERUPT AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 				try {
 					
@@ -161,12 +160,12 @@ public class DumbyAStar {
 					System.err.format("IOException: %s%n", e);
 				}
 				time1 = System.currentTimeMillis();
-				if (FijiJniSwitch.usingFiji) {
-					fivmRuntime.logPrint("RELEASE AT ");
-					fivmRuntime.logPrint(Long.toString(System.nanoTime()));
-					fivmRuntime.logPrint("\n");
-				} else {
-					System.out.format("RELEASE AT %d\n", System.nanoTime());
+				if (logAStar) {
+					try {
+						aStarLog.write(("RELEASE AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -174,7 +173,7 @@ public class DumbyAStar {
 	}
 
 
-	public DumbyAStar() {
+	public DumbyAStar(FileOutputStream aStarLog, boolean loggingEnabled) {
 		int i, j;
 		this.openList = new ArrayList<ArrayList<pPair>> ();
 		this.cellDetails = new ArrayList<ArrayList<cell>>();
@@ -182,12 +181,12 @@ public class DumbyAStar {
 		this.grid = new ArrayList<ArrayList<Boolean>>();
 		Random rand = new Random();
 		long time1 = System.currentTimeMillis();
-		if (FijiJniSwitch.usingFiji) {
-			fivmRuntime.logPrint("RELEASE INIT AT ");
-			fivmRuntime.logPrint(Long.toString(System.nanoTime()));
-			fivmRuntime.logPrint("\n");
-		} else {
-			System.out.format("RELEASE INIT AT %d\n", System.nanoTime());
+		if (loggingEnabled) {
+			try {
+				aStarLog.write(("RELEASE INIT AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		for (i = 0; i < ROW; i++) {
 			ArrayList<Boolean> g1 = new ArrayList<Boolean>();
@@ -198,12 +197,13 @@ public class DumbyAStar {
 			this.cellDetails.add(c1);
 			for (j = 0; j < COL; j++) {
 				if ((System.currentTimeMillis() - time1) > this.WORK_MILLI) {
-					if (FijiJniSwitch.usingFiji) {
-						fivmRuntime.logPrint("INTERUPT INIT AT ");
-						fivmRuntime.logPrint(Long.toString(System.nanoTime()));
-						fivmRuntime.logPrint("\n");
-					} else {
-						System.out.format("INTERUPT INIT AT %d\n", System.nanoTime());
+					if (loggingEnabled) {
+						try {
+							aStarLog.write(("INTERUPT INIT AT "+
+                            Long.toString(System.nanoTime())+"\n").getBytes());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 					try {
 						Thread.sleep(this.SLEEP_MILLI);
@@ -211,12 +211,13 @@ public class DumbyAStar {
 						System.err.format("IOException: %s%n", e);
 					}
 					time1 = System.currentTimeMillis();
-					if (FijiJniSwitch.usingFiji) {
-						fivmRuntime.logPrint("RELEASE INIT AT ");
-						fivmRuntime.logPrint(Long.toString(System.nanoTime()));
-						fivmRuntime.logPrint("\n");
-					} else {
-						System.out.format("RELEASE INIT AT %d\n", System.nanoTime());
+					if (loggingEnabled) {
+						try {
+							aStarLog.write(("RELEASE INIT AT " +
+                            Long.toString(System.nanoTime())+"\n").getBytes());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 				if (!(i == 0 && j == 0) && !(i == ROW-1 && j == COL-1))

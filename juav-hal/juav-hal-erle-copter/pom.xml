@@ -25,6 +25,11 @@
             <scope>system</scope>
             <systemPath>${env.JUAV_SRC}/lib/rtsj.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>ub.cse.juav2</groupId>
+            <artifactId>juav-payloads</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
