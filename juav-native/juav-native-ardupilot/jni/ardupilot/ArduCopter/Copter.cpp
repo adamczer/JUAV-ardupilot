@@ -712,6 +712,277 @@ AC_AttitudeControl_t* Copter::juavNativeGetAttitudeController() {
     return attitude_control;
 }
 
+
+int kill_dumby_work = 0;
+
+void * dumby_func_3() {
+	int * a = (int *) malloc (100000*sizeof(int));
+	sleep(10);
+	free(a);
+	return NULL;
+}
+
+void * dumby_func_2() {
+	int * a = (int *) malloc (100000*sizeof(int));
+	sleep(10);   
+	dumby_func_3();
+	sleep(10);
+	free(a);
+	return NULL;  
+}
+
+void * dumby_func_1() {
+	int * a = (int *) malloc (100000*sizeof(int));
+	sleep(10);   
+	dumby_func_2();
+	sleep(10);
+	free(a);
+	return NULL;    
+}
+
+
+
+void * dumby_mem_run(void *) {
+	while (kill_dumby_work == 0) {
+		int * a = (int *) malloc (100000*sizeof(int));
+		sleep(10);   
+		dumby_func_1();
+		sleep(10);
+		free(a);
+	}
+	return NULL;
+}
+
+void * dumby_pi_run(void *) {
+	int i = 0;
+        double sum = 0;
+        while (kill_dumby_work == 0) {
+           sum += ((-1)^(i+1)) / (2 * i - 1);
+	   i+=1;
+        }
+	return NULL;
+}
+
+
+
+#include <vector>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <math.h>
+#include <unistd.h>
+using namespace std;
+
+class intPair {
+	public:
+		int first;
+		int second;
+		intPair(int i2, int j2) {this->first = i2; this->second = j2;}
+};
+
+class pPair {
+	public:
+		bool isOpen;
+		double first;
+		pPair(bool o, double f) {this->isOpen = o; this->first = f;}
+};
+
+class cell {
+	public:
+		int parent_i;
+		int parent_j;
+		double f;
+		double g;
+};
+
+class AStar {
+	public:
+		int WORK_MILLI = 500;
+		int SLEEP_MILLI = 500;
+		int flt_max = -1;
+		int ROW = 900;
+		int COL = 900;
+		int openListCount;
+		int openListBeginRetVal_i;
+		int openListBeginRetVal_j;
+		vector<vector<pPair>> openList;
+		vector<vector<cell>> cellDetails;
+		vector<vector<bool>> grid;
+		int src_i;
+		int src_j;
+		int dest_i;
+		int dest_j;
+		bool foundDest = false;
+		bool isValid(int,int);
+		bool isDestination(int,int);
+		double calculateHValue(int,int);
+		bool openListEmpty();
+		void openListInsert(int, int, double);
+		void openListErase(int,int);
+		void AStarSearch();
+		void processSuccessor(int,int,int,int);
+		void openListBegin();
+		AStar();
+};
+
+bool AStar::isValid(int i, int j) {
+	if (i < ROW && i >= 0 && j < COL && j >= 0) return true;
+	else return false;
+}
+
+bool AStar::isDestination(int i, int j) {
+	if (i == this->dest_i && j == this->dest_j) return true;
+	else return false;
+}
+
+double AStar::calculateHValue(int i, int j) {
+	return sqrt((i - dest_i) * (j - dest_j) + (i - dest_i) * (j - dest_j));
+}
+
+bool AStar::openListEmpty() {
+	if (this->openListCount > 0) return false;
+	else return false;
+}
+void AStar::openListInsert(int i, int j, double f) {
+	this->openListCount++;
+	this->openList[i][j].first = f;
+	this->openList[i][j].isOpen = true;
+}
+void AStar::openListErase(int i, int j) {
+	this->openListCount--;
+	this->openList[i][j].isOpen = false;
+}
+
+void AStar::openListBegin() {
+	int i, j;
+	int i1 = 0;
+	int j1 = 0;
+	double least_found = 2147483647.0;
+	for (i = 0; i < this->ROW; i++) {
+		for (j = 0; j < this->COL; j++) {
+			if (this->openList[i][j].isOpen && this->openList[i][j].first <= least_found) {
+				least_found = this->openList[i][j].first;
+				i1 = i;
+				j1 = j;
+			}
+		}
+	}
+	this->openListBeginRetVal_i = i1;
+	this->openListBeginRetVal_j = j1;
+}
+
+AStar::AStar() {
+	int i, j;
+	for (i = 0; i < ROW; i++) {
+		vector<bool> vect;
+		vector<pPair> vect2;
+		vector<cell> vect3;
+		for (j = 0; j < COL; j++) {
+			vect.push_back( rand() % 15 >= 1 ? 1 : 0 );
+			pPair p(0.0, false);
+			vect2.push_back(p);
+			cell cell_to_add;
+			cell_to_add.f = this->flt_max; 
+			cell_to_add.g = this->flt_max; 
+			cell_to_add.parent_i = -1; 
+			cell_to_add.parent_j = -1;
+			vect3.push_back(cell_to_add);
+		}
+		this->grid.push_back(vect);
+		this->openList.push_back(vect2);
+		this->cellDetails.push_back(vect3);
+	}
+	grid[0][0] = 1;
+	grid[ROW-1][COL-1] = 1;
+	this->src_i = 0;
+	this->src_j = 0;
+	this->dest_i = ROW-1;
+	this->dest_j = COL-1;
+	this->openListCount = 0; 
+	i = 0, j = 0; 
+	this->cellDetails[i][j].f = 0.0; 
+	this->cellDetails[i][j].g = 0.0; 
+	this->cellDetails[i][j].parent_i = i; 
+	this->cellDetails[i][j].parent_j = j;
+	openListInsert(i, j, 0.0);
+}
+
+void AStar::AStarSearch() {
+	int i,j;
+    	struct timespec start;
+    	struct timespec now;
+    	clock_gettime(CLOCK_REALTIME, &start);
+	hal.console->printf("RELEASE AT %ld\n", start.tv_nsec);
+	while (!this->openListEmpty()) {
+		clock_gettime(CLOCK_REALTIME, &now);
+		if (now.tv_nsec - start.tv_nsec < this->WORK_MILLI*1000000) {
+			this->openListBegin();
+			this->openListErase(openListBeginRetVal_i, openListBeginRetVal_j);
+			i = this->openListBeginRetVal_i;
+			j = this->openListBeginRetVal_j;
+			this->processSuccessor(i - 1, j, i, j);
+			if (this->foundDest == true) return;
+			this->processSuccessor(i + 1, j, i, j);
+			if (this->foundDest == true) return;
+			this->processSuccessor(i, j + 1, i, j);
+			if (this->foundDest == true) return;
+			this->processSuccessor(i, j - 1, i, j);
+			if (this->foundDest == true) return;
+			this->processSuccessor(i - 1, j + 1, i, j);
+			if (this->foundDest == true) return;
+			this->processSuccessor(i - 1, j - 1, i, j);
+			if (this->foundDest == true) return;
+			this->processSuccessor(i + 1, j + 1, i, j);
+			if (this->foundDest == true) return;
+			this->processSuccessor(i + 1, j - 1, i, j);
+			if (this->foundDest == true) return;
+		} else {
+			hal.console->printf("INTERUPT AT %ld\n", now.tv_nsec);	
+			usleep(SLEEP_MILLI*1000);
+			clock_gettime(CLOCK_REALTIME, &start);
+			hal.console->printf("RELEASE AT %ld\n", start.tv_nsec);
+		}
+	}
+}
+
+void AStar::processSuccessor(int ip, int jp, int i, int j) {
+	double gNew, hNew, fNew;
+
+	if (this->isValid(ip, jp) == true) {
+		if (isDestination(ip, jp) == true) {
+			this->cellDetails[ip][jp].parent_i = i;
+			this->cellDetails[ip][jp].parent_j = j;
+			this->foundDest = true;
+			hal.console->printf("FINISHED ASTAR\n");
+			return;
+		}
+		else if (this->openList[ip][jp].isOpen == false &&
+			this->grid[ip][jp]) {
+				gNew = this->cellDetails[ip][jp].g + 1.414;
+				hNew = this->calculateHValue(ip, jp);
+				fNew = gNew + hNew;
+			if (this->cellDetails[ip][jp].f < 0 ||
+				this->cellDetails[ip][jp].f > fNew) {
+				openListInsert(ip, jp, fNew);
+				this->cellDetails[ip][jp].f = fNew;
+				this->cellDetails[ip][jp].g = gNew;
+				this->cellDetails[ip][jp].parent_i = i;
+				this->cellDetails[ip][jp].parent_j = j;
+			}
+		}
+	}
+}
+
+void* dumbyAStar(void*) 
+{
+	while(!kill_dumby_work) {
+		AStar a = AStar();
+		a.AStarSearch();
+		usleep(1000000);
+	}
+	return NULL;
+}
+
 Copter copter;
 AP_Vehicle& vehicle = copter;
 
