@@ -773,6 +773,9 @@ void * dumby_pi_run(void *) {
 #include <unistd.h>
 using namespace std;
 
+FILE *aStarLog = fopen("aStar-c.log", "a");
+int flushCountAStar = 0;
+
 class intPair {
 	public:
 		int first;
@@ -912,7 +915,7 @@ void AStar::AStarSearch() {
     	struct timespec start;
     	struct timespec now;
     	clock_gettime(CLOCK_REALTIME, &start);
-	hal.console->printf("RELEASE AT %ld\n", start.tv_nsec);
+    	fprintf(aStarLog,"RELEASE AT %ld\n",  start.tv_nsec);
 	while (!this->openListEmpty()) {
 		clock_gettime(CLOCK_REALTIME, &now);
 		if (now.tv_nsec - start.tv_nsec < this->WORK_MILLI*1000000) {
@@ -937,10 +940,11 @@ void AStar::AStarSearch() {
 			this->processSuccessor(i + 1, j - 1, i, j);
 			if (this->foundDest == true) return;
 		} else {
-			hal.console->printf("INTERUPT AT %ld\n", now.tv_nsec);	
+			fprintf(aStarLog,"INTERUPT AT %ld\n", now.tv_nsec);
 			usleep(SLEEP_MILLI*1000);
 			clock_gettime(CLOCK_REALTIME, &start);
-			hal.console->printf("RELEASE AT %ld\n", start.tv_nsec);
+			fprintf(aStarLog,"RELEASE AT %ld\n", start.tv_nsec);
+			fflush(aStarLog);
 		}
 	}
 }
@@ -953,7 +957,8 @@ void AStar::processSuccessor(int ip, int jp, int i, int j) {
 			this->cellDetails[ip][jp].parent_i = i;
 			this->cellDetails[ip][jp].parent_j = j;
 			this->foundDest = true;
-			hal.console->printf("FINISHED ASTAR\n");
+			fprintf(aStarLog,"FINISHED ASTAR\n");
+			fflush(aStarLog);
 			return;
 		}
 		else if (this->openList[ip][jp].isOpen == false &&
@@ -986,4 +991,4 @@ void* dumbyAStar(void*)
 Copter copter;
 AP_Vehicle& vehicle = copter;
 
-AP_HAL_MAIN_CALLBACKS(&copter);
+AP_HAL_MAIN_JB_CALLBACKS(&copter);
