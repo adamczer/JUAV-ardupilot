@@ -40,7 +40,7 @@
     } \
     }
 
-#define AP_HAL_MAIN_JB_CALLBACKS(CALLBACKS) extern "C" { \
+/*#define AP_HAL_MAIN_JB_CALLBACKS(CALLBACKS) extern "C" { \
     int AP_MAIN(int argc, char** argv); \
         \
     void * helper_jb( void * ) { \
@@ -59,5 +59,5 @@
         printf("3\n"); \
 	kill_dumby_work = 1; \
         return 0; \
-    } \
-    }
+    } */
+//    }

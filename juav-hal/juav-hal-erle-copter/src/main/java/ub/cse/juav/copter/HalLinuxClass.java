@@ -4,6 +4,8 @@ import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalLinuxNativeWrapper;
 import ub.cse.juav.payloads.DumbyAStarRunnable;
+import ub.cse.juav.payloads.manager.Payload;
+import ub.cse.juav.payloads.manager.PayloadManager;
 
 import java.util.*;
 import javax.realtime.*;
@@ -11,8 +13,8 @@ import javax.realtime.*;
 public class HalLinuxClass {
     void run(final int argc, final String[] argv, final List<Callback> callbacks){
         if (FijiJniSwitch.usingFiji) {
-            RelativeTime rt = new RelativeTime(Long.parseLong(argv[1]),Integer.parseInt(argv[2]));
-            RealtimeThread t = new RealtimeThread(new PriorityParameters(Integer.parseInt(argv[3])),new PeriodicParameters(rt)){
+            RelativeTime rt = new RelativeTime(0,500);
+            RealtimeThread t = new RealtimeThread(new PriorityParameters(99),new PeriodicParameters(rt)){
                 @Override
                 public void run() {
                     halLinuxNativeInitizationPriorToControlLoop(argc, argv);
@@ -72,17 +74,26 @@ public class HalLinuxClass {
         List<Callback> callbacks = new ArrayList<>();
         callbacks.add(vehicle);
         HalLinuxClass hal = new HalLinuxClass();
+
+
+        //Start payloads
+        PayloadManager pm = new PayloadManager();
+        pm.addPayload(new Payload(new Runnable() {
+            @Override
+            public void run() {
+                int count = 0;
+                while(true) {
+                    System.out.println(count++);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        },"test",null,null,null));
+        pm.start();
+
         hal.run(args.length, args, callbacks);
-
-
-        DumbyAStarRunnable dumbyAStarRunnable = new DumbyAStarRunnable();
-        Thread payload;
-        if (FijiJniSwitch.usingFiji) {
-            payload = new RealtimeThread(dumbyAStarRunnable);
-            payload.setPriority(11);
-        } else {
-            payload = new Thread(dumbyAStarRunnable);
-        }
-        payload.start();
     }
 }

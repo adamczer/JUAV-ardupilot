@@ -22,11 +22,13 @@ public class DumbyAStar {
 		public double f;
 		public double g;
 	}
-	int WORK_MILLI = 500;
+	int WORK_MILLI = 100;
 	int SLEEP_MILLI = 500;
 	int FLT_MAX = 10000;
-	int ROW = 1200;
-	int COL = 1200;
+	int ROW = 128;
+	//int ROW = 1200;
+	int COL = 128;
+	//int COL = 1200;
 	int openListCount;
 	int openListBeginRetVal_i;
 	int openListBeginRetVal_j;
@@ -119,6 +121,7 @@ public class DumbyAStar {
 		if (logAStar) {
 			try {
 				aStarLog.write(("RELEASE AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+				aStarLog.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -149,6 +152,7 @@ public class DumbyAStar {
 				if (logAStar) {
 					try {
 						aStarLog.write(("INTERUPT AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+				aStarLog.flush();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -163,6 +167,7 @@ public class DumbyAStar {
 				if (logAStar) {
 					try {
 						aStarLog.write(("RELEASE AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+				aStarLog.flush();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -173,7 +178,9 @@ public class DumbyAStar {
 	}
 
 
-	public DumbyAStar(FileOutputStream aStarLog, boolean loggingEnabled) {
+	public DumbyAStar(FileOutputStream aStarLog, boolean loggingEnabled, int workTime) {
+		WORK_MILLI = workTime;
+		SLEEP_MILLI = workTime;
 		int i, j;
 		this.openList = new ArrayList<ArrayList<pPair>> ();
 		this.cellDetails = new ArrayList<ArrayList<cell>>();
@@ -184,6 +191,7 @@ public class DumbyAStar {
 		if (loggingEnabled) {
 			try {
 				aStarLog.write(("RELEASE INIT AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+				aStarLog.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -201,6 +209,7 @@ public class DumbyAStar {
 						try {
 							aStarLog.write(("INTERUPT INIT AT "+
                             Long.toString(System.nanoTime())+"\n").getBytes());
+				aStarLog.flush();
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
@@ -215,6 +224,7 @@ public class DumbyAStar {
 						try {
 							aStarLog.write(("RELEASE INIT AT " +
                             Long.toString(System.nanoTime())+"\n").getBytes());
+				aStarLog.flush();
 						} catch (IOException e) {
 							e.printStackTrace();
 						}

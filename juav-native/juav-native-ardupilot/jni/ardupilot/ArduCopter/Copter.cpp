@@ -81,7 +81,7 @@
 
 #include <iostream>
 using namespace std;
-
+#define BILLION  1000000000L
 const AP_HAL::HAL& hal = AP_HAL::get_HAL();
 
 #define SCHED_TASK(func, rate_hz, max_time_micros) SCHED_TASK_CLASS(Copter, &copter, func, rate_hz, max_time_micros)
@@ -803,8 +803,10 @@ class AStar {
 		int WORK_MILLI = 500;
 		int SLEEP_MILLI = 500;
 		int flt_max = -1;
-		int ROW = 900;
-		int COL = 900;
+		//int ROW = 900;
+		int ROW = 128;
+		//int COL = 900;
+		int COL = 128;
 		int openListCount;
 		int openListBeginRetVal_i;
 		int openListBeginRetVal_j;
@@ -915,7 +917,9 @@ void AStar::AStarSearch() {
     	struct timespec start;
     	struct timespec now;
     	clock_gettime(CLOCK_REALTIME, &start);
-    	fprintf(aStarLog,"RELEASE AT %ld\n",  start.tv_nsec);
+    	//fprintf(aStarLog,"RELEASE AT %ld\n",  start.tv_nsec);
+	//fprintf(aStarLog,"RELEASE AT %lld\n",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
+	//fprintf(aStarLog,"RELEASE AT %ld\n",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
 	while (!this->openListEmpty()) {
 		clock_gettime(CLOCK_REALTIME, &now);
 		if (now.tv_nsec - start.tv_nsec < this->WORK_MILLI*1000000) {
@@ -940,10 +944,12 @@ void AStar::AStarSearch() {
 			this->processSuccessor(i + 1, j - 1, i, j);
 			if (this->foundDest == true) return;
 		} else {
-			fprintf(aStarLog,"INTERUPT AT %ld\n", now.tv_nsec);
+			//fprintf(aStarLog,"INTERUPT AT %ld\n", now.tv_nsec);
+//			fprintf(aStarLog,"INTERUPT AT %lld\n",(uint64_t) now.tv_sec * BILLION + (uint64_t) now.tv_nsec);
 			usleep(SLEEP_MILLI*1000);
 			clock_gettime(CLOCK_REALTIME, &start);
-			fprintf(aStarLog,"RELEASE AT %ld\n", start.tv_nsec);
+			//fprintf(aStarLog,"RELEASE AT %ld\n", start.tv_nsec);
+//			fprintf(aStarLog,"RELEASE AT %lld\n",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
 			fflush(aStarLog);
 		}
 	}
@@ -951,13 +957,16 @@ void AStar::AStarSearch() {
 
 void AStar::processSuccessor(int ip, int jp, int i, int j) {
 	double gNew, hNew, fNew;
+    	struct timespec now2;
+    	clock_gettime(CLOCK_REALTIME, &now2);
 
 	if (this->isValid(ip, jp) == true) {
 		if (isDestination(ip, jp) == true) {
 			this->cellDetails[ip][jp].parent_i = i;
 			this->cellDetails[ip][jp].parent_j = j;
 			this->foundDest = true;
-			fprintf(aStarLog,"FINISHED ASTAR\n");
+			//fprintf(aStarLog,"FINISHED ASTAR AT %ld\n", (uint64_t) now2.tv_sec * BILLION + (uint64_t) now2.tv_nsec);
+			//fprintf(aStarLog,"FINISHED AT %lld\n",(uint64_t) now2.tv_sec * BILLION + (uint64_t) now2.tv_nsec);
 			fflush(aStarLog);
 			return;
 		}
@@ -983,7 +992,7 @@ void* dumbyAStar(void*)
 	while(!kill_dumby_work) {
 		AStar a = AStar();
 		a.AStarSearch();
-		usleep(1000000);
+		usleep(10000000);
 	}
 	return NULL;
 }
@@ -991,4 +1000,4 @@ void* dumbyAStar(void*)
 Copter copter;
 AP_Vehicle& vehicle = copter;
 
-AP_HAL_MAIN_JB_CALLBACKS(&copter);
+//AP_HAL_MAIN_JB_CALLBACKS(&copter);

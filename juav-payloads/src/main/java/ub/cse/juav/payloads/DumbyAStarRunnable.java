@@ -8,8 +8,10 @@ import java.io.IOException;
 
 public class DumbyAStarRunnable implements Runnable {
 	public static boolean LOG_A_STAR = true;
+	final int workTime;
 	FileOutputStream aStarLog;
-	public DumbyAStarRunnable() {
+	public DumbyAStarRunnable(int workTime) {
+		this.workTime = workTime;
 		if (LOG_A_STAR) {
 			try {
 				if (FijiJniSwitch.usingFiji)
@@ -27,15 +29,17 @@ public class DumbyAStarRunnable implements Runnable {
 				try {
 					aStarLog.write(("STARTED ASTAR INIT AT " +
                     Long.toString(System.nanoTime()) +"\n").getBytes());
+					aStarLog.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-			DumbyAStar a = new DumbyAStar(aStarLog,LOG_A_STAR);
+			DumbyAStar a = new DumbyAStar(aStarLog,LOG_A_STAR,workTime);
 			if (LOG_A_STAR) {
 				try {
 					aStarLog.write(("FINISHED ASTAR INIT AT "+
                     Long.toString(System.nanoTime())+"\n").getBytes());
+					aStarLog.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -48,6 +52,7 @@ public class DumbyAStarRunnable implements Runnable {
 				try {
 					aStarLog.write(("STARTED ASTAR AT " +
                     Long.toString(System.nanoTime()) +"\n").getBytes());
+					aStarLog.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -56,13 +61,14 @@ public class DumbyAStarRunnable implements Runnable {
 			if (LOG_A_STAR) {
 				try {
 					aStarLog.write(("FINISHED ASTAR AT "+Long.toString(System.nanoTime())+"\n").getBytes());
+					aStarLog.flush();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 			
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				System.err.format("IOException: %s%n", e);
 			}

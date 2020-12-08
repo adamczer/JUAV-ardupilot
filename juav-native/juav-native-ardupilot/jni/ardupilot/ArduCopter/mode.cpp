@@ -342,6 +342,7 @@ FILE *autopilotLog = fopen("ardupilot_c.log", "a");
 int flushCount = 0;
 int32_t lastLat =0;
 int32_t lastLng = 0;
+bool enableModeLogging = false;
 // update_flight_mode - calls the appropriate attitude controllers based on flight mode
 // called at 100hz or more
 void Copter::update_flight_mode()
@@ -353,16 +354,19 @@ void Copter::update_flight_mode()
     flightmode->run();
     struct timespec end;
     clock_gettime(CLOCK_REALTIME, &end);
+    if(enableModeLogging) {
     const Location &loc = AP::gps().location();
-    //if(lastLat != loc.lat || lastLng != loc.lng) {
-    {
+//    if(lastLat != loc.lat || lastLng != loc.lng) 
+	{
         lastLng = loc.lng;
         lastLat = loc.lat;
         fprintf(autopilotLog,"%s", flightmode->name());
         fprintf(autopilotLog,": ");
         fprintf(autopilotLog,"%ld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
+        //fprintf(autopilotLog,"%lld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
         fprintf(autopilotLog,", ");
         fprintf(autopilotLog,"%ld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
+        //fprintf(autopilotLog,"%lld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
         fprintf(autopilotLog,", ");
         fprintf(autopilotLog,"%.20f",convertint32toFloat(loc.lng));
         fprintf(autopilotLog,", ");
@@ -372,6 +376,7 @@ void Copter::update_flight_mode()
         fprintf(autopilotLog,"\n");
           if (flushCount++%100==0)
             fflush(autopilotLog);
+        }
         }
 }
 
