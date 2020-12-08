@@ -338,6 +338,13 @@ float convertint32toFloat(int32_t lat_or_lon) {
     return result;
 }
 
+//print format for long sim vs erle
+#if defined (__ARM__) || defined(__arm__)
+char* lngFormatStr = "%lld";
+#else //sim
+char* lngFormatStr = "%ld";
+#endif
+
 FILE *autopilotLog = fopen("ardupilot_c.log", "a");
 int flushCount = 0;
 int32_t lastLat =0;
@@ -362,11 +369,9 @@ void Copter::update_flight_mode()
         lastLat = loc.lat;
         fprintf(autopilotLog,"%s", flightmode->name());
         fprintf(autopilotLog,": ");
-        fprintf(autopilotLog,"%ld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
-        //fprintf(autopilotLog,"%lld",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
+        fprintf(autopilotLog,lngFormatStr,(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
         fprintf(autopilotLog,", ");
-        fprintf(autopilotLog,"%ld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
-        //fprintf(autopilotLog,"%lld", (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
+        fprintf(autopilotLog,lngFormatStr, (uint64_t) end.tv_sec * BILLION + (uint64_t) end.tv_nsec);
         fprintf(autopilotLog,", ");
         fprintf(autopilotLog,"%.20f",convertint32toFloat(loc.lng));
         fprintf(autopilotLog,", ");
