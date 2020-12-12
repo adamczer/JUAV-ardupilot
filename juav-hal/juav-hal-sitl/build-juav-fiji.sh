@@ -4,7 +4,7 @@ mkdir juav-fiji
 cd juav-fiji
 
 cp ../../../juav-native/juav-native-ardupilot/jni/lib/lib*Sitl*.so ./
-$FIJI_HOME/bin/fivmc -j4 --32 \
+$FIJI_HOME/bin/fivmc -j4 \
 --sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
 -o JuavFiji ../target/*-with-dependencies.jar $JUAV_SRC/lib/rtsj.jar \
 --main ub.cse.juav.copter.HalSitl
