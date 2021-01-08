@@ -1262,4 +1262,56 @@ public class ArdupilotNativeWrapper {
     private static native boolean ArdupilotNative_nativeAutoModeIsNavGuidedEnabled();
 
     //MODE AUTO
+
+
+    //positional information
+
+    public static void nativeGetLatestGpsReading() {
+        if(FijiJniSwitch.usingFiji) {
+            ArdupilotNative_nativeGetLatestGpsReading();
+        } else
+            ArdupilotNative.nativeGetLatestGpsReading();
+    }
+    @Import
+    @GodGiven
+    private static native void ArdupilotNative_nativeGetLatestGpsReading();
+
+    public static float nativeGetCurrentLongitude() {
+        int ret;
+        if(FijiJniSwitch.usingFiji) {
+            ret = ArdupilotNative_nativeGetCurrentLongitude();
+        } else
+            ret = ArdupilotNative.nativeGetCurrentLongitude();
+        return floatFromIntWrapping(ret);
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeGetCurrentLongitude();
+
+    public static float nativeGetCurrentLatitude() {
+        int ret;
+        if(FijiJniSwitch.usingFiji) {
+            ret = ArdupilotNative_nativeGetCurrentLatitude();
+        } else
+            ret = ArdupilotNative.nativeGetCurrentLatitude();
+        return floatFromIntWrapping(ret);
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeGetCurrentLatitude();
+
+    public static float nativeGetCurrentAltitude() {
+        int ret;
+        if(FijiJniSwitch.usingFiji) {
+            ret = ArdupilotNative_nativeGetCurrentAltitude();
+        } else
+            ret = ArdupilotNative.nativeGetCurrentAltitude();
+        return floatFromIntWrapping(ret);
+    }
+
+    @Import
+    @GodGiven
+    private static native int ArdupilotNative_nativeGetCurrentAltitude();
 }

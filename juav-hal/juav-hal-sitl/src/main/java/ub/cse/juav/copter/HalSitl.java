@@ -3,29 +3,57 @@ package ub.cse.juav.copter;
 import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalSitlNativeWrapper;
+import ub.cse.juav.payloads.manager.Payload;
+import ub.cse.juav.payloads.manager.PayloadManager;
 
+import javax.realtime.PeriodicParameters;
+import javax.realtime.PriorityParameters;
+import javax.realtime.RealtimeThread;
+import javax.realtime.RelativeTime;
 import java.util.*;
 
 public class HalSitl {
-    void run(int argc, String[] argv, List<Callback> callbacks) {
-        nativeInitizationPriorToControlLoop();
+    void run(final int argc, final String[] argv, final List<Callback> callbacks) {
 
+        if (FijiJniSwitch.usingFiji) {
+            RelativeTime rt = new RelativeTime(0,500);
+            RealtimeThread t = new RealtimeThread(new PriorityParameters(99),new PeriodicParameters(rt)){
+                @Override
+                public void run() {
+                    nativeInitizationPriorToControlLoop();
+                    while (!getHalSitlSchedulerShouldReboot()) {
+                        if (getHalSitlSchedulerShouldExit()) {
+                            System.out.println("Exiting\n");
+                            System.exit(0);
+                        }
+                        fillStackNan();
+                        for (Callback c : callbacks) {
+                            c.loop();
+                        }
 
-        while (!getHalSitlSchedulerShouldReboot()){
-            if (getHalSitlSchedulerShouldExit()){
-            System.out.println("Exiting\n");
-                System.exit(0);
+                        halSitlInnerLoopAfterCallbacks();
+                        currentRealtimeThread().waitForNextPeriod();
+                    }
+                    actuallyReboot();
+                }
+            };
+            t.start();
+        } else {
+            nativeInitizationPriorToControlLoop();
+            while (!getHalSitlSchedulerShouldReboot()) {
+                if (getHalSitlSchedulerShouldExit()) {
+                    System.out.println("Exiting\n");
+                    System.exit(0);
+                }
+                fillStackNan();
+                for (Callback c : callbacks) {
+                    c.loop();
+                }
+
+                halSitlInnerLoopAfterCallbacks();
             }
-            fillStackNan();
-            for (Callback c:callbacks) {
-                c.loop();
-            }
-
-            halSitlInnerLoopAfterCallbacks();
-
-
+            actuallyReboot();
         }
-        actuallyReboot();
     }
 
     private void halSitlInnerLoopAfterCallbacks() {
@@ -77,6 +105,25 @@ public class HalSitl {
         List<Callback> callbacks = new ArrayList<>();
         callbacks.add(vehicle);
         HalSitl halSitl = new HalSitl();
+
+        //Start payloads
+        PayloadManager pm = new PayloadManager();
+        pm.addPayload(new Payload(new Runnable() {
+            @Override
+            public void run() {
+                int count = 0;
+                while(true) {
+                    System.out.println(count++);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        },"test",null,null,null));
+        pm.start();
+
         halSitl.run(args.length, args, callbacks);
     }
 }

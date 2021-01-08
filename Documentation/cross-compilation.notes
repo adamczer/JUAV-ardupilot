@@ -1,0 +1,25 @@
+#tested working as of ubuntu 18.04, these are the only installed gcc/g++ on my working system.
+# also for simulation ensure to use 32 bit java when running to allow for linking of 32-bit libraries, mvm requires 32-bit
+
+sudo apt-get install gcc-4.8:i386 gcc-4.8-multilib:i386 g++:i386 g++-multilib:i386 gcc-arm-linux-gnueabihf:i386 g++-arm-linux-gnueabihf:i386
+
+#build fiji
+autoreconf -i
+./configure
+make
+add-target -cc /usr/bin/arm-linux-gnueabihf-gcc --posix --host arm-linux-gnueabihf --ptr-size 32
+make
+
+#build ardupilot
+#juav native
+make sitl
+#may complain about not finding librt
+#export CXXFLAGS="-L/lib/i386-linux-gnu/"
+#export CFLAGS="-L/lib/i386-linux-gnu/"
+
+make erle
+
+
+# at this point things should be the same
+build-fiji scripts should work as normal
+

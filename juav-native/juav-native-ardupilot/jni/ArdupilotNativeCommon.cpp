@@ -820,3 +820,65 @@ bool ArdupilotNative_nativeAutoModeIsNavGuidedEnabled() {
 }
 
 //MODE AUTO
+
+
+//positional information
+
+int divisor(int32_t x)
+{
+    x = abs(x);
+        return (x < 10 ? 1e1 :
+            (x < 100 ? 1e2 :
+            (x < 1000 ? 1e3 :
+            (x < 10000 ? 1e4 :
+            (x < 100000 ? 1e5 :
+            (x < 1000000 ? 1e6 :
+            (x < 10000000 ? 1e7 :
+            (x < 100000000 ? 1e8 :
+            (x < 1000000000 ? 1e9 :
+            1e10)))))))));
+}
+
+float convertint32toFloat(int32_t lat_or_lon) {
+       float result = 0.0;
+       int32_t dec_portion, frac_portion;
+       int32_t abs_lat_or_lon = labs(lat_or_lon);
+       // extract decimal portion (special handling of negative numbers to ensure we round towards zero)
+       dec_portion = abs_lat_or_lon / 10000000UL;
+       // extract fractional portion
+       frac_portion = abs_lat_or_lon - dec_portion*10000000UL;
+       result = (float)frac_portion / divisor(frac_portion);
+       result = result + dec_portion;
+
+       // print output including the minus sign
+       if( lat_or_lon < 0 ) {
+            result = result * -1.0;
+       }
+       return result;
+}
+
+static float lat;
+static float lng;
+static float alt;
+void ArdupilotNative_nativeGetLatestGpsReading
+  () {
+  const Location &loc = AP::gps().location();
+  lng = convertint32toFloat(loc.lng);
+  lat = convertint32toFloat(loc.lat);
+  alt = (float)(loc.alt * 0.01f);
+  }
+
+int ArdupilotNative_nativeGetCurrentLongitude
+  (){
+   return hideFloatInInt(lng);
+  }
+
+int ArdupilotNative_nativeGetCurrentLatitude
+  (){
+     return hideFloatInInt(lat);
+  }
+
+int ArdupilotNative_nativeGetCurrentAltitude
+  (){
+      return hideFloatInInt(alt);
+  }

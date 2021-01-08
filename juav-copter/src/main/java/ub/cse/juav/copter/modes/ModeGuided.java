@@ -21,7 +21,6 @@ public class ModeGuided extends Mode{
 
     @Override
     public void run() {
-        long time1 = System.nanoTime();
         int guided_mode = getGuidedMode();
         // call the correct auto controller
         switch (guided_mode) {
@@ -50,18 +49,6 @@ public class ModeGuided extends Mode{
                 // run angle controller
                 angleControlRun();
                 break;
-        }
-        long time2 = System.nanoTime();
-        if (Copter.LOG_TIMING) {
-            if (FijiJniSwitch.usingFiji) {
-		fivmRuntime.logPrint("Guided: ");
-		fivmRuntime.logPrint(Long.toString(time1));
-		fivmRuntime.logPrint(", ");
-		fivmRuntime.logPrint(Long.toString(time2));
-		fivmRuntime.logPrint(", ");
-            } else {
-                System.out.format("Guided: %d, %d, ", time1, time2);
-            }
         }
     }
 

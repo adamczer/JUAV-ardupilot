@@ -3,12 +3,6 @@
 #This script is launched automatically in Erle-Brain 2
 #on every boot and loads the autopilot
 
-# JUAV modified to launch jUAV instead, just uncomment
-# the section corresponding to JUAV - JAVA or JUAV - FIJI
-# and reboot so long as everything is build correctly then all should work
-# assumptions ardupilot + juav has been build on the copter
-# ARDU_SRC, JAVA_HOME, JUAV_SRC are set
-
 RPIPROC=$(cat /proc/cpuinfo |grep "Hardware" | awk '{print $3}')
 if [ "$RPIPROC" == "BCM2708" ]; then
         #echo "Raspberry Pi 1/0"
@@ -36,21 +30,35 @@ fi
 
 FLAGS="-l /home/erle/APM/logs -t /home/erle/APM/terrain/"
 
+cd /home/erle
+export ARDU_SRC=/home/erle/newJuav/ardupilot
+#
+oldLogs='timing_logs_'$(date '+%Y_%m_%d_%H_%M_%S')
+mkdir $oldLogs
+mv *.log ${oldLogs}/
+mv /home/erle/newJuav/juav2/juav-hal/juav-hal-erle-copter/juav-fiji/*.log ${oldLogs}/
+
 date
 sleep 10
 echo "-A udp:$wifi -B $GPS -C /dev/ttyUSB0 $FLAGS" > /tmp/apm-args.txt
+
 # ARDUPILOT
 #while :; do
-#        $APM_BIN_DIR/arducopter -A udp:$wifi -B $GPS -C /dev/ttyUSB0 $FLAGS
-#done >> /home/erle/APM/info/copter.log 2>&1
-
-#JUAV - JAVA
-#while :; do
-#${JAVA_HOME}/bin/java -Xmx256m -Xms256m -cp ${JUAV_SRC}/juav-hal/juav-hal-erle-copter/target/juav-hal-erle-copter-0.1-SNAPSHOT-jar-with-dependencies.jar -Djava.library.path=${JUAV_SRC}/juav-native/juav-native-ardupilot/jni/lib/ ub.cse.juav.copter.HalLinuxClass
+#        /home/erle/arducopter -A udp:$wifi -B $GPS -C /dev/ttyUSB0 $FLAGS
 #done >> /home/erle/APM/info/copter.log 2>&1
 
 
-#JUAV - FIJI
+# JUAV ARDUPILOT
 #while :; do
-#cd ${JUAV_SRC}/juav-hal/juav-hal-erle-copter/juav-fiji/ && ./JuavFiji fiji
+#        /home/erle/newJuav/ardupilot/build/erlebrain2/bin/arducopter -A udp:$wifi -B $GPS -C /dev/ttyUSB0 $FLAGS
+#done >> /home/erle/APM/info/copter.log 2>&1
+
+#JUAV - JAVA 
+#while :; do
+#/home/erle/program_files/jdk1.7.0_75/bin/java -Xmx256m -Xms256m -cp /home/erle/newJuav/juav2/juav-hal/juav-hal-erle-copter/target/juav-hal-erle-copter-0.1-SNAPSHOT-jar-with-dependencies.jar:/home/erle/newJuav/juav2/lib/rtsj.jar -Djava.library.path=/home/erle/newJuav/juav2/juav-native/juav-native-ardupilot/jni/lib/ ub.cse.juav.copter.HalLinuxClass java 
+#done >> /home/erle/APM/info/copter.log 2>&1
+
+#JUAV - FIJI 
+#while :; do
+#cd /home/erle/newJuav/juav2/juav-hal/juav-hal-erle-copter/juav-fiji/ && ./JuavFiji fiji 
 #done >> /home/erle/APM/info/copter.log 2>&1
