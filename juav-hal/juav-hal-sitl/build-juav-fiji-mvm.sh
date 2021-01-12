@@ -16,14 +16,13 @@ cd ..
 mkdir build
 find juav-jars -name \*.class -exec cp {} build/ \;
 
-#$FIJI_HOME/bin/fivmc \
-#--sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
-#-o JuavFiji ./build/*.class \
-#--64 \
-#--gc CMR \
-#--payload \
-#--rt-library=RTSJ \
-#--main ub.cse.juav.copter.HalSitl
+$FIJI_HOME/bin/fivmc \
+--sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
+-o JuavFiji ./build/*.class \
+--gc CMR \
+--payload \
+--rt-library=RTSJ \
+--main ub.cse.juav.copter.HalSitl
 
 ${FIJI_HOME}/bin/fivmc \
 --32 \
@@ -39,10 +38,11 @@ ${FIJI_HOME}/bin/fivmc \
 
 ${FIJI_HOME}/bin/fivmc \
 -o mvm \
---sys-libs "-lpthread -ldl -lm" \
+--sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
 --32 \
 --g-def-max-mem 512M \
 --g-def-immortal-mem 256M \
+--link-payload JuavFiji \
 --link-payload apps \
 --gc CMR \
 ../../../juav-payloads/target/classes/ub/cse/juav/payloads/vmconfig/VMConfig.class

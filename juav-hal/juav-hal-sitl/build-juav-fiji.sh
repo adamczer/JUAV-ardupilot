@@ -7,7 +7,6 @@ cd juav-fiji
 $FIJI_HOME/bin/fivmc \
 --sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
 -o JuavFiji ../target/juav-hal-sitl-*-with-dependencies.jar $JUAV_SRC/lib/rtsj.jar \
---64 \
 --main ub.cse.juav.copter.HalSitl
 
 cp /usr/local/lib/*Sitl*.so .

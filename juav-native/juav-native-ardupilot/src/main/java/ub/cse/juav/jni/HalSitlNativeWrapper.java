@@ -10,10 +10,10 @@ public class HalSitlNativeWrapper {
 
     public static void nativeInitizationPriorToControlLoop(String arduSrc) {
 
-        if(FijiJniSwitch.usingFiji) {
-            Pointer cString = fivmRuntime.getCString(arduSrc);
-            HalSitlNative_nativeInitizationPriorToControlLoop(cString);
-        } else
+//        if(FijiJniSwitch.usingFiji) {
+//            Pointer cString = fivmRuntime.getCString(arduSrc);
+//            HalSitlNative_nativeInitizationPriorToControlLoop(cString);
+//        } else
             HalSitlNative.nativeInitizationPriorToControlLoop(arduSrc);
     }
 
