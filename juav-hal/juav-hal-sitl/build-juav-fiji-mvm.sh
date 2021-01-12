@@ -16,14 +16,13 @@ cd ..
 mkdir build
 find juav-jars -name \*.class -exec cp {} build/ \;
 
-#$FIJI_HOME/bin/fivmc \
-#--sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
-#-o JuavFiji ./build/*.class \
-#--64 \
-#--gc CMR \
-#--payload \
-#--rt-library=RTSJ \
-#--main ub.cse.juav.copter.HalSitl
+$FIJI_HOME/bin/fivmc \
+--sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
+-o JuavFiji ./build/*.class \
+--gc CMR \
+--payload \
+--rt-library=RTSJ \
+--main ub.cse.juav.copter.HalSitl
 
 ${FIJI_HOME}/bin/fivmc \
 --32 \
@@ -44,9 +43,13 @@ ${FIJI_HOME}/bin/fivmc \
 --g-def-max-mem 512M \
 --g-def-immortal-mem 256M \
 --link-payload apps \
+--link-payload JuavFiji \
 --gc CMR \
 ../../../juav-payloads/target/classes/ub/cse/juav/payloads/vmconfig/VMConfig.class
 
+cp -r ../../../juav-native/juav-native-ardupilot/jni/lib/lib*Sitl* .
+
+sudo -E ./mvm
 
 #--sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
 #--link-payload JuavFiji \
