@@ -14,6 +14,7 @@
         <module>juav-native</module>
         <module>juav-hal</module>
         <module>juav-payloads</module>
+        <module>juav-thread</module>
     </modules>
 
     <properties>

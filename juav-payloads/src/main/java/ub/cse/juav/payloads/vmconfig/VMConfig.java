@@ -9,7 +9,6 @@ public class VMConfig {
 
 	public static void main(String[] args) {
 		long quantum = 50 * 1000 * 1000;
-		long duration = 10 * 1000;
 		List<Payload> payloads = Payload.subPayloads();
 		System.out.println("Will run: " + payloads.size());
 		TimeSliceManager tsm = new TimeSliceManager(payloads.size(), ThreadPriority.FIFO_MAX);
@@ -29,8 +28,12 @@ public class VMConfig {
 			System.out.println("Thread Priority FAKE RT: "+ThreadPriority.FAKE_RT);
 			System.out.println("Thread Priority RR Max: "+ThreadPriority.RR_MAX);
 			System.out.println("Thread Priority RR  Min: "+ThreadPriority.RR_MIN);
-			
-			tsm.initTimeSlice(i, quantum, numThreads, ThreadPriority.FIFO_MAX - (i+1));
+
+			if (i==0) {
+				tsm.initTimeSlice(i, quantum, numThreads, ThreadPriority.FIFO_MAX - (i+1));
+			} else {
+				tsm.initTimeSlice(i, quantum/3, numThreads, ThreadPriority.FIFO_MAX - (i + 1));
+			}
 		}
 
 		tsm.start();
@@ -43,7 +46,7 @@ public class VMConfig {
 
 		try {
 			while(true)
-				Thread.sleep(duration);
+				Thread.sleep(10 * 1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

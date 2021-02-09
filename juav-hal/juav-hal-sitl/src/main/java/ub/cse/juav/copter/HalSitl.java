@@ -4,17 +4,34 @@ import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalSitlNativeWrapper;
 
-import javax.realtime.PeriodicParameters;
-import javax.realtime.PriorityParameters;
-import javax.realtime.RealtimeThread;
-import javax.realtime.RelativeTime;
+import javax.realtime.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.*;
 
 public class HalSitl {
     void run(int argc, String[] argv, final List<Callback> callbacks) {
-            nativeInitizationPriorToControlLoop();
-            while (!getHalSitlSchedulerShouldReboot())
+        FileOutputStream memoryLog = null;
+        try {
+            memoryLog= new FileOutputStream("memoryLog.log");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        nativeInitizationPriorToControlLoop();
+            while (!getHalSitlSchedulerShouldReboot()) {
+//                long heapFreeSize = HeapMemory.instance().memoryRemaining();
+//                long heapFreeSize = Runtime.getRuntime().freeMemory();
+//                long l = ImmortalMemory.instance().memoryRemaining();
+//                try {
+//                    memoryLog.write(("heapFree = " + heapFreeSize+"\n").getBytes());
+//                    memoryLog.write(("imortalFree = " + l+"\n").getBytes());
+//                    memoryLog.flush();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 halLogic(callbacks);
+                RealtimeThread.currentRealtimeThread().waitForNextPeriod();
+            }
             actuallyReboot();
     }
 
@@ -59,28 +76,41 @@ public class HalSitl {
         throw new IllegalStateException("unimplemented");
     }
 
-    public static void main(String[] args) {
-        if(Arrays.asList(args).contains("java"))
-            FijiJniSwitch.usingFiji=false;
+    public static void main(final String[] args) {
 
-        System.loadLibrary("JuavSitlJni");
+        RealtimeThread realtimeThread = new RealtimeThread(new Runnable() {
+            @Override
+            public void run() {
 
-        AcAttitudeControl acAttitudeControl = new AcAttitudeControl();
-        Map<Integer,Mode> modes = new HashMap<>();
-        modes.put(0,new ModeStabilize(acAttitudeControl));
-        modes.put(5,new ModeLoiter(acAttitudeControl));
-        modes.put(4,new ModeGuided(acAttitudeControl));
-        modes.put(3,new ModeAuto(acAttitudeControl));
+                if(Arrays.asList(args).contains("java"))
+                    FijiJniSwitch.usingFiji=false;
+
+                System.loadLibrary("JuavSitlJni");
+
+                AcAttitudeControl acAttitudeControl = new AcAttitudeControl();
+                Map<Integer,Mode> modes = new HashMap<>();
+                modes.put(0,new ModeStabilize(acAttitudeControl));
+                modes.put(5,new ModeLoiter(acAttitudeControl));
+                modes.put(4,new ModeGuided(acAttitudeControl));
+                modes.put(3,new ModeAuto(acAttitudeControl));
 //        modes.put(6,new ModeRtl(acAttitudeControl)); //broken
-        Copter copter = new Copter();
-        copter.setModes(modes);
-        ApScheduler apScheduler = new ApScheduler();
-        apScheduler.setCopter(copter);
-        ApVehicle vehicle = new ApVehicle();
-        vehicle.setScheduler(apScheduler);
-        List<Callback> callbacks = new ArrayList<>();
-        callbacks.add(vehicle);
-        HalSitl halSitl = new HalSitl();
-        halSitl.run(args.length, args, callbacks);
+                Copter copter = new Copter();
+                copter.setModes(modes);
+                ApScheduler apScheduler = new ApScheduler();
+                apScheduler.setCopter(copter);
+                ApVehicle vehicle = new ApVehicle();
+                vehicle.setScheduler(apScheduler);
+                List<Callback> callbacks = new ArrayList<>();
+                callbacks.add(vehicle);
+                HalSitl halSitl = new HalSitl();
+                halSitl.run(args.length, args, callbacks);
+            }
+        });
+//
+        SchedulingParameters p = new PriorityParameters(99);
+        realtimeThread.setReleaseParameters(new PeriodicParameters(new RelativeTime(10,0)));
+        realtimeThread.setSchedulingParameters(p);
+        realtimeThread.start();
+
     }
 }
