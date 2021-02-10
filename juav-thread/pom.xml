@@ -10,19 +10,22 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>juav-payloads</artifactId>
+    <artifactId>juav-thread</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>ub.cse.juav2</groupId>
-            <artifactId>juav-native-sitl</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <groupId>org.fiji</groupId>
+            <artifactId>fiji-common</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${env.JUAV_SRC}/lib/fivmcommon.jar</systemPath>
         </dependency>
-
         <dependency>
-            <groupId>ub.cse.juav2</groupId>
-            <artifactId>juav-thread</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <groupId>org.fiji</groupId>
+            <artifactId>fiji-runtime</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${env.JUAV_SRC}/lib/fivmr.jar</systemPath>
         </dependency>
     </dependencies>
     
