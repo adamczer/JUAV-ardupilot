@@ -6,29 +6,31 @@
 
     <parent>
         <groupId>ub.cse.juav2</groupId>
-        <artifactId>juav-hal</artifactId>
+        <artifactId>juav2</artifactId>
         <version>0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>juav-hal-erle-copter</artifactId>
+    <artifactId>juav-mvm</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>ub.cse.juav2</groupId>
-            <artifactId>juav-copter</artifactId>
+            <artifactId>juav-thread</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.fiji</groupId>-->
-<!--            <artifactId>fiji-rtsj</artifactId>-->
-<!--            <version>1.0.0</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>${env.JUAV_SRC}/lib/rtsj.jar</systemPath>-->
-<!--        </dependency>-->
         <dependency>
-            <groupId>ub.cse.juav2</groupId>
-            <artifactId>juav-payloads</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <groupId>org.fiji</groupId>
+            <artifactId>fiji-common</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${env.JUAV_SRC}/lib/fivmcommon.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.fiji</groupId>
+            <artifactId>fiji-runtime</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${env.JUAV_SRC}/lib/fivmr.jar</systemPath>
         </dependency>
     </dependencies>
 
@@ -44,12 +46,6 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <!-- MainClass in mainfest make a executable jar -->
-                    <archive>
-                        <manifest>
-                            <mainClass>ub.cse.juav.copter.HalLinuxClass</mainClass>
-                        </manifest>
-                    </archive>
 
                 </configuration>
                 <executions>

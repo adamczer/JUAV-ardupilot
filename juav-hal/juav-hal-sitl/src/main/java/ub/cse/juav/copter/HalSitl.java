@@ -84,8 +84,8 @@ public class HalSitl {
     }
 
     public static void main(String[] args) {
-        if(Arrays.asList(args).contains("fiji"))
-            FijiJniSwitch.usingFiji=true;
+        if(Arrays.asList(args).contains("java"))
+            FijiJniSwitch.usingFiji=false;
 
         System.loadLibrary("JuavSitlJni");
 
@@ -106,8 +106,8 @@ public class HalSitl {
         callbacks.add(vehicle);
         HalSitl halSitl = new HalSitl();
 
-        //Start payloads
-        PayloadManager pm = new PayloadManager();
+        // vv Start payloads using payload manager ie one VM vv
+       /* PayloadManager pm = new PayloadManager();
         pm.addPayload(new Payload(new Runnable() {
             @Override
             public void run() {
@@ -122,7 +122,10 @@ public class HalSitl {
                 }
             }
         },"test",null,null,null));
-        pm.start();
+        pm.start();*/
+        // ^^ Start payloads using payload manager ie one VM ^^
+
+        // if running multivm (MVM) ensure payload manager disabled.
 
         halSitl.run(args.length, args, callbacks);
     }

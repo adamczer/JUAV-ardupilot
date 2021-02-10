@@ -7,4 +7,4 @@
 #export JUAV_SRC=/home/adamczer/code/juav2
 #export ARDU_SRC=/home/adamczer/code/ardupilot
 
-java -cp ${JUAV_SRC}/juav-hal/juav-hal-sitl/target/juav-hal-sitl-0.1-SNAPSHOT-jar-with-dependencies.jar:${JUAV_SRC}/lib/rtsj.jar -Djava.library.path=${JUAV_SRC}/juav-native/juav-native-ardupilot/jni/lib/ ub.cse.juav.copter.HalSitl
+java -cp ${JUAV_SRC}/juav-hal/juav-hal-sitl/target/juav-hal-sitl-*-jar-with-dependencies.jar -Djava.library.path=${JUAV_SRC}/juav-native/juav-native-ardupilot/jni/lib/ ub.cse.juav.copter.HalSitl java
