@@ -30,6 +30,11 @@
             <artifactId>juav-payloads</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>ub.cse.juav2</groupId>
+            <artifactId>juav-thread</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
