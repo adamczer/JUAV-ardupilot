@@ -32,6 +32,18 @@
             <scope>system</scope>
             <systemPath>${env.JUAV_SRC}/lib/fivmr.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>ub.cse.juav2</groupId>
+            <artifactId>juav-native-sitl</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ub.cse.juav2</groupId>
+            <artifactId>juav-payloads</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

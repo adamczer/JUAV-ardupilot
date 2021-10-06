@@ -21,18 +21,66 @@ ${FIJI_HOME}/bin/fivmc \
 --payload \
 --rt-library=NONE \
 --rt-verbosity-limit 100 \
--o apps \
+-o simple \
 ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
 --main ub.cse.juav.mvm.payloads.SimplePayload
 
 ${FIJI_HOME}/bin/fivmc \
--o mvm \
+--32 \
+--g-def-max-mem 128M \
+--g-def-immortal-mem 0M \
+--payload \
+--rt-library=NONE \
+--rt-verbosity-limit 100 \
+-o astar \
+../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
+--main ub.cse.juav.mvm.payloads.AStarPayload
+
+${FIJI_HOME}/bin/fivmc \
+--32 \
+--g-def-max-mem 128M \
+--g-def-immortal-mem 0M \
+--payload \
+--rt-library=NONE \
+--rt-verbosity-limit 100 \
+-o greedy \
+../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
+--main ub.cse.juav.mvm.payloads.GreedyPayload
+
+${FIJI_HOME}/bin/fivmc \
+-o mvm-simple \
 --sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
 --32 \
 --g-def-max-mem 256M \
 --g-def-immortal-mem 0M \
 --link-payload JuavFiji \
---link-payload apps \
+--link-payload simple \
+--rt-library=NONE \
+--rt-verbosity-limit 100 \
+../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
+--main ub.cse.juav.mvm.vmconfig.VMConfig
+
+${FIJI_HOME}/bin/fivmc \
+-o mvm-astar \
+--sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
+--32 \
+--g-def-max-mem 256M \
+--g-def-immortal-mem 0M \
+--link-payload JuavFiji \
+--link-payload astar \
+--rt-library=NONE \
+--rt-verbosity-limit 100 \
+../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
+--main ub.cse.juav.mvm.vmconfig.VMConfig
+
+${FIJI_HOME}/bin/fivmc \
+-o mvm-greedy \
+--sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
+--32 \
+--g-def-max-mem 256M \
+--g-def-immortal-mem 0M \
+--link-payload JuavFiji \
+--link-payload greedy \
 --rt-library=NONE \
 --rt-verbosity-limit 100 \
 ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \

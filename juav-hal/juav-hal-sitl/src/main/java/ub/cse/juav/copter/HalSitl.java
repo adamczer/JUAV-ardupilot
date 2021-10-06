@@ -3,6 +3,7 @@ package ub.cse.juav.copter;
 import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalSitlNativeWrapper;
+import ub.cse.juav.payloads.GreedyFailureRunnable;
 import ub.cse.juav.payloads.manager.Payload;
 import ub.cse.juav.payloads.manager.PayloadManager;
 
@@ -107,22 +108,11 @@ public class HalSitl {
         HalSitl halSitl = new HalSitl();
 
         // vv Start payloads using payload manager ie one VM vv
-       /* PayloadManager pm = new PayloadManager();
-        pm.addPayload(new Payload(new Runnable() {
-            @Override
-            public void run() {
-                int count = 0;
-                while(true) {
-                    System.out.println(count++);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        },"test",null,null,null));
-        pm.start();*/
+       if(!Arrays.asList(args).contains("mvm")) {
+           PayloadManager pm = new PayloadManager();
+           pm.addPayload(new Payload(new GreedyFailureRunnable(), "greedy"));
+           pm.start();
+       }
         // ^^ Start payloads using payload manager ie one VM ^^
 
         // if running multivm (MVM) ensure payload manager disabled.

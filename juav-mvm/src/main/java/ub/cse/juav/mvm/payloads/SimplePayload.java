@@ -23,11 +23,12 @@ public class SimplePayload extends RealtimeThread {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("Start the SimplePayload Executions...");
         SimplePayload app1 = new SimplePayload(50000000); // Thread will run for 50 ms and records wakeup time
         app1.setReleaseParameters(new PeriodicParameters(new RelativeTime(10000,0)));
         app1.start();
+        app1.join();
         System.out.println("Finish the SimplePayload Executions...");
     }
 }
