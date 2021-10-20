@@ -537,7 +537,8 @@ def start_vehicle(binary, opts, stuff, loc=None):
     """Run the ArduPilot binary"""
 
     cmd_name = opts.vehicle
-    cmd = []
+    # pin to one cpu
+    cmd = ["sudo taskset -c 0 "]
     if opts.valgrind:
         cmd_name += " (valgrind)"
         cmd.append("valgrind")
@@ -620,8 +621,8 @@ def start_vehicle(binary, opts, stuff, loc=None):
         cmd.extend(["--uartA mcast:"])
 
     print(cmd)
-
-    #run_in_terminal_window(cmd_name, cmd)
+#   RUNNING arducopter executable
+#   run_in_terminal_window(cmd_name, cmd)
     #run_in_terminal_window(cmd_name, ["/home/adamczer/code/juav2/juav-copter/run-juav-copter.sh"])
 
 def start_mavproxy(opts, stuff):

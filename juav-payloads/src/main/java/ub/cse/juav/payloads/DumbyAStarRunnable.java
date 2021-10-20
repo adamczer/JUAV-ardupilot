@@ -1,6 +1,4 @@
 package ub.cse.juav.payloads;
-import com.fiji.fivm.r1.fivmRuntime;
-import ub.cse.juav.jni.FijiJniSwitch;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,16 +17,19 @@ public class DumbyAStarRunnable implements Runnable {
 		this.columns = columns;
 		if (LOG_A_STAR) {
 			try {
-				if (FijiJniSwitch.usingFiji)
-					aStarLog = new FileOutputStream("jUAV-astar-fiji.log",true);
-				else
-					aStarLog = new FileOutputStream("jUAV-astar-java.log",true);
+				aStarLog = new FileOutputStream("astar.log",true);
 			} catch (IOException e) {
 				throw new IllegalStateException("metrics logging enabled and could not create log file in working dir.",e);
 			}
 		}
 	}
 	public void run() {
+//		try {
+//			Thread.sleep(30000);
+//			System.out.println("STARTING A*");
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		while (true) {
 			if(LOG_A_STAR) {
 				try {

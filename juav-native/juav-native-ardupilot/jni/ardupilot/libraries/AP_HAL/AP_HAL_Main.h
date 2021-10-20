@@ -39,13 +39,16 @@
         return 0; \
     } \
     }
-
-/*#define AP_HAL_MAIN_JB_CALLBACKS(CALLBACKS) extern "C" { \
+// simulation in docker
+//"/home/juav/ardupilot/build/sitl/bin/arducopter","-S","-I0","--model","+","--speedup","1","--defaults","/home/juav/ardupilot/Tools/autotest/default_params/copter.parm"
+// on erlecopter
+//"/home/adamczer/code/ardupilot/build/sitl/bin/arducopter","-A","udp:127.0.0.1:6001","-B","/dev/ttyS0","-C","/dev/ttyUSB0","-l","/home/erle/APM/logs","-t","/home/erle/APM/terrain/"
+#define AP_HAL_MAIN_JB_CALLBACKS(CALLBACKS) extern "C" { \
     int AP_MAIN(int argc, char** argv); \
         \
     void * helper_jb( void * ) { \
-        char * argv[] = {"/home/adamczer/code/ardupilot/build/sitl/bin/arducopter","-A","udp:127.0.0.1:6001","-B","/dev/ttyS0","-C","/dev/ttyUSB0","-l","/home/erle/APM/logs","-t","/home/erle/APM/terrain/"};  \
-        hal.run(11, argv, &copter); \
+        char * argv[] = {"/home/juav/ardupilot/build/sitl/bin/arducopter","-S","-I0","--model","+","--speedup","1","--defaults","/home/juav/ardupilot/Tools/autotest/default_params/copter.parm"};  \
+        hal.run(9, argv, &copter); \
         return NULL; \
     } \
     int AP_MAIN(int argc, char** argv) { \
@@ -59,5 +62,5 @@
         printf("3\n"); \
 	kill_dumby_work = 1; \
         return 0; \
-    } */
-//    }
+    } \
+    }

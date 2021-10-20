@@ -803,10 +803,12 @@ class AStar {
 		int WORK_MILLI = 500;
 		int SLEEP_MILLI = 500;
 		int flt_max = -1;
-		//int ROW = 900;
-		int ROW = 128;
-		//int COL = 900;
-		int COL = 128;
+//		Sim size IROS 2021
+		int ROW = 900;
+		int COL = 900;
+//		Erelcopter size IROS 2021
+//		int ROW = 128;
+//		int COL = 128;
 		int openListCount;
 		int openListBeginRetVal_i;
 		int openListBeginRetVal_j;
@@ -918,7 +920,7 @@ void AStar::AStarSearch() {
     	struct timespec now;
     	clock_gettime(CLOCK_REALTIME, &start);
     	//fprintf(aStarLog,"RELEASE AT %ld\n",  start.tv_nsec);
-	//fprintf(aStarLog,"RELEASE AT %lld\n",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
+	fprintf(aStarLog,"RELEASE AT %lld\n",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
 	//fprintf(aStarLog,"RELEASE AT %ld\n",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
 	while (!this->openListEmpty()) {
 		clock_gettime(CLOCK_REALTIME, &now);
@@ -945,11 +947,11 @@ void AStar::AStarSearch() {
 			if (this->foundDest == true) return;
 		} else {
 			//fprintf(aStarLog,"INTERUPT AT %ld\n", now.tv_nsec);
-//			fprintf(aStarLog,"INTERUPT AT %lld\n",(uint64_t) now.tv_sec * BILLION + (uint64_t) now.tv_nsec);
+			fprintf(aStarLog,"INTERUPT AT %lld\n",(uint64_t) now.tv_sec * BILLION + (uint64_t) now.tv_nsec);
 			usleep(SLEEP_MILLI*1000);
 			clock_gettime(CLOCK_REALTIME, &start);
 			//fprintf(aStarLog,"RELEASE AT %ld\n", start.tv_nsec);
-//			fprintf(aStarLog,"RELEASE AT %lld\n",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
+			fprintf(aStarLog,"RELEASE AT %lld\n",(uint64_t) start.tv_sec * BILLION + (uint64_t) start.tv_nsec);
 			fflush(aStarLog);
 		}
 	}
@@ -966,7 +968,7 @@ void AStar::processSuccessor(int ip, int jp, int i, int j) {
 			this->cellDetails[ip][jp].parent_j = j;
 			this->foundDest = true;
 			//fprintf(aStarLog,"FINISHED ASTAR AT %ld\n", (uint64_t) now2.tv_sec * BILLION + (uint64_t) now2.tv_nsec);
-			//fprintf(aStarLog,"FINISHED AT %lld\n",(uint64_t) now2.tv_sec * BILLION + (uint64_t) now2.tv_nsec);
+			fprintf(aStarLog,"FINISHED AT %lld\n",(uint64_t) now2.tv_sec * BILLION + (uint64_t) now2.tv_nsec);
 			fflush(aStarLog);
 			return;
 		}
