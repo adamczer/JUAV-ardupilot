@@ -32,7 +32,7 @@ public class VMConfig {
 			if (i==0) {
 				tsm.initTimeSlice(i, quantum, numThreads, ThreadPriority.FIFO_MAX - (i+1));
 			} else {
-				tsm.initTimeSlice(i, quantum/3, numThreads, ThreadPriority.FIFO_MAX - (i + 1));
+				tsm.initTimeSlice(i, quantum/10, numThreads, ThreadPriority.FIFO_MAX - (i + 1));
 			}
 		}
 
