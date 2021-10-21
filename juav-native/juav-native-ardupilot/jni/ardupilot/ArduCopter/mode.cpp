@@ -342,7 +342,7 @@ float convertint32toFloat(int32_t lat_or_lon) {
 #if defined (__ARM__) || defined(__arm__)
 char* lngFormatStr = "%lld";
 #else //sim
-char* lngFormatStr = "%ld";
+char* lngFormatStr = "%lld";
 #endif
 
 FILE *autopilotLog = fopen("ardupilot_c.log", "a");
