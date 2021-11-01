@@ -3,6 +3,9 @@ package ub.cse.juav.copter;
 import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalSitlNativeWrapper;
+import ub.cse.juav.payloads.DumbyAStarRunnable;
+import ub.cse.juav.payloads.DumbyMem;
+import ub.cse.juav.payloads.GreedyFailureRunnable;
 import ub.cse.juav.payloads.manager.Payload;
 import ub.cse.juav.payloads.manager.PayloadManager;
 
@@ -20,6 +23,7 @@ public class HalSitl {
             RealtimeThread t = new RealtimeThread(new PriorityParameters(99),new PeriodicParameters(rt)){
                 @Override
                 public void run() {
+                    Thread.currentThread().setName("COPTER-THREAD");
                     nativeInitizationPriorToControlLoop();
                     while (!getHalSitlSchedulerShouldReboot()) {
                         if (getHalSitlSchedulerShouldExit()) {
@@ -39,6 +43,7 @@ public class HalSitl {
             };
             t.start();
         } else {
+            Thread.currentThread().setName("COPTER-THREAD");
             nativeInitizationPriorToControlLoop();
             while (!getHalSitlSchedulerShouldReboot()) {
                 if (getHalSitlSchedulerShouldExit()) {
@@ -84,7 +89,8 @@ public class HalSitl {
     }
 
     public static void main(String[] args) {
-        if(Arrays.asList(args).contains("java"))
+        List<String> argList = Arrays.asList(args);
+        if(argList.contains("java"))
             FijiJniSwitch.usingFiji=false;
 
         System.loadLibrary("JuavSitlJni");
@@ -107,26 +113,21 @@ public class HalSitl {
         HalSitl halSitl = new HalSitl();
 
         // vv Start payloads using payload manager ie one VM vv
-       /* PayloadManager pm = new PayloadManager();
-        pm.addPayload(new Payload(new Runnable() {
-            @Override
-            public void run() {
-                int count = 0;
-                while(true) {
-                    System.out.println(count++);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        },"test",null,null,null));
-        pm.start();*/
+        if(argList.contains("fiji") ||
+           argList.contains("java")) {
+           System.out.println("RUNNING PAYLOAD MANAGER -> not using MVM");
+           PayloadManager pm = new PayloadManager();
+           if (argList.contains("greedy"))
+               pm.addPayload(new Payload(new GreedyFailureRunnable(), "greedy"));
+           else if (argList.contains("astar"))
+               pm.addPayload(new Payload(new DumbyAStarRunnable(500,900,900), "astar"));
+           else if (argList.contains("mem"))
+               pm.addPayload(new Payload(new DumbyMem(), "mem"));
+           pm.start();
+       } else{
+           System.out.println("SYSTEM using MVM");
+       }
         // ^^ Start payloads using payload manager ie one VM ^^
-
-        // if running multivm (MVM) ensure payload manager disabled.
-
         halSitl.run(args.length, args, callbacks);
     }
 }

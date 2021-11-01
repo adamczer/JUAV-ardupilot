@@ -1,6 +1,4 @@
 package ub.cse.juav.payloads;
-import com.fiji.fivm.r1.fivmRuntime;
-import ub.cse.juav.jni.FijiJniSwitch;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,21 +7,29 @@ import java.io.IOException;
 public class DumbyAStarRunnable implements Runnable {
 	public static boolean LOG_A_STAR = true;
 	final int workTime;
+	private final int rows;
+	private final int columns;
 	FileOutputStream aStarLog;
-	public DumbyAStarRunnable(int workTime) {
+
+	public DumbyAStarRunnable(int workTime, int rows, int columns) {
 		this.workTime = workTime;
+		this.rows = rows;
+		this.columns = columns;
 		if (LOG_A_STAR) {
 			try {
-				if (FijiJniSwitch.usingFiji)
-					aStarLog = new FileOutputStream("jUAV-astar-fiji.log",true);
-				else
-					aStarLog = new FileOutputStream("jUAV-astar-java.log",true);
+				aStarLog = new FileOutputStream("astar.log",true);
 			} catch (IOException e) {
 				throw new IllegalStateException("metrics logging enabled and could not create log file in working dir.",e);
 			}
 		}
 	}
 	public void run() {
+//		try {
+//			Thread.sleep(30000);
+//			System.out.println("STARTING A*");
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		while (true) {
 			if(LOG_A_STAR) {
 				try {
@@ -34,7 +40,7 @@ public class DumbyAStarRunnable implements Runnable {
 					e.printStackTrace();
 				}
 			}
-			DumbyAStar a = new DumbyAStar(aStarLog,LOG_A_STAR,workTime);
+			DumbyAStar a = new DumbyAStar(aStarLog,LOG_A_STAR,workTime,rows,columns);
 			if (LOG_A_STAR) {
 				try {
 					aStarLog.write(("FINISHED ASTAR INIT AT "+
@@ -66,7 +72,7 @@ public class DumbyAStarRunnable implements Runnable {
 					e.printStackTrace();
 				}
 			}
-			
+			if(this.workTime > 0)
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {

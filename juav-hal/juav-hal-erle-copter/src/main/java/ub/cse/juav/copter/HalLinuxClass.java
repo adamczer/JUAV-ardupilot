@@ -55,8 +55,8 @@ public class HalLinuxClass {
     public static void main(String[] args) {
 
         System.loadLibrary("JuavErleCopterJni");
-        if(Arrays.asList(args).contains("fiji"))
-            FijiJniSwitch.usingFiji=true;
+        if(Arrays.asList(args).contains("java"))
+            FijiJniSwitch.usingFiji=false;
 
         AcAttitudeControl acAttitudeControl = new AcAttitudeControl();
         Map<Integer,Mode> modes = new HashMap<>();
@@ -77,22 +77,22 @@ public class HalLinuxClass {
 
 
         //Start payloads
-        PayloadManager pm = new PayloadManager();
-        pm.addPayload(new Payload(new Runnable() {
-            @Override
-            public void run() {
-                int count = 0;
-                while(true) {
-                    System.out.println(count++);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        },"test",null,null,null));
-        pm.start();
+//        PayloadManager pm = new PayloadManager();
+//        pm.addPayload(new Payload(new Runnable() {
+//            @Override
+//            public void run() {
+//                int count = 0;
+//                while(true) {
+//                    System.out.println(count++);
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        },"test",null,null,null));
+//        pm.start();
 
         hal.run(args.length, args, callbacks);
     }

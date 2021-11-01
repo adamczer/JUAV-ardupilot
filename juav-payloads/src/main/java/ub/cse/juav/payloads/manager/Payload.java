@@ -13,6 +13,14 @@ public class Payload {
     private ReleaseParameters releaseParameters;
     private MemoryParameters memoryParameters;
 
+    public Payload(Runnable runnable) {
+        this(runnable,null,null,null,null);
+    }
+
+    public Payload(Runnable runnable, String name) {
+        this(runnable,name,null,null,null);
+    }
+
     public Payload(Runnable runnable, String name, SchedulingParameters sp, ReleaseParameters rp, MemoryParameters mp) {
         this.runnable = runnable;
         this.name = name;

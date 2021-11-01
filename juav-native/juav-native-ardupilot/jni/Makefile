@@ -30,10 +30,10 @@ arducopter-erle-copter:
 	cd $(ARDU_SRC) && ./waf configure --board=erlebrain2 && ./waf copter
 
 arducopter-erle-copter-lib: $(ARDU_ERLE_COPTER_INPUTS)
-	/usr/bin/arm-linux-gnueabihf-g++ -std=gnu++11 -o lib/libArduCopterErleCopter.so -shared $(ARDU_ERLE_COPTER_INPUTS)
+	arm-linux-gnueabihf-g++ -std=gnu++11 -o lib/libArduCopterErleCopter.so -shared $(ARDU_ERLE_COPTER_INPUTS)
 
 juav-erle-copter-lib:
-	/usr/bin/arm-linux-gnueabihf-g++ -lm -Wl,--no-undefined -Wl,--gc-sections -pthread -L./lib -fPIC -std=gnu++11 -I"./includes" -I"./common-includes" -I"${JAVA_HOME}/include" -I"${JAVA_HOME}/include/linux" -I"$(ARDU_SRC)/libraries/" -I"$(ARDU_SRC)/libraries/AP_HAL_Linux/" -I"$(ARDU_SRC)/libraries/AP_HAL/" -I"${ARDU_SRC}/build/erlebrain2/libraries/GCS_MAVLink/" -I"$(ARDU_SRC)/libraries/AP_Common/missing/" -I"$(ARDU_SRC)/libraries/AP_HAL_Linux/" -I"$(ARDU_SRC)/ArduCopter/" ArdupilotNativeCommon.cpp ub_cse_juav_jni_ArdupilotNative.cpp HalLinuxNativeCommon.cpp ub_cse_juav_jni_HalLinuxNative.cpp -lArduCopterErleCopter -lpthread -ldl -shared -DCONFIG_HAL_BOARD=HAL_BOARD_LINUX -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_LINUX_ERLEBRAIN2 -fpermissive -o lib/libJuavErleCopterJni.so
+	arm-linux-gnueabihf-g++ -lm -Wl,--no-undefined -Wl,--gc-sections -pthread -L./lib -fPIC -std=gnu++11 -I"./includes" -I"./common-includes" -I"${JAVA_HOME}/include" -I"${JAVA_HOME}/include/linux" -I"$(ARDU_SRC)/libraries/" -I"$(ARDU_SRC)/libraries/AP_HAL_Linux/" -I"$(ARDU_SRC)/libraries/AP_HAL/" -I"${ARDU_SRC}/build/erlebrain2/libraries/GCS_MAVLink/" -I"$(ARDU_SRC)/libraries/AP_Common/missing/" -I"$(ARDU_SRC)/libraries/AP_HAL_Linux/" -I"$(ARDU_SRC)/ArduCopter/" ArdupilotNativeCommon.cpp ub_cse_juav_jni_ArdupilotNative.cpp HalLinuxNativeCommon.cpp ub_cse_juav_jni_HalLinuxNative.cpp -lArduCopterErleCopter -lpthread -ldl -shared -DCONFIG_HAL_BOARD=HAL_BOARD_LINUX -DCONFIG_HAL_BOARD_SUBTYPE=HAL_BOARD_SUBTYPE_LINUX_ERLEBRAIN2 -fpermissive -o lib/libJuavErleCopterJni.so
 
 # sim_vehicle.py -v ArduCopter --console --map
 # resotore original sources by checking out file

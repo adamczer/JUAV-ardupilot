@@ -115,10 +115,10 @@ public class DumbyAStar {
 		}
 	}
 
-	void aStarSearch(FileOutputStream aStarLog, boolean logAStar) {
+	public void aStarSearch(FileOutputStream aStarLog, boolean logAStar) {
 		int i,j;
 		long time1 = System.currentTimeMillis();
-		if (logAStar) {
+		if (this.WORK_MILLI > 0 && logAStar) {
 			try {
 				aStarLog.write(("RELEASE AT "+Long.toString(System.nanoTime())+"\n").getBytes());
 				aStarLog.flush();
@@ -127,7 +127,7 @@ public class DumbyAStar {
 			}
 		}
 		while (!this.openListEmpty()) {
-			if ((System.currentTimeMillis() - time1) < this.WORK_MILLI) {
+			if (this.WORK_MILLI < 0 || (System.currentTimeMillis() - time1) < this.WORK_MILLI) {
 				this.openListBegin();
 				this.openListErase(openListBeginRetVal_i, openListBeginRetVal_j);
 				i = this.openListBeginRetVal_i;
@@ -158,7 +158,6 @@ public class DumbyAStar {
 					}
 				}
 				try {
-					
 					Thread.sleep(SLEEP_MILLI);
 				} catch (InterruptedException e) {
 					System.err.format("IOException: %s%n", e);
@@ -177,8 +176,13 @@ public class DumbyAStar {
 		return;
 	}
 
+	public  DumbyAStar(FileOutputStream aStarLog, boolean loggingEnabled, int workTime) {
+		this(aStarLog,loggingEnabled,workTime,128,128);
+	}
 
-	public DumbyAStar(FileOutputStream aStarLog, boolean loggingEnabled, int workTime) {
+	public DumbyAStar(FileOutputStream aStarLog, boolean loggingEnabled, int workTime, int rows, int columns) {
+		this.ROW =rows;
+		this.COL = columns;
 		WORK_MILLI = workTime;
 		SLEEP_MILLI = workTime;
 		int i, j;
@@ -204,7 +208,7 @@ public class DumbyAStar {
 			ArrayList<cell> c1 = new ArrayList<cell>();
 			this.cellDetails.add(c1);
 			for (j = 0; j < COL; j++) {
-				if ((System.currentTimeMillis() - time1) > this.WORK_MILLI) {
+				if (this.WORK_MILLI>0 && (System.currentTimeMillis() - time1) > this.WORK_MILLI) {
 					if (loggingEnabled) {
 						try {
 							aStarLog.write(("INTERUPT INIT AT "+
