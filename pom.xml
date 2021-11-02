@@ -16,6 +16,8 @@
         <module>juav-payloads</module>
         <module>juav-thread</module>
         <module>juav-mvm</module>
+        <module>mavlink-connector</module>
+        <module>native-util</module>
     </modules>
 
     <properties>

@@ -21,6 +21,8 @@ void HalLinuxNative_nativeHalLinuxInitializationPriorToControlLoop
               "/home/adamczer/code/ardupilot/build/sitl/bin/arducopter",
               "-A",
               "udp:127.0.0.1:6001",
+              "-A",
+              "tcp:127.0.0.1:5762",
               "-B",
               "/dev/ttyS0",
               "-C",
@@ -34,7 +36,7 @@ void HalLinuxNative_nativeHalLinuxInitializationPriorToControlLoop
 
        //TODO switch to erle config
        // ie HAL_LINUX, ERLEBRAIN2
-       halLinux->juavHalLinuxInitializationPriorToControlLoop(11,args,ud);
+       halLinux->juavHalLinuxInitializationPriorToControlLoop(13,args,ud);
 
 
    }

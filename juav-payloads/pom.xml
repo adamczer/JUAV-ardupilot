@@ -24,6 +24,17 @@
             <artifactId>juav-thread</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>ub.cse.juav2</groupId>
+            <artifactId>native-util</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ub.cse.juav2</groupId>
+            <artifactId>mavlink-connector</artifactId>
+            <version>0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     
 </project>

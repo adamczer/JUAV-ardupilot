@@ -24,12 +24,6 @@ public class DumbyAStarRunnable implements Runnable {
 		}
 	}
 	public void run() {
-//		try {
-//			Thread.sleep(30000);
-//			System.out.println("STARTING A*");
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
 		while (true) {
 			if(LOG_A_STAR) {
 				try {

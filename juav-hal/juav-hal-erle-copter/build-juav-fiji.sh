@@ -4,15 +4,16 @@ mkdir juav-fiji
 cd juav-fiji
 
 cp ../../../juav-native/juav-native-ardupilot/jni/lib/lib*Erle*.so ./
+cp ../../../native-util/jni/lib/libNativeUtil.so ./
 if arch | grep -q "arm"; then
  $FIJI_HOME/bin/fivmc -j4 \
---sys-libs "-lpthread -ldl -lm -lJuavErleCopterJni" \
+--sys-libs "-lpthread -ldl -lm -lJuavErleCopterJni -lNativeUtil" \
 -o JuavFiji ../target/*-with-dependencies.jar \
 --g-def-max-mem 256M \
 --main ub.cse.juav.copter.HalLinuxClass
 else
  $FIJI_HOME/bin/fivmc --target arm -j8 \
---sys-libs "-lpthread -ldl -lm -lJuavErleCopterJni" \
+--sys-libs "-lpthread -ldl -lm -lJuavErleCopterJni -lNativeUtil" \
 -o JuavFiji ../target/*-with-dependencies.jar \
 --g-def-max-mem 256M \
 --main ub.cse.juav.copter.HalLinuxClass

@@ -1,8 +1,6 @@
 package ub.cse.juav.mvm.payloads;
 
-import javax.realtime.PeriodicParameters;
 import javax.realtime.RealtimeThread;
-import javax.realtime.RelativeTime;
 
 public class SimplePayload extends RealtimeThread {
     long duration;
@@ -26,9 +24,7 @@ public class SimplePayload extends RealtimeThread {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Start the SimplePayload Executions...");
         SimplePayload app1 = new SimplePayload(50000000); // Thread will run for 50 ms and records wakeup time
-        app1.setReleaseParameters(new PeriodicParameters(new RelativeTime(10000,0)));
-        app1.start();
-        app1.join();
+        app1.run();
         System.out.println("Finish the SimplePayload Executions...");
     }
 }
