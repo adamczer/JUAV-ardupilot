@@ -56,7 +56,7 @@ public class LandOnWhiteThingRunnable implements Runnable{
                     }
                 }
             }
-            //TODO
+            //TODO smart movement towards target
 //            if (latestMode == 4) { //guided
 //                if (box.length > 0) {
 //                    if (overBox(box, bi.getHeight() / 2, bi.getWidth() / 2))
