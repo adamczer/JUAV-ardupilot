@@ -16,9 +16,11 @@ public class ImageCameraWrapper implements ImageNativeWrapperInterface{
     native private boolean initializeCamera();
 
     public void nextImage() {
+//        System.out.println("taking picture");
         takePicture();
         height = pullHeight();
         width = pullWidth();
+//        System.out.println("picture is "+width+"x"+height);
     }
 
     native private int pullWidth();

@@ -32,7 +32,7 @@ public class VMConfig {
 			if (i==0) {
 				tsm.initTimeSlice(i, quantum, numThreads, ThreadPriority.FIFO_MAX - (i+1));
 			} else {
-				tsm.initTimeSlice(i, quantum/10, numThreads, ThreadPriority.FIFO_MAX - (i + 1));
+				tsm.initTimeSlice(i, quantum/10, numThreads, ThreadPriority.NORMAL_MIN);
 			}
 		}
 
@@ -43,15 +43,5 @@ public class VMConfig {
 			tsm.getTimeSlice(i).spawn(new VMConfiguration(payloads.get(i)), 
                     SpawnMode.SPAWN_ONE_SHOT);
 		}
-
-		try {
-			while(true)
-				Thread.sleep(10 * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("That worked.");
-		System.exit(0);
 	}
 }

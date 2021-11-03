@@ -12,6 +12,7 @@ public class LandOnWhiteThingRunnable implements Runnable{
     private LocalTcpMavlinkConnector lmc;
     private final boolean landFromAutoMode;
     private ImageCameraWrapper camera;
+    private static final boolean logColors = false;
 
     public LandOnWhiteThingRunnable(boolean landFromAutoMode, boolean isSimulation) {
         this.landFromAutoMode = landFromAutoMode;
@@ -36,8 +37,11 @@ public class LandOnWhiteThingRunnable implements Runnable{
             lmc = LocalTcpMavlinkConnector.getConnection();
         while (true) {
             lmc.updateState();
+            long startTime = System.currentTimeMillis();
             ImageNativeWrapperInterface bi = getLatestImage();
+            long imageTime = System.currentTimeMillis();
             GlobalPositionIntLight latestPosition = lmc.getLatestPosition();
+            long latestPosTime = System.currentTimeMillis();
             int latestMode = lmc.getLatestMode();
             int[] box = getBox(bi);
             if (latestMode == 3) { //auto
@@ -52,19 +56,23 @@ public class LandOnWhiteThingRunnable implements Runnable{
                     }
                 }
             }
-            if (latestMode == 4) { //guided
-                if (box.length > 0) {
-                    if (overBox(box, bi.getHeight() / 2, bi.getWidth() / 2))
-                        lmc.landMode((float) latestPosition.getLat() / 7f, (float) latestPosition.getLon() / 7f);
-                    else {
-                        setNextWaypoint(box, bi.getHeight() / 2, bi.getWidth() / 2, latestPosition);
-                    }
-                } else {
-                    //TODO backtrack? this should not happen //restart Automode?
-//                resume auto
-                    lmc.autoMode();
-                }
-            }
+            //TODO
+//            if (latestMode == 4) { //guided
+//                if (box.length > 0) {
+//                    if (overBox(box, bi.getHeight() / 2, bi.getWidth() / 2))
+//                        lmc.landMode((float) latestPosition.getLat() / 7f, (float) latestPosition.getLon() / 7f);
+//                    else {
+//                        setNextWaypoint(box, bi.getHeight() / 2, bi.getWidth() / 2, latestPosition);
+//                    }
+//                } else {
+//                    //TODO backtrack? this should not happen //restart Automode?
+////                resume auto
+//                    lmc.autoMode();
+//                }
+//            }
+            System.out.println("took "+(imageTime-startTime)+"ms to get image"
+                    +" and "+(latestPosTime-imageTime)+" for position." +
+                    " and "+(System.currentTimeMillis()-latestPosTime)+" to process image.");
             doTheSleep(1000);
         }
     }
@@ -112,6 +120,9 @@ public class LandOnWhiteThingRunnable implements Runnable{
     private boolean dominantlyWhite(ImageNativeWrapperInterface subImage, int boxMinY, int boxMinX, int width, int height) {
         int totalCount = 0;
         int whiteCount = 0;
+        int maxRed = 0;
+        int maxGreen = 0;
+        int maxBlue = 0;
         for (int y = boxMinY; y < boxMinY+height; y++) {
             for (int x = boxMinX; x < boxMinX+width; x++) {
                 //Retrieving contents of a pixel
@@ -124,9 +135,17 @@ public class LandOnWhiteThingRunnable implements Runnable{
                     whiteCount++;
                 }
                 totalCount++;
+                if(maxRed<red)
+                    maxRed = red;
+                if(maxGreen<green)
+                    maxGreen = green;
+                if(maxBlue<blue)
+                    maxBlue = blue;
             }
         }
         float percetWhite = (float)whiteCount/(float)totalCount;
+        if (logColors)
+            System.out.println("Max R,G,B = "+maxRed+","+maxGreen+","+maxBlue);
         return ( percetWhite > .8);
     }
 
