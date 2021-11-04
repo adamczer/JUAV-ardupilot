@@ -33,6 +33,7 @@ public class ImageNativeWrapper implements ImageNativeWrapperInterface{
     private native int readPixelBlue(int x,int y);
 
     public Color getRGB(int x, int y) {
+//        System.out.println("getting pixel x,y= "+x+","+"y");
         return new Color(readPixelRed(x,y),readPixelGreen(x,y),readPixelBlue(x,y));
     }
 
@@ -41,21 +42,26 @@ public class ImageNativeWrapper implements ImageNativeWrapperInterface{
         System.out.println("Loading lib");
         System.loadLibrary("NativeUtil");
         System.out.println("lib loaded");
+        for(int i = 0; i< 300; i++) {
+            ImageNativeWrapper bi = new ImageNativeWrapper("png-images/ll.png");
+            System.out.println(bi.getHeight());
+            System.out.println(bi.getWidth());
+            System.out.println(bi.getRGB(10, 10));
 
-        ImageNativeWrapper bi = new ImageNativeWrapper("black.png");
-        System.out.println(bi.getHeight());
-        System.out.println(bi.getWidth());
-        System.out.println(bi.getRGB(10,10));
+            bi = new ImageNativeWrapper("png-images/lr.png");
+            System.out.println(bi.getHeight());
+            System.out.println(bi.getWidth());
+            System.out.println(bi.getRGB(10, 10));
 
-        bi = new ImageNativeWrapper("white.png");
-        System.out.println(bi.getHeight());
-        System.out.println(bi.getWidth());
-        System.out.println(bi.getRGB(10,10));
+            bi = new ImageNativeWrapper("png-images/ul.png");
+            System.out.println(bi.getHeight());
+            System.out.println(bi.getWidth());
+            System.out.println(bi.getRGB(10, 10));
 
-        bi = new ImageNativeWrapper("green.png");
-        System.out.println(bi.getHeight());
-        System.out.println(bi.getWidth());
-        System.out.println(bi.getRGB(10,10));
-
+            bi = new ImageNativeWrapper("png-images/ur.png");
+            System.out.println(bi.getHeight());
+            System.out.println(bi.getWidth());
+            System.out.println(bi.getRGB(10, 10));
+        }
     }
 }

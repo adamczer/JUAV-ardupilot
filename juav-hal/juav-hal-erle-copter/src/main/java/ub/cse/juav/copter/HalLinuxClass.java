@@ -94,7 +94,7 @@ public class HalLinuxClass {
                 pm.addPayload(new Payload(new DumbyMem(), "mem"));
             else if (argList.contains("color")) {
                 System.loadLibrary("NativeUtil");
-                pm.addPayload(new Payload(new LandOnColorThingRunnable(true, false), "LandOnWhite"));
+                pm.addPayload(new Payload(new LandOnColorThingRunnable(false), "LandOnColor"));
             }
             pm.start();
         } else{

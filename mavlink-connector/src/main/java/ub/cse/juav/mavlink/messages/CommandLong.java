@@ -64,10 +64,12 @@ public class CommandLong {
         write(param6,ret,20,24);
         write(param7,ret,24,28);
         write(command,ret,28,30);
+        write(targetSystem,ret,30,1);
+        write(targetComponent,ret,31,1);
         return ret;
     }
 
-    private void write(float value, byte[] buffer, int offset, int length) {
+    public static void write(float value, byte[] buffer, int offset, int length) {
         if (length - offset != 4) {
             throw new IllegalArgumentException("length != 4");
         } else {
@@ -75,7 +77,7 @@ public class CommandLong {
         }
     }
 
-    private void write(long value, byte[] buffer, int offset, int length) {
+    public static void write(long value, byte[] buffer, int offset, int length) {
         int i = offset;
 
         for(int shift = 0; i < length; ++shift) {
@@ -84,7 +86,7 @@ public class CommandLong {
         }
     }
 
-    private void write(int value, byte[] buffer, int offset, int length) {
-        this.write((long)value, buffer, offset, length);
+    public static  void write(int value, byte[] buffer, int offset, int length) {
+        write((long)value, buffer, offset, length);
     }
 }

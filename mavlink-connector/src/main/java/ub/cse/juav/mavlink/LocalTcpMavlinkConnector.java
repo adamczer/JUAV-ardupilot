@@ -24,6 +24,7 @@
 package ub.cse.juav.mavlink;
 
 import ub.cse.juav.mavlink.messages.CommandLong;
+import ub.cse.juav.mavlink.messages.CommandSetPositionTargetLocalNed;
 import ub.cse.juav.mavlink.messages.GlobalPositionIntLight;
 import ub.cse.juav.mavlink.messages.HeartbeatLight;
 
@@ -118,17 +119,18 @@ public class LocalTcpMavlinkConnector {
     }
 
     public void guidedMode() {
-        CommandLong ci = new CommandLong(systemId,componentId,176,0,4,0,0,0,0,0,0);
+        CommandLong ci = new CommandLong(systemId,componentId,176,0,3,4,
+                0,0,0,0,0);
         sendMessage(ci);
     }
 
-    public void setWayPoint(float lat, float lon, float alt) {
-        CommandLong ci = new CommandLong(systemId,componentId,16,0,0,0,0,0,lat,lon,alt);
-        sendMessage(ci);
-    }
+//    public void setWayPoint(float lat, float lon, float alt) {
+//        CommandLong ci = new CommandLong(systemId,componentId,16,0,1,0,0,0,lat,lon,alt);
+//        sendMessage(ci);
+//    }
 
     public void autoMode() {
-        CommandLong ci = new CommandLong(systemId,componentId,176,0,3,0,
+        CommandLong ci = new CommandLong(systemId,componentId,176,0,3,3,
                 0,0,0,0,0);
         sendMessage(ci);
     }
@@ -152,13 +154,30 @@ public class LocalTcpMavlinkConnector {
         }
     }
 
+    public void moveInGuidedMode(float x, float y, float z) {
+        try {
+            byte[] serializedPayload = CommandSetPositionTargetLocalNed.getMessage(systemId,componentId,x,y,z);
+            byte[] toSend = MavlinkPacket.createUnsignedMavlink2Packet(sequence++,systemId,componentId,84,
+                    143,serializedPayload).getRawBytes();
+            os.write(toSend);
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws IOException, InterruptedException {
         LocalTcpMavlinkConnector lmc = new LocalTcpMavlinkConnector(5762);
 //        Thread.sleep(30000);
         while(true) {
 //            lmc.landMode(0,0);
-            lmc.updateState();
+//            lmc.updateState();
+//            lmc.moveInGuidedMode(1f*.25f,1f*.75f,0f);
+//            lmc.autoMode();
+            lmc.guidedMode();
             Thread.sleep(5000);
+//            lmc.setWayPoint(-35.36319f,149.1652f,5.0f);
+//            Thread.sleep(50000);
         }
     }
 }

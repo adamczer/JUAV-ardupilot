@@ -126,7 +126,7 @@ public class HalSitl {
                pm.addPayload(new Payload(new DumbyMem(), "mem"));
            else if (argList.contains("color")) {
                System.loadLibrary("NativeUtil");
-               pm.addPayload(new Payload(new LandOnColorThingRunnable(true, true), "LandOnColor"));
+               pm.addPayload(new Payload(new LandOnColorThingRunnable(true), "LandOnColor"));
            }
            pm.start();
        } else{
