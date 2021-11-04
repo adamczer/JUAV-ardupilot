@@ -67,9 +67,9 @@ elif [ "$1" = "astar" ]; then
   ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
   --main ub.cse.juav.mvm.vmconfig.VMConfig
 
-elif [ "$1" = "white" ]; then
+elif [ "$1" = "color" ]; then
   # astar
-  echo WHITE
+  echo COLOR
   ${FIJI_HOME}/bin/fivmc \
   --sys-libs "-lNativeUtil" \
   --32 \
@@ -78,18 +78,18 @@ elif [ "$1" = "white" ]; then
   --payload \
   --rt-library=NONE \
   --rt-verbosity-limit 100 \
-  -o white \
+  -o color \
   ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
-  --main ub.cse.juav.mvm.payloads.LandOnWhiteThingPayload
+  --main ub.cse.juav.mvm.payloads.LandOnColorThingPayload
 
   ${FIJI_HOME}/bin/fivmc \
-  -o mvm-white \
+  -o mvm-color \
   --sys-libs "-lpthread -ldl -lm -lJuavSitlJni -lNativeUtil" \
   --32 \
   --g-def-max-mem 256M \
   --g-def-immortal-mem 0M \
   --link-payload JuavFiji \
-  --link-payload white \
+  --link-payload color \
   --rt-library=NONE \
   --rt-verbosity-limit 100 \
   ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \

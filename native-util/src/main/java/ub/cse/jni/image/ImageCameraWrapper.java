@@ -19,7 +19,8 @@ public class ImageCameraWrapper implements ImageNativeWrapperInterface{
 //        System.out.println("taking picture");
         takePicture();
         height = pullHeight();
-        width = pullWidth();
+//        BUG in camera firmware causing white stripe on right most pixels
+        width = pullWidth()-1;
 //        System.out.println("picture is "+width+"x"+height);
     }
 

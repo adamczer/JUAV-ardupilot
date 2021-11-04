@@ -6,7 +6,7 @@ import ub.cse.juav.jni.HalLinuxNativeWrapper;
 import ub.cse.juav.payloads.DumbyAStarRunnable;
 import ub.cse.juav.payloads.DumbyMem;
 import ub.cse.juav.payloads.GreedyFailureRunnable;
-import ub.cse.juav.payloads.LandOnWhiteThingRunnable;
+import ub.cse.juav.payloads.LandOnColorThingRunnable;
 import ub.cse.juav.payloads.manager.Payload;
 import ub.cse.juav.payloads.manager.PayloadManager;
 
@@ -92,9 +92,9 @@ public class HalLinuxClass {
                 pm.addPayload(new Payload(new DumbyAStarRunnable(500,900,900), "astar"));
             else if (argList.contains("mem"))
                 pm.addPayload(new Payload(new DumbyMem(), "mem"));
-            else if (argList.contains("white")) {
+            else if (argList.contains("color")) {
                 System.loadLibrary("NativeUtil");
-                pm.addPayload(new Payload(new LandOnWhiteThingRunnable(true, false), "LandOnWhite"));
+                pm.addPayload(new Payload(new LandOnColorThingRunnable(true, false), "LandOnWhite"));
             }
             pm.start();
         } else{

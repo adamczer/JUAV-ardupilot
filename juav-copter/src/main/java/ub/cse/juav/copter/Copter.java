@@ -13,7 +13,7 @@ import java.lang.String;
 
 public class Copter {
     Map<Integer,Mode> modes;
-    public static boolean LOG_TIMING = false;
+    public static boolean LOG_TIMING = true;
     FileOutputStream timingLog;
 
     public Copter() {

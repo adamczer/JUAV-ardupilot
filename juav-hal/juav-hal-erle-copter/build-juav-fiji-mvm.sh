@@ -77,7 +77,7 @@ ${FIJI_HOME}/bin/fivmc --target arm -j8 --32 \
 
 #  elif [ "$1" = "white" ]; then
       # astar
-      echo WHITE
+      echo COLOR
       ${FIJI_HOME}/bin/fivmc --target arm -j8 --32 \
       --sys-libs "-lNativeUtil" \
       --g-def-max-mem 128M \
@@ -85,17 +85,17 @@ ${FIJI_HOME}/bin/fivmc --target arm -j8 --32 \
       --payload \
       --rt-library=NONE \
       --rt-verbosity-limit 100 \
-      -o white \
+      -o color \
       ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
-      --main ub.cse.juav.mvm.payloads.LandOnWhiteThingCameraPayload
+      --main ub.cse.juav.mvm.payloads.LandOnColorThingCameraPayload
 
       ${FIJI_HOME}/bin/fivmc --target arm -j8 --32 \
-      -o mvm-white \
+      -o mvm-color \
       --sys-libs "-lpthread -ldl -lm -lJuavErleCopterJni -lNativeUtil" \
       --g-def-max-mem 256M \
       --g-def-immortal-mem 0M \
       --link-payload JuavFiji \
-      --link-payload white \
+      --link-payload color \
       --rt-library=NONE \
       --rt-verbosity-limit 100 \
       ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
