@@ -1,26 +1,20 @@
 package ub.cse.juav.payloads;
 
-import ub.cse.jni.image.Color;
-import ub.cse.jni.image.ImageCameraWrapper;
-import ub.cse.jni.image.ImageNativeWrapper;
-import ub.cse.jni.image.ImageNativeWrapperInterface;
+import ub.cse.jni.image.OpenCv2Wrapper;
 import ub.cse.juav.mavlink.LocalTcpMavlinkConnector;
 import ub.cse.juav.mavlink.messages.GlobalPositionIntLight;
 
 public class LandOnColorThingRunnable implements Runnable{
     private final boolean isSimulation;
     private LocalTcpMavlinkConnector lmc;
-    private ImageCameraWrapper camera;
+    private OpenCv2Wrapper imageProvider;
     private static final boolean debugging = false;
-    private static final int[] RED_THRESHOLD = {200,255};
-    private static final int[] GREEN_THRESHOLD = {200,255};
-    private static final int[] BLUE_THRESHOLD = {200,255};
+    private static final int binerizeThresholdLow = 100;
+    private static final int binerizeThresholdHigh = 255;
 
     public LandOnColorThingRunnable(boolean isSimulation) {
         this.isSimulation = isSimulation;
-        if(!isSimulation) {
-            this.camera = new ImageCameraWrapper();
-        }
+        this.imageProvider = new OpenCv2Wrapper(isSimulation,binerizeThresholdLow,binerizeThresholdHigh);
     }
 
     @Override
@@ -31,7 +25,7 @@ public class LandOnColorThingRunnable implements Runnable{
         while (true) {
             lmc.updateState();
             long startTime = System.currentTimeMillis();
-            ImageNativeWrapperInterface bi = getLatestImage();
+            OpenCv2Wrapper bi = getLatestImage();
             long imageTime = System.currentTimeMillis();
             GlobalPositionIntLight latestPosition = lmc.getLatestPosition();
             long latestPosTime = System.currentTimeMillis();
@@ -39,6 +33,7 @@ public class LandOnColorThingRunnable implements Runnable{
             int[] box = getBox(bi);
             if (latestMode == 3) { //auto
                 if (box.length>0) {
+                    System.out.println("Found colored thing, switching to guided mode!");
                     lmc.guidedMode();
                 }
             }
@@ -83,13 +78,14 @@ public class LandOnColorThingRunnable implements Runnable{
             yDirection = deltaW;
             firstDiscovery = false;
         } else {
-            if (xDirection < 0 && deltaH > 0 ||
+            if (magnitudeMovement/2f > .2 &&
+                    (xDirection < 0 && deltaH > 0 ||
                 xDirection > 0 && deltaH < 0 ||
                 yDirection < 0 && deltaW > 0 ||
-                yDirection > 0 && deltaW < 0
+                yDirection > 0 && deltaW < 0)
             ) {
                 System.out.println("halving");
-                magnitudeMovement = magnitudeMovement / 2f;
+                magnitudeMovement = magnitudeMovement *.9f;
                 xDirection = deltaH;
                 yDirection = deltaW;
             }
@@ -108,7 +104,7 @@ public class LandOnColorThingRunnable implements Runnable{
     }
 
 
-    protected int[] getBox(ImageNativeWrapperInterface i) {
+    protected int[] getBox(OpenCv2Wrapper i) {
         int minX = Integer.MAX_VALUE;
         int maxX = -1;
         int minY = Integer.MAX_VALUE;
@@ -117,17 +113,9 @@ public class LandOnColorThingRunnable implements Runnable{
         for (int y = 0; y < i.getHeight(); y++) {
             for (int x = 0; x < i.getWidth(); x++) {
                 //Retrieving contents of a pixel
-                Color color = i.getRGB(x, y);
-                //Retrieving the R G B values
-                int red = color.getRed();
-                int green = color.getGreen();
-                int blue = color.getBlue();
-                if (red >= RED_THRESHOLD[0] &&
-                        red <= RED_THRESHOLD[1] &&
-                        green >= GREEN_THRESHOLD[0] &&
-                        green <= GREEN_THRESHOLD[1] &&
-                        blue >= BLUE_THRESHOLD[0] &&
-                        blue <= BLUE_THRESHOLD[1]) {
+                int val = i.getPixelVal(x, y);
+                //checking region area
+                if (val == binerizeThresholdHigh) {
                     whiteCount++;
                     if(x<minX)
                         minX = x;
@@ -148,44 +136,42 @@ public class LandOnColorThingRunnable implements Runnable{
         if(debugging) {
             System.out.println("white width,height = " + width + ',' + height);
         }
-        if(width<25||height<25||((float)whiteCount/(float)(height*width))<.6) {
+        if(width<10||height<10||((float)whiteCount/(float)(height*width))<.6) {
+            System.out.println("white width,height = " + width + ',' + height);
+            System.out.println("white count = " + whiteCount + ", percent white = "+((float)whiteCount/(float)(height*width)));
             return new int[]{};
         } else {
             return new int[]{minX,maxX,minY,maxY};
         }
     }
 
-    private ImageNativeWrapperInterface getLatestImage() {
+    private OpenCv2Wrapper getLatestImage() {
         if (isSimulation)
             return generateSimulationImage();
         else {
-            camera.nextImage();
-            return camera;
+            imageProvider.nextCameraImage();
+            return imageProvider;
         }
     }
 
     private int simImageCount = 0;
-    private ImageNativeWrapper generateSimulationImage() {
+    private OpenCv2Wrapper generateSimulationImage() {
         String juavSrc = System.getenv("JUAV_SRC");
-        ImageNativeWrapper image = null;
-        if(debugging) {
-            System.out.println("imagecount = " + simImageCount);
-        }
         if(simImageCount>200) {
-            image = new ImageNativeWrapper(juavSrc+"/native-util/png-images/white.png");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/white.png");
         } else if(simImageCount>175){
-            image = new ImageNativeWrapper(juavSrc+"/native-util/png-images/ll.png");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/ll.png");
         } else if(simImageCount>150){
-            image = new ImageNativeWrapper(juavSrc+"/native-util/png-images/lr.png");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/lr.png");
         } else if(simImageCount>125){
-            image = new ImageNativeWrapper(juavSrc+"/native-util/png-images/ur.png");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/ur.png");
         } else if(simImageCount>100){
-            image = new ImageNativeWrapper(juavSrc+"/native-util/png-images/ul.png");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/ul.png");
         } else {
-            image = new ImageNativeWrapper(juavSrc + "/native-util/png-images/black.png");
+            imageProvider.loadFile(juavSrc + "/native-util/png-images/black.png");
         }
         simImageCount++;
 
-        return image;
+        return imageProvider;
     }
 }

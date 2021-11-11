@@ -169,15 +169,15 @@ public class LocalTcpMavlinkConnector {
     public static void main(String[] args) throws IOException, InterruptedException {
         LocalTcpMavlinkConnector lmc = new LocalTcpMavlinkConnector(5762);
 //        Thread.sleep(30000);
-        while(true) {
+//        while(true) {
 //            lmc.landMode(0,0);
 //            lmc.updateState();
-//            lmc.moveInGuidedMode(1f*.25f,1f*.75f,0f);
+//            lmc.guidedMode();
 //            lmc.autoMode();
-            lmc.guidedMode();
-            Thread.sleep(5000);
+            lmc.moveInGuidedMode(1f*.25f,1f*.75f,0f);
 //            lmc.setWayPoint(-35.36319f,149.1652f,5.0f);
 //            Thread.sleep(50000);
-        }
+            Thread.sleep(60000);
+//        }
     }
 }
