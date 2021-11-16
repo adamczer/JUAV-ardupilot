@@ -30,20 +30,20 @@ public class LandOnColorThingRunnable implements Runnable{
             GlobalPositionIntLight latestPosition = lmc.getLatestPosition();
             long latestPosTime = System.currentTimeMillis();
             int latestMode = lmc.getLatestMode();
-            int[] box = getBox(bi);
+            int[] center = bi.getCentroid();
             if (latestMode == 3) { //auto
-                if (box.length>0) {
+                if (center.length>0) {
                     System.out.println("Found colored thing, switching to guided mode!");
                     lmc.guidedMode();
                 }
             }
             //TODO smart movement towards target
             if (latestMode == 4) { //guided
-                if (box.length > 0) {
-                    if (overBox(box, bi.getHeight() / 2, bi.getWidth() / 2))
+                if (center.length > 0) {
+                    if (overBox(center, bi.getHeight() / 2, bi.getWidth() / 2))
                         lmc.landMode((float) latestPosition.getLat() / 7f, (float) latestPosition.getLon() / 7f);
                     else {
-                        setNextMovement(box, bi.getHeight() / 2, bi.getWidth() / 2);
+                        setNextMovement(center, bi.getHeight() / 2, bi.getWidth() / 2);
                     }
                 } else {
                     firstDiscovery = true;
@@ -62,9 +62,9 @@ public class LandOnColorThingRunnable implements Runnable{
     private float magnitudeMovement = 1f;
     private float xDirection = 0;
     private float yDirection = 0;
-    protected void setNextMovement(int[] box, int midH, int midW) {
-        int boxMidX = box[0]+box[1]/2;
-        int boxMidY = box[2]+box[3]/2;
+    protected void setNextMovement(int[] center, int midH, int midW) {
+        int boxMidX = center[0];
+        int boxMidY = center[1];
         float deltaW = boxMidX - midW; //want positive to be right
         float deltaH = midH - boxMidY; // want positive to be up
         if(debugging) {
@@ -100,49 +100,8 @@ public class LandOnColorThingRunnable implements Runnable{
     }
 
     protected boolean overBox(int[] box, int midH, int midW) {
-        return midW > box[0] && midW < box[1] && midH > box[2] && midH < box[3];
-    }
-
-
-    protected int[] getBox(OpenCv2Wrapper i) {
-        int minX = Integer.MAX_VALUE;
-        int maxX = -1;
-        int minY = Integer.MAX_VALUE;
-        int maxY = -1;
-        int whiteCount = 0;
-        for (int y = 0; y < i.getHeight(); y++) {
-            for (int x = 0; x < i.getWidth(); x++) {
-                //Retrieving contents of a pixel
-                int val = i.getPixelVal(x, y);
-                //checking region area
-                if (val == binerizeThresholdHigh) {
-                    whiteCount++;
-                    if(x<minX)
-                        minX = x;
-                    if(x>maxX)
-                        maxX = x;
-                    if(y<minY)
-                        minY = y;
-                    if(y>maxY)
-                        maxY = y;
-                }
-            }
-        }
-        if(minX > 99999 || minY > 99999 || maxX < 0 || maxY < 0) {
-            return new int[]{};
-        }
-        int width = maxX-minX;
-        int height = maxY-minY;
-        if(debugging) {
-            System.out.println("white width,height = " + width + ',' + height);
-        }
-        if(width<10||height<10||((float)whiteCount/(float)(height*width))<.6) {
-            System.out.println("white width,height = " + width + ',' + height);
-            System.out.println("white count = " + whiteCount + ", percent white = "+((float)whiteCount/(float)(height*width)));
-            return new int[]{};
-        } else {
-            return new int[]{minX,maxX,minY,maxY};
-        }
+        return box[0]-50 < midW && box[0]+50 > midW
+                && box[1]-50 <midH && box[1]+50 > midH;
     }
 
     private OpenCv2Wrapper getLatestImage() {

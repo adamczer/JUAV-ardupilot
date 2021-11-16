@@ -60,7 +60,11 @@ public class OpenCv2Wrapper {
         int[] xy = new int[2];
         xy[0] = getCentroidX();
         xy[1] = getCentroidY();
-        return xy;
+        if(xy[0]>0 && xy[1]>0) {
+            return xy;
+        } else {
+            return new int[0];
+        }
     }
 
     private native int getCentroidX();

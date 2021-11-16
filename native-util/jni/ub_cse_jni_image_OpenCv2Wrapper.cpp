@@ -46,10 +46,23 @@ void doCommonImageStuff() {
     //threshold it to be white/black
     threshold(frame, frame, binerizeThresholdLow,binerizeThresholdHigh,THRESH_BINARY);
     //determine moments to get centroid... not sure if needed
-    Moments m = moments(frame,true);
-    Point p(m.m10/m.m00, m.m01/m.m00);
-    centroidX = p.x;
-    centroidY = p.y;
+    int overThreshold = 0;
+    for(int r = 0; r < frame.rows; r++) {
+      for(int c = 0; c < frame.cols -1; c++){
+        if((int)frame.at<uchar>(cv::Point2i(c,r))>binerizeThresholdLow) {
+          overThreshold++;
+        }
+      }
+    }
+    if(overThreshold>100) {
+        Moments m = moments(frame,true);
+        Point p(m.m10/m.m00, m.m01/m.m00);
+        centroidX = p.x;
+        centroidY = p.y;
+    } else {
+        centroidY = -1;
+        centroidX = -1;
+    }
 }
 
 JNIEXPORT jboolean JNICALL Java_ub_cse_jni_image_OpenCv2Wrapper_takePicture
@@ -74,7 +87,10 @@ JNIEXPORT jboolean JNICALL Java_ub_cse_jni_image_OpenCv2Wrapper_loadImageFile
 
 JNIEXPORT jint JNICALL Java_ub_cse_jni_image_OpenCv2Wrapper_getBinerizeValue
   (JNIEnv * env, jobject thisObj, jint x, jint y) {
-    return frame.at<uchar>(cv::Point2i(x,y));
+        if((int)frame.at<uchar>(cv::Point2i(x,y))>binerizeThresholdLow)
+          return binerizeThresholdHigh;
+        else
+          return 0;
   }
 
 JNIEXPORT jint JNICALL Java_ub_cse_jni_image_OpenCv2Wrapper_getCentroidX
