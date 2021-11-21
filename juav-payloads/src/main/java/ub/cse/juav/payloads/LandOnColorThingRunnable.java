@@ -9,11 +9,19 @@ public class LandOnColorThingRunnable implements Runnable{
     private LocalTcpMavlinkConnector lmc;
     private OpenCv2Wrapper imageProvider;
     private static final boolean debugging = false;
-    private static final int binerizeThresholdLow = 225;
-    private static final int binerizeThresholdHigh = 255;
+    private static final int binerizeThresholdDefaultLow = 225;
+    private static final int binerizeThresholdDefaultHigh = 255;
 
     public LandOnColorThingRunnable(boolean isSimulation) {
         this.isSimulation = isSimulation;
+        int binerizeThresholdLow = binerizeThresholdDefaultLow;
+        int binerizeThresholdHigh = binerizeThresholdDefaultHigh;
+        String low = System.getenv("COLOR_THRESH_LOW");
+        String high = System.getenv("COLOR_THRESH_HIGH");
+        if (low != null)
+            binerizeThresholdLow = Integer.parseInt(low);
+        if (high != null)
+            binerizeThresholdHigh = Integer.parseInt(high);
         this.imageProvider = new OpenCv2Wrapper(isSimulation,binerizeThresholdLow,binerizeThresholdHigh);
     }
 
@@ -99,9 +107,10 @@ public class LandOnColorThingRunnable implements Runnable{
         lmc.moveInGuidedMode(meters_in_x,meters_in_y,0);
     }
 
+    private static final int closenessPixels = 50;
     protected boolean overBox(int[] box, int midH, int midW) {
-        return box[0]-50 < midW && box[0]+50 > midW
-                && box[1]-50 <midH && box[1]+50 > midH;
+        return box[0]-closenessPixels < midW && box[0]+closenessPixels > midW
+                && box[1]-closenessPixels <midH && box[1]+closenessPixels > midH;
     }
 
     private OpenCv2Wrapper getLatestImage() {
