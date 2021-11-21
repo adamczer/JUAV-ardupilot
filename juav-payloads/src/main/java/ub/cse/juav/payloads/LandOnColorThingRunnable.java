@@ -9,7 +9,7 @@ public class LandOnColorThingRunnable implements Runnable{
     private LocalTcpMavlinkConnector lmc;
     private OpenCv2Wrapper imageProvider;
     private static final boolean debugging = false;
-    private static final int binerizeThresholdLow = 100;
+    private static final int binerizeThresholdLow = 225;
     private static final int binerizeThresholdHigh = 255;
 
     public LandOnColorThingRunnable(boolean isSimulation) {
@@ -78,7 +78,7 @@ public class LandOnColorThingRunnable implements Runnable{
             yDirection = deltaW;
             firstDiscovery = false;
         } else {
-            if (magnitudeMovement/2f > .2 &&
+            if (magnitudeMovement/2f > .05 &&
                     (xDirection < 0 && deltaH > 0 ||
                 xDirection > 0 && deltaH < 0 ||
                 yDirection < 0 && deltaW > 0 ||
@@ -117,17 +117,29 @@ public class LandOnColorThingRunnable implements Runnable{
     private OpenCv2Wrapper generateSimulationImage() {
         String juavSrc = System.getenv("JUAV_SRC");
         if(simImageCount>200) {
-            imageProvider.loadFile(juavSrc+"/native-util/png-images/white.png");
+            if(simImageCount == 201)
+                System.out.println("middle");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/middle.png");
         } else if(simImageCount>175){
-            imageProvider.loadFile(juavSrc+"/native-util/png-images/ll.png");
+            if(simImageCount == 176)
+                System.out.println("down and left");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/ll-soar.png");
         } else if(simImageCount>150){
-            imageProvider.loadFile(juavSrc+"/native-util/png-images/lr.png");
+            if(simImageCount == 151)
+                System.out.println("down and right");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/lr-soar.png");
         } else if(simImageCount>125){
-            imageProvider.loadFile(juavSrc+"/native-util/png-images/ur.png");
+            if(simImageCount == 126)
+                System.out.println("up and right");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/ur-soar.png");
         } else if(simImageCount>100){
-            imageProvider.loadFile(juavSrc+"/native-util/png-images/ul.png");
+            if(simImageCount == 101)
+                System.out.println("up and left");
+            imageProvider.loadFile(juavSrc+"/native-util/png-images/ul-soar.png");
         } else {
-            imageProvider.loadFile(juavSrc + "/native-util/png-images/black.png");
+            if(simImageCount == 0)
+                System.out.println("no white");
+            imageProvider.loadFile(juavSrc + "/native-util/png-images/not-white.png");
         }
         simImageCount++;
 
