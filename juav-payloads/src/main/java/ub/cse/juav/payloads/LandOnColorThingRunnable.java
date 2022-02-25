@@ -11,6 +11,7 @@ public class LandOnColorThingRunnable implements Runnable{
     private static final boolean debugging = false;
     private static final int binerizeThresholdDefaultLow = 225;
     private static final int binerizeThresholdDefaultHigh = 255;
+    private int closenessPixels = 50;
 
     public LandOnColorThingRunnable(boolean isSimulation) {
         this.isSimulation = isSimulation;
@@ -18,6 +19,9 @@ public class LandOnColorThingRunnable implements Runnable{
         int binerizeThresholdHigh = binerizeThresholdDefaultHigh;
         String low = System.getenv("COLOR_THRESH_LOW");
         String high = System.getenv("COLOR_THRESH_HIGH");
+        String width = System.getenv("COLOR_WIDTH_HEIGHT");
+        if (width!=null)
+            closenessPixels = Integer.parseInt(width);
         if (low != null)
             binerizeThresholdLow = Integer.parseInt(low);
         if (high != null)
@@ -107,7 +111,6 @@ public class LandOnColorThingRunnable implements Runnable{
         lmc.moveInGuidedMode(meters_in_x,meters_in_y,0);
     }
 
-    private static final int closenessPixels = 50;
     protected boolean overBox(int[] box, int midH, int midW) {
         return box[0]-closenessPixels < midW && box[0]+closenessPixels > midW
                 && box[1]-closenessPixels <midH && box[1]+closenessPixels > midH;
