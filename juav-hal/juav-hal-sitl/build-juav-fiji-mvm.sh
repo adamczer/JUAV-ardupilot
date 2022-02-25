@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-rm -rf juav-fiji-mvm
+sudo rm -rf juav-fiji-mvm
 mkdir juav-fiji-mvm
 cd juav-fiji-mvm
 
 $FIJI_HOME/bin/fivmc \
---sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
+--sys-libs "-lpthread -ldl -lm -lJuavSitlJni -lNativeUtil" \
 -o JuavFiji ../target/juav-hal-sitl-0.1-SNAPSHOT-jar-with-dependencies.jar \
 --32 \
 --g-def-max-mem 128M \
@@ -66,6 +66,61 @@ elif [ "$1" = "astar" ]; then
   --rt-verbosity-limit 100 \
   ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
   --main ub.cse.juav.mvm.vmconfig.VMConfig
+
+elif [ "$1" = "color" ]; then
+  # astar
+  echo COLOR
+  ${FIJI_HOME}/bin/fivmc \
+  --sys-libs "-lNativeUtil" \
+  --32 \
+  --g-def-max-mem 128M \
+  --g-def-immortal-mem 0M \
+  --payload \
+  --rt-library=NONE \
+  --rt-verbosity-limit 100 \
+  -o color \
+  ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
+  --main ub.cse.juav.mvm.payloads.LandOnColorThingPayload
+
+  ${FIJI_HOME}/bin/fivmc \
+  -o mvm-color \
+  --sys-libs "-lpthread -ldl -lm -lJuavSitlJni -lNativeUtil" \
+  --32 \
+  --g-def-max-mem 256M \
+  --g-def-immortal-mem 0M \
+  --link-payload JuavFiji \
+  --link-payload color \
+  --rt-library=NONE \
+  --rt-verbosity-limit 100 \
+  ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
+  --main ub.cse.juav.mvm.vmconfig.VMConfig
+
+elif [ "$1" = "priority" ]; then
+
+  echo PRIORITY
+  ${FIJI_HOME}/bin/fivmc \
+  --32 \
+  --g-def-max-mem 128M \
+  --g-def-immortal-mem 0M \
+  --payload \
+  --rt-library=NONE \
+  --rt-verbosity-limit 100 \
+  -o priority \
+  ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
+  --main ub.cse.juav.mvm.payloads.GreedyPriorityPayload
+
+  ${FIJI_HOME}/bin/fivmc \
+  -o mvm-priority \
+  --sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
+  --32 \
+  --g-def-max-mem 256M \
+  --g-def-immortal-mem 0M \
+  --link-payload JuavFiji \
+  --link-payload priority \
+  --rt-library=NONE \
+  --rt-verbosity-limit 100 \
+  ../../../juav-mvm/target/juav-mvm-0.1-SNAPSHOT-jar-with-dependencies.jar \
+  --main ub.cse.juav.mvm.vmconfig.VMConfigPriority
 
 elif [ "$1" = "none" ]; then
   # none

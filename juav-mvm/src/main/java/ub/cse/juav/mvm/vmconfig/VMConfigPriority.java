@@ -1,11 +1,14 @@
 package ub.cse.juav.mvm.vmconfig;
 
+import com.fiji.fivm.ThreadPriority;
+import com.fiji.mvm.Payload;
+import com.fiji.mvm.SpawnMode;
+import com.fiji.mvm.TimeSliceManager;
+import com.fiji.mvm.VMConfiguration;
+
 import java.util.List;
 
-import com.fiji.mvm.*;
-import com.fiji.fivm.ThreadPriority;
-
-public class VMConfig {
+public class VMConfigPriority {
 
 	public static void main(String[] args) {
 		long quantum = 50 * 1000 * 1000;
@@ -30,9 +33,9 @@ public class VMConfig {
 			System.out.println("Thread Priority RR  Min: "+ThreadPriority.RR_MIN);
 
 			if (i==0) {
-				tsm.initTimeSlice(i, quantum, numThreads, ThreadPriority.FIFO_MAX - (i+1));
+				tsm.initTimeSlice(i, quantum, numThreads, ThreadPriority.FIFO_MAX - 2);
 			} else {
-				tsm.initTimeSlice(i, quantum/10, numThreads, ThreadPriority.NORMAL_MIN);
+				tsm.initTimeSlice(i, quantum/10, numThreads, ThreadPriority.FIFO_MAX - 1);
 			}
 		}
 

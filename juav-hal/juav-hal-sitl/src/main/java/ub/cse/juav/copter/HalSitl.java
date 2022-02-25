@@ -1,11 +1,10 @@
 package ub.cse.juav.copter;
 
+import com.fiji.fivm.ThreadPriority;
 import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalSitlNativeWrapper;
-import ub.cse.juav.payloads.DumbyAStarRunnable;
-import ub.cse.juav.payloads.DumbyMem;
-import ub.cse.juav.payloads.GreedyFailureRunnable;
+import ub.cse.juav.payloads.*;
 import ub.cse.juav.payloads.manager.Payload;
 import ub.cse.juav.payloads.manager.PayloadManager;
 
@@ -119,10 +118,16 @@ public class HalSitl {
            PayloadManager pm = new PayloadManager();
            if (argList.contains("greedy"))
                pm.addPayload(new Payload(new GreedyFailureRunnable(), "greedy"));
+           else if (argList.contains("priority"))
+               pm.addPayload(new Payload(new GreedyFailurePriorityRunnable(),"priority"));
            else if (argList.contains("astar"))
                pm.addPayload(new Payload(new DumbyAStarRunnable(500,900,900), "astar"));
            else if (argList.contains("mem"))
                pm.addPayload(new Payload(new DumbyMem(), "mem"));
+           else if (argList.contains("color")) {
+               System.loadLibrary("NativeUtil");
+               pm.addPayload(new Payload(new LandOnColorThingRunnable(true), "LandOnColor"));
+           }
            pm.start();
        } else{
            System.out.println("SYSTEM using MVM");

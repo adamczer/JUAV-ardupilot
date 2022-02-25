@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-rm -rf juav-fiji
+sudo rm -rf juav-fiji
 mkdir juav-fiji
 cd juav-fiji
 
 cp ../../../juav-native/juav-native-ardupilot/jni/lib/lib*Sitl*.so ./
+cp ../../../native-util/jni/lib/*.so ./
 $FIJI_HOME/bin/fivmc -j4 \
---sys-libs "-lpthread -ldl -lm -lJuavSitlJni" \
+--sys-libs "-lpthread -ldl -lm -lJuavSitlJni -lNativeUtil" \
 -o JuavFiji ../target/*-with-dependencies.jar \
 --main ub.cse.juav.copter.HalSitl
 

@@ -4,6 +4,9 @@ import ub.cse.juav.copter.modes.*;
 import ub.cse.juav.jni.FijiJniSwitch;
 import ub.cse.juav.jni.HalLinuxNativeWrapper;
 import ub.cse.juav.payloads.DumbyAStarRunnable;
+import ub.cse.juav.payloads.DumbyMem;
+import ub.cse.juav.payloads.GreedyFailureRunnable;
+import ub.cse.juav.payloads.LandOnColorThingRunnable;
 import ub.cse.juav.payloads.manager.Payload;
 import ub.cse.juav.payloads.manager.PayloadManager;
 
@@ -55,8 +58,10 @@ public class HalLinuxClass {
     public static void main(String[] args) {
 
         System.loadLibrary("JuavErleCopterJni");
-        if(Arrays.asList(args).contains("java"))
+        List<String> argList = Arrays.asList(args);
+        if(argList.contains("java")) {
             FijiJniSwitch.usingFiji=false;
+        }
 
         AcAttitudeControl acAttitudeControl = new AcAttitudeControl();
         Map<Integer,Mode> modes = new HashMap<>();
@@ -76,23 +81,25 @@ public class HalLinuxClass {
         HalLinuxClass hal = new HalLinuxClass();
 
 
-        //Start payloads
-//        PayloadManager pm = new PayloadManager();
-//        pm.addPayload(new Payload(new Runnable() {
-//            @Override
-//            public void run() {
-//                int count = 0;
-//                while(true) {
-//                    System.out.println(count++);
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        },"test",null,null,null));
-//        pm.start();
+// vv Start payloads using payload manager ie one VM vv
+        if(argList.contains("fiji") ||
+                argList.contains("java")) {
+            System.out.println("RUNNING PAYLOAD MANAGER -> not using MVM");
+            PayloadManager pm = new PayloadManager();
+            if (argList.contains("greedy"))
+                pm.addPayload(new Payload(new GreedyFailureRunnable(), "greedy"));
+            else if (argList.contains("astar"))
+                pm.addPayload(new Payload(new DumbyAStarRunnable(500,900,900), "astar"));
+            else if (argList.contains("mem"))
+                pm.addPayload(new Payload(new DumbyMem(), "mem"));
+            else if (argList.contains("color")) {
+                System.loadLibrary("NativeUtil");
+                pm.addPayload(new Payload(new LandOnColorThingRunnable(false), "LandOnColor"));
+            }
+            pm.start();
+        } else{
+            System.out.println("SYSTEM using MVM");
+        }
 
         hal.run(args.length, args, callbacks);
     }
